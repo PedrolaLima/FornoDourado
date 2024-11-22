@@ -14,24 +14,24 @@
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="762.0" prefWidth="1151.0" stylesheets="@dashboard.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
    <children>
-      <AnchorPane layoutX="525.0" layoutY="-525.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="1150.0" prefWidth="103.0" rotate="-90.0" style="-fx-background-color: linear-gradient(to bottom, #f9d835, #d8b11c);">
+      <AnchorPane layoutX="525.0" layoutY="-524.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="1150.0" prefWidth="103.0" rotate="-90.0" style="-fx-background-color: linear-gradient(to bottom, #f9d835, #d8b11c);">
          <children>
             <Label alignment="CENTER" layoutX="-149.0" layoutY="254.0" prefHeight="103.0" prefWidth="400.0" rotate="90.0" text="PADARIA FORNO DOURADO">
                <font>
                   <Font name="System Bold" size="24.0" />
                </font>
             </Label>
-            <Label alignment="CENTER" layoutX="-150.0" layoutY="784.0" prefHeight="103.0" prefWidth="400.0" rotate="90.0" text="xx de xx xxxx, xx:xx">
+            <Label alignment="CENTER" layoutX="-150.0" layoutY="751.0" prefHeight="103.0" prefWidth="400.0" rotate="90.0" text="xx de xx xxxx, xx:xx">
                <font>
                   <Font size="18.0" />
                </font>
             </Label>
-            <ImageView id="logo" fx:id="logo1" fitHeight="18.0" fitWidth="16.0" layoutX="41.0" layoutY="736.0" pickOnBounds="true" preserveRatio="true" rotate="90.0">
+            <ImageView id="logo" fx:id="logo1" fitHeight="18.0" fitWidth="16.0" layoutX="41.0" layoutY="703.0" pickOnBounds="true" preserveRatio="true" rotate="90.0">
                <image>
                   <Image url="@Imagens/icons/data.png" />
                </image>
             </ImageView>
-            <AnchorPane layoutX="16.0" layoutY="924.0" prefHeight="215.0" prefWidth="60.0" style="-fx-background-color: #FFFF00; -fx-background-radius: 15;">
+            <AnchorPane layoutX="16.0" layoutY="891.0" prefHeight="215.0" prefWidth="60.0" style="-fx-background-color: #f2d335; -fx-background-radius: 15;">
                <children>
                   <StackPane layoutX="5.0" layoutY="17.0" prefHeight="45.0" prefWidth="50.0" rotate="90.0" style="-fx-background-radius: 15; -fx-border-radius: 15;">
                      <children>
@@ -44,17 +44,18 @@
                   </StackPane>
                </children>
             </AnchorPane>
-            <Label layoutX="-16.0" layoutY="1022.0" prefHeight="81.0" prefWidth="138.0" rotate="90.0" text="NomeDoUsuario">
+            <Label layoutX="-16.0" layoutY="989.0" prefHeight="81.0" prefWidth="138.0" rotate="90.0" text="NomeDoUsuario">
                <font>
                   <Font name="System Bold" size="15.0" />
                </font>
             </Label>
-            <Label layoutX="-35.0" layoutY="1022.0" prefHeight="81.0" prefWidth="138.0" rotate="90.0" style="-fx-font-family: powdah;" text="TipoConta">
+            <Label layoutX="-35.0" layoutY="989.0" prefHeight="81.0" prefWidth="138.0" rotate="90.0" style="-fx-font-family: powdah;" text="TipoConta">
                <font>
                   <Font size="14.0" />
                </font>
             </Label>
-         </children></AnchorPane>
+         </children>
+      </AnchorPane>
       <AnchorPane prefHeight="762.0" prefWidth="100.0" style="-fx-background-color: linear-gradient(to bottom, #f9d835, #d8b11c);">
          <children>
             <ImageView id="logo" fx:id="logo2" fitHeight="93.0" fitWidth="92.0" layoutX="4.0" pickOnBounds="true" preserveRatio="true">

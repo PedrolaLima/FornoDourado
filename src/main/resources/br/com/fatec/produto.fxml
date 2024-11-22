@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.shape.*?>
+<?import javafx.scene.effect.*?>
 <?import javafx.scene.web.*?>
 <?import javafx.geometry.*?>
 <?import javafx.scene.text.*?>
@@ -15,7 +15,7 @@
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="762.0" prefWidth="1151.0" stylesheets="@dashboard.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
    <children>
-      <AnchorPane layoutX="525.0" layoutY="-524.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="1150.0" prefWidth="103.0" rotate="-90.0" style="-fx-background-color: linear-gradient(to bottom, #f9d835, #d8b11c);">
+      <AnchorPane layoutX="525.0" layoutY="-525.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="1150.0" prefWidth="103.0" rotate="-90.0" style="-fx-background-color: linear-gradient(to bottom, #f9d835, #d8b11c);">
          <children>
             <Label alignment="CENTER" layoutX="-149.0" layoutY="254.0" prefHeight="103.0" prefWidth="400.0" rotate="90.0" text="PADARIA FORNO DOURADO">
                <font>
@@ -55,8 +55,7 @@
                   <Font size="14.0" />
                </font>
             </Label>
-         </children>
-      </AnchorPane>
+         </children></AnchorPane>
       <AnchorPane prefHeight="762.0" prefWidth="100.0" style="-fx-background-color: linear-gradient(to bottom, #f9d835, #d8b11c);">
          <children>
             <ImageView id="logo" fx:id="logo2" fitHeight="93.0" fitWidth="92.0" layoutX="4.0" pickOnBounds="true" preserveRatio="true">
@@ -76,7 +75,7 @@
             </ImageView>
             <ImageView id="logo" fx:id="logo31" fitHeight="70.0" fitWidth="70.0" layoutX="15.0" layoutY="455.0" pickOnBounds="true" preserveRatio="true">
                <image>
-                  <Image url="@Imagens/icons/relatorio/relatorio-ativado.png" />
+                  <Image url="@Imagens/icons/relatorio.png" />
                </image>
             </ImageView>
             <ImageView id="logo" fx:id="logo4" fitHeight="80.0" fitWidth="80.0" layoutX="10.0" layoutY="369.0" pickOnBounds="true" preserveRatio="true">
@@ -86,83 +85,41 @@
             </ImageView>
             <ImageView id="logo" fx:id="logo41" fitHeight="60.0" fitWidth="60.0" layoutX="20.0" layoutY="541.0" pickOnBounds="true" preserveRatio="true">
                <image>
-                  <Image url="@Imagens/icons/produto.png" />
+                  <Image url="@Imagens/icons/produto/produto-ativado.png" />
                </image>
             </ImageView>
          </children></AnchorPane>
-      <AnchorPane layoutX="202.0" layoutY="141.0" prefHeight="601.0" prefWidth="822.0" style="-fx-border-color: black; -fx-border-radius: 5;">
+      <AnchorPane layoutX="133.0" layoutY="202.0" prefHeight="548.0" prefWidth="994.0">
          <children>
-            <Label layoutX="29.0" layoutY="20.0" prefHeight="31.0" prefWidth="215.0" text="Detalhes do Pedido">
-               <font>
-                  <Font name="System Bold" size="21.0" />
-               </font>
-            </Label>
-            <Label layoutX="251.0" layoutY="20.0" prefHeight="31.0" prefWidth="100.0" text="xx de x, xxxx">
-               <font>
-                  <Font size="18.0" />
-               </font>
-            </Label>
-            <Circle layoutX="242.0" layoutY="37.0" radius="2.0" stroke="BLACK" strokeType="INSIDE" />
-            <TableView layoutX="2.0" layoutY="335.0" prefHeight="260.0" prefWidth="826.0">
+            <TableView layoutX="1.0" layoutY="6.0" prefHeight="545.0" prefWidth="994.0">
               <columns>
-                <TableColumn prefWidth="389.0" text="PRODUTO" />
-                <TableColumn prefWidth="94.0" text="PREÇO" />
-                  <TableColumn minWidth="0.0" prefWidth="158.0" text="QUANTIDADE" />
-                  <TableColumn prefWidth="184.0" text="SUBTOTAL" />
+                <TableColumn prefWidth="320.0" text="Produto" />
+                <TableColumn minWidth="0.0" prefWidth="106.0" text="Código" />
+                  <TableColumn prefWidth="122.0" text="Categoria" />
+                  <TableColumn prefWidth="129.0" text="Preço" />
+                  <TableColumn prefWidth="206.0" text="Disponibilidade" />
+                  <TableColumn prefWidth="109.0" text="Ação" />
               </columns>
             </TableView>
-            <Circle layoutX="360.0" layoutY="37.0" radius="2.0" stroke="BLACK" strokeType="INSIDE" />
-            <Label layoutX="375.0" layoutY="20.0" prefHeight="31.0" prefWidth="100.0" text="x produtos">
-               <font>
-                  <Font size="18.0" />
-               </font>
-            </Label>
-            <Label layoutX="519.0" layoutY="20.0" prefHeight="31.0" prefWidth="215.0" text="Voltar para Relatórios" textFill="#ebd169">
-               <font>
-                  <Font name="System Bold" size="19.0" />
-               </font>
-            </Label>
-            <ImageView fitHeight="150.0" fitWidth="245.0" layoutX="29.0" layoutY="93.0" pickOnBounds="true" preserveRatio="true">
+            <ImageView fitHeight="45.0" fitWidth="996.0" layoutY="-1.0">
                <image>
-                  <Image url="@Imagens/icons/relatorio/caixa.png" />
+                  <Image url="@Imagens/icons/produto/table-header.png" />
                </image>
             </ImageView>
-            <ImageView fitHeight="246.0" fitWidth="325.0" layoutX="465.0" layoutY="66.0" pickOnBounds="true" preserveRatio="true">
-               <image>
-                  <Image url="@Imagens/icons/relatorio/total.png" />
-               </image>
-            </ImageView>
-            <Label layoutX="44.0" layoutY="151.0" prefHeight="31.0" prefWidth="215.0" text="funcionario">
-               <font>
-                  <Font size="18.0" />
-               </font>
-            </Label>
-            <Label layoutX="487.0" layoutY="102.0" prefHeight="31.0" prefWidth="60.0" text="#xxxx">
-               <font>
-                  <Font size="18.0" />
-               </font>
-            </Label>
-            <Label layoutX="611.0" layoutY="102.0" prefHeight="31.0" prefWidth="60.0" text="#xxxxx">
-               <font>
-                  <Font size="18.0" />
-               </font>
-            </Label>
-            <Label layoutX="673.0" layoutY="159.0" prefHeight="31.0" prefWidth="80.0" text="R$ xxx,xx">
-               <font>
-                  <Font size="18.0" />
-               </font>
-            </Label>
-            <Label layoutX="722.0" layoutY="210.0" prefHeight="31.0" prefWidth="25.0" text="x%">
-               <font>
-                  <Font size="18.0" />
-               </font>
-            </Label>
-            <Label layoutX="661.0" layoutY="261.0" prefHeight="31.0" prefWidth="92.0" text="R$ xxx,xx" textFill="#1a7c24">
-               <font>
-                  <Font name="System Bold" size="18.0" />
-               </font>
-            </Label>
          </children>
       </AnchorPane>
+      <ImageView fitHeight="45.0" fitWidth="152.0" layoutX="133.0" layoutY="137.0">
+         <image>
+            <Image url="@Imagens/icons/relatorio/filter.png" />
+         </image>
+         <effect>
+            <InnerShadow />
+         </effect>
+      </ImageView>
+      <ImageView fitHeight="45.0" fitWidth="152.0" layoutX="963.0" layoutY="137.0">
+         <image>
+            <Image url="@Imagens/icons/produto/add-produto.png" />
+         </image>
+      </ImageView>
    </children>
 </AnchorPane>
