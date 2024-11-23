@@ -1,4 +1,5 @@
-br\com\fatec\App.class
-br\com\fatec\PrimaryController.class
 module-info.class
-br\com\fatec\SecondaryController.class
+br/com/fatec/controller/DashboardController.class
+br/com/fatec/data/Database.class
+br/com/fatec/dao/DAO.class
+br/com/fatec/App.class
