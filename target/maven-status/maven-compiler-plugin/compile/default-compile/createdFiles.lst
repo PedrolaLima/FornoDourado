@@ -1,5 +1,5 @@
-module-info.class
 br/com/fatec/controller/DashboardController.class
 br/com/fatec/data/Database.class
 br/com/fatec/dao/DAO.class
 br/com/fatec/App.class
+module-info.class
