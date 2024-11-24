@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.*?>
 <?import javafx.scene.effect.*?>
 <?import javafx.scene.web.*?>
 <?import javafx.geometry.*?>
@@ -90,64 +89,63 @@
                </image>
             </ImageView>
          </children></AnchorPane>
-      <AnchorPane layoutX="159.0" layoutY="165.0" prefHeight="492.0" prefWidth="926.0" style="-fx-border-radius: 3; -fx-border-color: gray; -fx-border-width: 0.8;">
+      <AnchorPane layoutX="127.0" layoutY="202.0" prefHeight="548.0" prefWidth="548.0">
          <children>
-            <ImageView fitHeight="94.0" fitWidth="92.0" layoutX="104.0" layoutY="73.0" pickOnBounds="true" preserveRatio="true" scaleX="2.0" scaleY="2.0">
+            <ImageView fitHeight="60.0" fitWidth="632.0" layoutX="-1.0" layoutY="403.0" pickOnBounds="true" preserveRatio="true">
                <image>
-                  <Image url="@Imagens/icons/produto/produto-placeholder.png" />
+                  <Image url="@Imagens/icons/pedidos/finalizarPedidos-cancelar.png" />
                </image>
             </ImageView>
-            <Label layoutX="100.0" layoutY="240.0" prefHeight="40.0" prefWidth="100.0" text="Código" textFill="GREY">
-               <font>
-                  <Font size="22.0" />
-               </font>
-            </Label>
-            <Label layoutX="100.0" layoutY="277.0" prefHeight="40.0" prefWidth="138.0" text="xxxxxxxxx">
-               <font>
-                  <Font name="System Bold" size="22.0" />
-               </font>
-            </Label>
-            <Label layoutX="100.0" layoutY="404.0" prefHeight="40.0" prefWidth="138.0" text="xxxxxxxxx">
-               <font>
-                  <Font name="System Bold" size="22.0" />
-               </font>
-            </Label>
-            <Label layoutX="100.0" layoutY="367.0" prefHeight="40.0" prefWidth="100.0" text="Status" textFill="GREY">
-               <font>
-                  <Font size="22.0" />
-               </font>
-            </Label>
-            <Label layoutX="603.0" layoutY="118.0" prefHeight="40.0" prefWidth="184.0" text="xxxxxxxxx">
-               <font>
-                  <Font name="System Bold" size="22.0" />
-               </font>
-            </Label>
-            <Label layoutX="603.0" layoutY="81.0" prefHeight="40.0" prefWidth="100.0" text="Produto" textFill="GREY">
-               <font>
-                  <Font size="22.0" />
-               </font>
-            </Label>
-            <Label layoutX="603.0" layoutY="279.0" prefHeight="40.0" prefWidth="152.0" text="R$ 0,00">
-               <font>
-                  <Font name="System Bold" size="22.0" />
-               </font>
-            </Label>
-            <Label layoutX="603.0" layoutY="242.0" prefHeight="40.0" prefWidth="100.0" text="Preço" textFill="GREY">
-               <font>
-                  <Font size="22.0" />
-               </font>
-            </Label>
-            <Label layoutX="603.0" layoutY="401.0" prefHeight="40.0" prefWidth="215.0" text="xxxxxxxxx">
-               <font>
-                  <Font name="System Bold" size="22.0" />
-               </font>
-            </Label>
-            <Label layoutX="603.0" layoutY="364.0" prefHeight="40.0" prefWidth="100.0" text="Categoria" textFill="GREY">
-               <font>
-                  <Font size="22.0" />
-               </font>
-            </Label>
+            <TableView layoutY="6.0" prefHeight="397.0" prefWidth="619.0" style="-fx-background-color: #F4F4F4;">
+              <columns>
+                <TableColumn prefWidth="169.0" text="Produto" />
+                  <TableColumn prefWidth="171.0" text="Preço" />
+                <TableColumn minWidth="0.0" prefWidth="178.0" text="Qtd" />
+                  <TableColumn minWidth="0.0" text="Subtotal" />
+                  <TableColumn minWidth="0.0" prefWidth="17.0" text="Ação" />
+              </columns>
+            </TableView>
+            <ImageView fitHeight="45.0" fitWidth="619.0" layoutY="-1.0">
+               <image>
+                  <Image url="@Imagens/icons/pedidos/finalizarPedidos-header.png" />
+               </image>
+            </ImageView>
          </children>
       </AnchorPane>
+      <Label layoutX="135.0" layoutY="137.0" prefHeight="47.0" prefWidth="415.0" text="PEDIDO #XXXXXXXX">
+         <font>
+            <Font size="32.0" />
+         </font>
+      </Label>
+      <ImageView fitHeight="390.0" fitWidth="302.0" layoutX="787.0" layoutY="204.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@Imagens/icons/pedidos/detalhesCompra.png" />
+         </image>
+      </ImageView>
+      <ImageView fitHeight="66.0" fitWidth="331.0" layoutX="789.0" layoutY="606.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@Imagens/icons/pedidos/finalizarCompra.png" />
+         </image>
+      </ImageView>
+      <RadioButton layoutX="807.0" layoutY="245.0" mnemonicParsing="false" prefHeight="38.0" prefWidth="113.0" text="Dinheiro">
+         <font>
+            <Font size="15.0" />
+         </font>
+      </RadioButton>
+      <RadioButton layoutX="807.0" layoutY="283.0" mnemonicParsing="false" prefHeight="38.0" prefWidth="173.0" text="Cartao de Crédito">
+         <font>
+            <Font size="15.0" />
+         </font>
+      </RadioButton>
+      <RadioButton layoutX="807.0" layoutY="321.0" mnemonicParsing="false" prefHeight="38.0" prefWidth="156.0" text="Cartão de Débito">
+         <font>
+            <Font size="15.0" />
+         </font>
+      </RadioButton>
+      <RadioButton layoutX="807.0" layoutY="359.0" mnemonicParsing="false" prefHeight="38.0" prefWidth="113.0" text="Pix">
+         <font>
+            <Font size="15.0" />
+         </font>
+      </RadioButton>
    </children>
 </AnchorPane>
