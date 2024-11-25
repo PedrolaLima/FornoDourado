@@ -20,4 +20,24 @@ public class Funcionario {
         this.salt = salt;
     }
     
+    public Funcionario(String name,String salt) {
+        this.name = name;
+        this.salt = salt;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public String getSalt() {
+        return salt;
+    }
 }

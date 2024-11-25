@@ -1,5 +1,8 @@
 /home/alberto/NetBeansProjects/FornoDourado/src/main/java/br/com/fatec/data/Database.java
+/home/alberto/NetBeansProjects/FornoDourado/src/main/java/br/com/fatec/dao/FuncionarioDAO.java
 /home/alberto/NetBeansProjects/FornoDourado/src/main/java/br/com/fatec/App.java
 /home/alberto/NetBeansProjects/FornoDourado/src/main/java/br/com/fatec/controller/DashboardController.java
+/home/alberto/NetBeansProjects/FornoDourado/src/main/java/br/com/fatec/model/Funcionario.java
 /home/alberto/NetBeansProjects/FornoDourado/src/main/java/module-info.java
 /home/alberto/NetBeansProjects/FornoDourado/src/main/java/br/com/fatec/dao/DAO.java
+/home/alberto/NetBeansProjects/FornoDourado/src/main/java/br/com/fatec/controller/LoginController.java
