@@ -12,7 +12,7 @@
 <?import javafx.scene.control.Button?>
 <?import javafx.geometry.Insets?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="762.0" prefWidth="1151.0" stylesheets="@dashboard.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="762.0" prefWidth="1151.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="br.com.fatec.relatorioController">
    <children>
       <AnchorPane layoutX="525.0" layoutY="-524.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="1150.0" prefWidth="103.0" rotate="-90.0" style="-fx-background-color: linear-gradient(to bottom, #f9d835, #d8b11c);">
          <children>
@@ -26,7 +26,7 @@
                   <Font size="18.0" />
                </font>
             </Label>
-            <ImageView id="logo" fx:id="logo1" fitHeight="18.0" fitWidth="16.0" layoutX="41.0" layoutY="703.0" pickOnBounds="true" preserveRatio="true" rotate="90.0">
+            <ImageView id="logo" fitHeight="18.0" fitWidth="16.0" layoutX="41.0" layoutY="703.0" pickOnBounds="true" preserveRatio="true" rotate="90.0">
                <image>
                   <Image url="@Imagens/icons/data.png" />
                </image>
@@ -35,7 +35,7 @@
                <children>
                   <StackPane layoutX="5.0" layoutY="17.0" prefHeight="45.0" prefWidth="50.0" rotate="90.0" style="-fx-background-radius: 15; -fx-border-radius: 15;">
                      <children>
-                        <ImageView id="profile" fx:id="logo11" fitHeight="45.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true" styleClass="profile">
+                        <ImageView id="profile" fitHeight="45.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true" styleClass="profile">
                            <image>
                               <Image url="@Imagens/icons/placeholder_user.png" />
                            </image>
@@ -58,32 +58,32 @@
       </AnchorPane>
       <AnchorPane prefHeight="762.0" prefWidth="100.0" style="-fx-background-color: linear-gradient(to bottom, #f9d835, #d8b11c);">
          <children>
-            <ImageView id="logo" fx:id="logo2" fitHeight="93.0" fitWidth="92.0" layoutX="4.0" pickOnBounds="true" preserveRatio="true">
+            <ImageView id="logo" fitHeight="93.0" fitWidth="92.0" layoutX="4.0" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@Imagens/FornoDourado-semFundo.png" />
                </image>
             </ImageView>
-            <ImageView id="logo" fx:id="logo" fitHeight="80.0" fitWidth="80.0" layoutX="10.0" layoutY="197.0" pickOnBounds="true" preserveRatio="true">
+            <ImageView id="logo" fx:id="btn_dashboard" fitHeight="80.0" fitWidth="80.0" layoutX="10.0" layoutY="197.0" onMouseClicked="#carregarDashboard" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@Imagens/icons/dashboard.png" />
                </image>
             </ImageView>
-            <ImageView id="logo" fx:id="logo3" fitHeight="50.0" fitWidth="50.0" layoutX="25.0" layoutY="283.0" pickOnBounds="true" preserveRatio="true">
+            <ImageView fx:id="btn_pedido" fitHeight="50.0" fitWidth="50.0" layoutX="25.0" layoutY="283.0" onMouseClicked="#carregarPedidos" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@Imagens/icons/pedido.png" />
                </image>
             </ImageView>
-            <ImageView id="logo" fx:id="logo31" fitHeight="70.0" fitWidth="70.0" layoutX="15.0" layoutY="455.0" pickOnBounds="true" preserveRatio="true">
+            <ImageView id="logo" fx:id="btn_relatorio" fitHeight="70.0" fitWidth="70.0" layoutX="15.0" layoutY="454.0" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@Imagens/icons/relatorio/relatorio-ativado.png" />
                </image>
             </ImageView>
-            <ImageView id="logo" fx:id="logo4" fitHeight="80.0" fitWidth="80.0" layoutX="10.0" layoutY="369.0" pickOnBounds="true" preserveRatio="true">
+            <ImageView id="logo" fx:id="btn_funcionario" fitHeight="80.0" fitWidth="80.0" layoutX="10.0" layoutY="369.0" onMouseClicked="#carregarFuncionarios" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@Imagens/icons/funcionarios.png" />
                </image>
             </ImageView>
-            <ImageView id="logo" fx:id="logo41" fitHeight="60.0" fitWidth="60.0" layoutX="20.0" layoutY="541.0" pickOnBounds="true" preserveRatio="true">
+            <ImageView id="logo" fx:id="btn_produto" fitHeight="70.0" fitWidth="70.0" layoutX="15.0" layoutY="541.0" onMouseClicked="#carregarProdutos" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@Imagens/icons/produto.png" />
                </image>

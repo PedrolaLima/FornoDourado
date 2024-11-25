@@ -14,7 +14,7 @@
 <?import javafx.scene.control.Button?>
 <?import javafx.geometry.Insets?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="762.0" prefWidth="1151.0" stylesheets="@dashboard.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="762.0" prefWidth="1151.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
    <children>
       <AnchorPane layoutX="525.0" layoutY="-525.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="1150.0" prefWidth="103.0" rotate="-90.0" style="-fx-background-color: linear-gradient(to bottom, #f9d835, #d8b11c);">
          <children>
@@ -84,7 +84,7 @@
                   <Image url="@Imagens/icons/funcionarios.png" />
                </image>
             </ImageView>
-            <ImageView id="logo" fx:id="logo41" fitHeight="60.0" fitWidth="60.0" layoutX="20.0" layoutY="541.0" pickOnBounds="true" preserveRatio="true">
+            <ImageView fx:id="logo41" fitHeight="70.0" fitWidth="70.0" layoutX="15.0" layoutY="541.0" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@Imagens/icons/produto/produto-ativado.png" />
                </image>
