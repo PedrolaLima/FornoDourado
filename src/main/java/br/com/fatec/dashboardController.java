@@ -1,15 +1,17 @@
 package br.com.fatec;
 
-import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
-import javafx.scene.Node;
-import javafx.stage.Stage;
-import javafx.event.ActionEvent;
 import java.io.IOException;
+import java.net.URL;
+import java.util.ResourceBundle;
+import javafx.fxml.FXML;
+import javafx.fxml.Initializable;
+import javafx.scene.layout.AnchorPane;
+import javafx.scene.control.ContextMenu;
+import javafx.scene.control.MenuItem;
 
-public class dashboardController {
+
+
+public class dashboardController implements Initializable {
 
     // Método para carregar a tela de "Adicionar Produto"
     @FXML
@@ -33,4 +35,36 @@ public class dashboardController {
         App.setRoot("relatorio");
     }
 
+   @FXML
+   private AnchorPane profilePane; 
+  
+   
+    public void initialize(URL url, ResourceBundle rb) {
+        // Criar o menu
+        ContextMenu contextMenu = new ContextMenu();
+
+        // Criar itens do menu
+        MenuItem menuItem1 = new MenuItem("Meu Perfil");
+        MenuItem menuItem2 = new MenuItem("Sair");
+
+        // Ações dos itens do menu
+        menuItem1.setOnAction(event -> System.out.println("MenuItem1 Selected"));
+        menuItem2.setOnAction(event -> System.out.println("MenuItem2 Selected"));
+
+        // Adicionar itens ao menu
+        contextMenu.getItems().addAll(menuItem1, menuItem2);
+
+        profilePane.setOnMouseClicked(event -> {
+            // Chama o código dentro do thread JavaFX
+            javafx.application.Platform.runLater(() -> {
+                // Obtém a posição do profilePane na tela
+                double xPos = profilePane.localToScreen(profilePane.getLayoutX(), profilePane.getLayoutY()).getX() - 880;
+                double yPos = profilePane.localToScreen(profilePane.getLayoutX(), profilePane.getLayoutY()).getY() - 3; // 70 pixels abaixo
+
+                // Exibe o menu na nova posição, em coordenadas absolutas
+                contextMenu.show(profilePane, xPos, yPos);
+            });
+        });
+    }
 }
+
