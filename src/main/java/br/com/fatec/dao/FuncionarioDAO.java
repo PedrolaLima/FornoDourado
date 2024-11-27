@@ -4,12 +4,14 @@
  */
 package br.com.fatec.dao;
 
+import br.com.fatec.Security;
 import br.com.fatec.data.Database;
 import br.com.fatec.model.Funcionario;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collection;
 import java.util.Iterator;
 
@@ -26,12 +28,10 @@ public class FuncionarioDAO implements DAO <Funcionario> {
     public boolean insert(Funcionario model) throws SQLException {
         int  res = 0;
         Database.connect();
-        String sql ="INSERT NOME,SENHA,SALT funcionario INTO VALUES(?,?,?)";
+        String sql ="INSERT NOME funcionario INTO VALUES(?)";
         ps = Database.getConnection().prepareStatement(sql);
         
         ps.setString(0, model.getName());
-        ps.setString(1, model.getPassword());
-        ps.setString(2, model.getSalt());
        
         try {
             ps.executeUpdate();  
@@ -51,13 +51,11 @@ public class FuncionarioDAO implements DAO <Funcionario> {
     public boolean update(Funcionario model,int pk) throws SQLException {
         int  res = 0;
         Database.connect();
-        String sql ="INSERT NOME,SENHA,SALT funcionario INTO VALUES(?,?,?) WHERE CODFUN = ?";
+        String sql ="INSERT NOME INTO funcionario VALUES(?) WHERE CODFUN = ?";
         ps = Database.getConnection().prepareStatement(sql);
         
         ps.setString(0, model.getName());
-        ps.setString(1, model.getPassword());
-        ps.setString(2, model.getSalt());
-        ps.setInt(3, pk);
+        ps.setInt(1, pk);
         
         try {
             res = ps.executeUpdate();  
@@ -102,7 +100,7 @@ public class FuncionarioDAO implements DAO <Funcionario> {
         Collection<Funcionario> r = new ArrayList<>();
         
         Database.connect();
-        String sql="SELECT NOME,SALT FROM funcionario WHERE ? = ?;";
+        String sql="SELECT CODFUNC,NOME FROM funcionario WHERE ? = ?;";
         ps = Database.getConnection().prepareStatement(sql);
         
         String s = "";
@@ -139,34 +137,42 @@ public class FuncionarioDAO implements DAO <Funcionario> {
         }
         Database.close();
         
-        if (rs.next()) {
-            Funcionario f = new Funcionario(rs.getString(1), rs.getString(2));
-            r.add(f);      
+        while (rs.next()) {
+            Funcionario f = new Funcionario(rs.getInt(1),rs.getString(2));
+            r.add(f); 
         }
+                 
+        
         return r;
     }
-
-    @Override
-    public int getCod(Funcionario model) throws SQLException {
-        
-        String sql ="SELECT CODFUN FROM funcionario WHERE NAME=?;";
-        Database.connect();
-        ps = Database.getConnection().prepareStatement(sql);
-        
-        ps.setString(0, model.getName());
-        
-        try {
-            rs=ps.executeQuery();  
-        } catch (SQLException e) {
-            Database.close();
-            throw e;
-        }
-        
-        if (rs.next()) {
-            return rs.getInt(1);
-        }
-        
-        return 0;
-    }
     
+    public boolean login(String name,String psswd) throws SQLException{
+        PreparedStatement ps;
+        Collection<Funcionario> f = new ArrayList<>();
+        ResultSet rs ;
+
+        f = search(new ArrayList<>(Arrays.asList("NAME")),new ArrayList<>(Arrays.asList(name)));
+
+        
+        if(!f.isEmpty()){
+            try {
+                Database.connect();
+                String sql = "SELECT SENHA SALT FROM shadow WHERE CODFUNC = ?";
+                ps = Database.getConnection().prepareStatement(sql);
+                Iterator<Funcionario> r= f.iterator();
+                ps.setInt(0, r.next().getCod());
+                    
+                rs = ps.executeQuery();;
+                
+                if(Security.hashPassword(psswd,rs.getString(2)).equals(rs.getString(1))){
+                    return true;
+                }
+                
+            } catch (SQLException ex) {
+                   Database.close();
+                   throw ex;
+            }         
+        }
+        return false;
+    }
 }

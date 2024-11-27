@@ -10,19 +10,16 @@ package br.com.fatec.model;
  */
 public class Funcionario {
     
-    public String name;
-    private String password;
-    private String salt;
+    private String name;
+    private int cod= 0;
 
-    public Funcionario(String name,String psswd,String salt) {
+    public Funcionario(int cod,String name) {
         this.name = name;
-        this.password = psswd;
-        this.salt = salt;
+        this.cod = cod;
     }
-    
-    public Funcionario(String name,String salt) {
-        this.name = name;
-        this.salt = salt;
+
+    public int getCod() {
+        return cod;
     }
 
     public String getName() {
@@ -31,13 +28,5 @@ public class Funcionario {
 
     public void setName(String name) {
         this.name = name;
-    }
-
-    public String getPassword() {
-        return password;
-    }
-
-    public String getSalt() {
-        return salt;
     }
 }

@@ -16,5 +16,4 @@ public interface DAO <T>{
     public boolean update(T model,int pk) throws SQLException;
     public boolean delete(int pk) throws SQLException;
     public Collection<T> search(Collection<String> Field,Collection<String> Value) throws SQLException;
-    public int getCod(T model) throws SQLException;
 }

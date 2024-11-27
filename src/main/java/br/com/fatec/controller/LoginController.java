@@ -5,7 +5,6 @@
 package br.com.fatec.controller;
 
 import br.com.fatec.dao.FuncionarioDAO;
-import br.com.fatec.data.Database;
 import java.sql.SQLException;
 
 /**
@@ -13,9 +12,14 @@ import java.sql.SQLException;
  * @author alberto
  */
 public class LoginController {
-    public boolean login(){
+    public void login(){
         FuncionarioDAO fd = new FuncionarioDAO();
-    
-        return false;
+        try {
+            if(fd.login("nome", "senha")){
+                //TODO
+            }
+        } catch (SQLException e) {
+            //TODO
+        }
     }
 }

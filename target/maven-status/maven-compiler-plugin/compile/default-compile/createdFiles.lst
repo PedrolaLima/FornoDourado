@@ -1,8 +1,0 @@
-br/com/fatec/model/Funcionario.class
-br/com/fatec/controller/DashboardController.class
-br/com/fatec/dao/FuncionarioDAO.class
-br/com/fatec/data/Database.class
-br/com/fatec/dao/DAO.class
-br/com/fatec/App.class
-module-info.class
-br/com/fatec/controller/LoginController.class
