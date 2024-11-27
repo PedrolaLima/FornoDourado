@@ -78,7 +78,7 @@
                   <Image url="@Imagens/icons/relatorio.png" />
                </image>
             </ImageView>
-            <ImageView fx:id="btn_funcionario" fitHeight="80.0" fitWidth="80.0" layoutX="10.0" layoutY="369.0" pickOnBounds="true" preserveRatio="true">
+            <ImageView fx:id="btn_funcionario" fitHeight="80.0" fitWidth="80.0" layoutX="10.0" layoutY="369.0" onMouseClicked="#carregarFuncionarios" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@Imagens/icons/funcionarios.png" />
                </image>

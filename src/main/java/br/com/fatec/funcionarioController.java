@@ -1,3 +1,4 @@
+
 package br.com.fatec;
 
 import java.io.IOException;
@@ -5,18 +6,19 @@ import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.layout.AnchorPane;
 import javafx.scene.control.ContextMenu;
 import javafx.scene.control.MenuItem;
+import javafx.scene.layout.AnchorPane;
 
-
-
-public class dashboardController implements Initializable {
-
-    // Método para carregar a tela de "Adicionar Produto"
+/**
+ *
+ * @author Pedro
+ */
+public class funcionarioController implements Initializable {
+     // Método para carregar a tela de "Adicionar Produto"
     @FXML
-    private void carregarProdutos() throws IOException {
-        App.setRoot("produto");
+    private void carregarDashboard() throws IOException {
+        App.setRoot("dashboard");
     }
 
     // Método para carregar a tela de "Pedidos"
@@ -26,19 +28,29 @@ public class dashboardController implements Initializable {
     }
     
     @FXML
-    private void carregarFuncionarios() throws IOException {
-        App.setRoot("funcionarios");
-    }  
-    
-    @FXML
     private void carregarRelatorios() throws IOException {
         App.setRoot("relatorio");
     }
-
-   @FXML
-   private AnchorPane profilePane; 
+    
+    @FXML
+    private void carregarProdutos() throws IOException {
+        App.setRoot("produto");
+    }
+    
+    @FXML
+    private void adicionarFuncionario() throws IOException {
+        App.setRoot("adicionarFuncionario");
+    }
+    
+    @FXML
+    private void cancelarFuncionario() throws IOException {
+        App.setRoot("funcionarios");
+    }
+    
+    
+    @FXML
+    private AnchorPane profilePane; 
   
-   
     public void initialize(URL url, ResourceBundle rb) {
         // Criar o menu
         ContextMenu contextMenu = new ContextMenu();
@@ -67,4 +79,3 @@ public class dashboardController implements Initializable {
         });
     }
 }
-

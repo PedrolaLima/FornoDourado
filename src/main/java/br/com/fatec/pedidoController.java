@@ -24,7 +24,7 @@ public class pedidoController implements Initializable {
     
     @FXML
     private void carregarFuncionarios() throws IOException {
-        App.setRoot("");
+        App.setRoot("funcionarios");
     }  
     
     @FXML

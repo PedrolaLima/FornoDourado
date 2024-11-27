@@ -25,7 +25,7 @@ public class relatorioController implements Initializable {
     
     @FXML
     private void carregarFuncionarios() throws IOException {
-        App.setRoot("");
+        App.setRoot("funcionarios");
     }  
     
     @FXML
