@@ -28,13 +28,18 @@ public class FuncionarioDAO implements DAO <Funcionario> {
     public boolean insert(Funcionario model) throws SQLException {
         int  res = 0;
         Database.connect();
-        String sql ="INSERT NOME funcionario INTO VALUES(?)";
+        String sql ="INSERT * funcionario INTO VALUES(?,?,?,?,?)";
         ps = Database.getConnection().prepareStatement(sql);
         
-        ps.setString(0, model.getName());
+        ps.setInt(0,model.getCpf());
+        ps.setString(1,model.getName());
+        ps.setString(2, model.getOccupation());
+        ps.setString(3, model.getUsername());
+        ps.setBoolean(4, model.isStatus());
+
        
         try {
-            ps.executeUpdate();  
+            res = ps.executeUpdate();  
         } catch (SQLException e) {
             Database.close();
             throw e;
@@ -48,14 +53,18 @@ public class FuncionarioDAO implements DAO <Funcionario> {
     }
 
     @Override
-    public boolean update(Funcionario model,int pk) throws SQLException {
+    public boolean update(Funcionario model,int cpf) throws SQLException {
         int  res = 0;
         Database.connect();
-        String sql ="INSERT NOME INTO funcionario VALUES(?) WHERE CODFUN = ?";
+        String sql ="INSERT NOME,CARGO,USUARIO,STATUS INTO funcionario VALUES(?,?,?,?) WHERE CPF = ?";
         ps = Database.getConnection().prepareStatement(sql);
         
-        ps.setString(0, model.getName());
-        ps.setInt(1, pk);
+        ps.setString(0,model.getName());
+        ps.setString(1, model.getOccupation());
+        ps.setString(2, model.getUsername());
+        ps.setBoolean(3, model.isStatus());
+
+        ps.setInt(4, cpf);
         
         try {
             res = ps.executeUpdate();  
@@ -72,13 +81,13 @@ public class FuncionarioDAO implements DAO <Funcionario> {
     }
 
     @Override
-    public boolean delete(int pk) throws SQLException {
+    public boolean delete(int cpf) throws SQLException {
         int  res = 0;
         Database.connect();
-        String sql ="DELETE FROM funcionario WHERE CODFUN = ?";
+        String sql ="DELETE FROM funcionario WHERE CPF = ?";
         ps = Database.getConnection().prepareStatement(sql);
         
-        ps.setInt(0, pk);
+        ps.setInt(0, cpf);
         
         try {
             res = ps.executeUpdate();  
@@ -100,7 +109,7 @@ public class FuncionarioDAO implements DAO <Funcionario> {
         Collection<Funcionario> r = new ArrayList<>();
         
         Database.connect();
-        String sql="SELECT CODFUNC,NOME FROM funcionario WHERE ? = ?;";
+        String sql="SELECT * FROM funcionario WHERE ? = ?;";
         ps = Database.getConnection().prepareStatement(sql);
         
         String s = "";
@@ -138,7 +147,7 @@ public class FuncionarioDAO implements DAO <Funcionario> {
         Database.close();
         
         while (rs.next()) {
-            Funcionario f = new Funcionario(rs.getInt(1),rs.getString(2));
+            Funcionario f = new Funcionario(rs.getInt(1),rs.getString(2),rs.getString(3),rs.getString(4),rs.getBoolean(5));
             r.add(f); 
         }
                  
@@ -147,9 +156,7 @@ public class FuncionarioDAO implements DAO <Funcionario> {
     }
     
     public boolean login(String name,String psswd) throws SQLException{
-        PreparedStatement ps;
         Collection<Funcionario> f = new ArrayList<>();
-        ResultSet rs ;
 
         f = search(new ArrayList<>(Arrays.asList("NAME")),new ArrayList<>(Arrays.asList(name)));
 
@@ -157,10 +164,10 @@ public class FuncionarioDAO implements DAO <Funcionario> {
         if(!f.isEmpty()){
             try {
                 Database.connect();
-                String sql = "SELECT SENHA SALT FROM shadow WHERE CODFUNC = ?";
+                String sql = "SELECT SENHA SALT FROM shadow WHERE CPF = ?";
                 ps = Database.getConnection().prepareStatement(sql);
                 Iterator<Funcionario> r= f.iterator();
-                ps.setInt(0, r.next().getCod());
+                ps.setInt(0, r.next().getCpf());
                     
                 rs = ps.executeQuery();;
                 
