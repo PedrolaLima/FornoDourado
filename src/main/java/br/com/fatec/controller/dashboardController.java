@@ -87,7 +87,6 @@ public class dashboardController implements Initializable {
         
          profilePane.setOnMouseEntered(event -> {
             profileBack.getStyleClass().add("image-view-hover");
-            System.out.println("AAA");
         });
 
         // Remove a classe CSS de hover ao sair do profilePane
