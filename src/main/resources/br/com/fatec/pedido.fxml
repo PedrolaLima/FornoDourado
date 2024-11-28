@@ -110,7 +110,7 @@
                   <Image url="@Imagens/icons/pedidos/cancelar.png" />
                </image>
             </ImageView>
-            <ImageView fitHeight="79.0" fitWidth="173.0" layoutX="573.0" layoutY="434.0" pickOnBounds="true" preserveRatio="true" styleClass="botao-adicionar">
+            <ImageView fitHeight="79.0" fitWidth="173.0" layoutX="573.0" layoutY="434.0" onMouseClicked="#carregarFimPedido" pickOnBounds="true" preserveRatio="true" styleClass="botao-adicionar">
                <image>
                   <Image url="@Imagens/icons/pedidos/adicionar.png" />
                </image>
