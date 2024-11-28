@@ -4,6 +4,8 @@ import javafx.fxml.FXML;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javafx.fxml.Initializable;
 import javafx.scene.control.ContextMenu;
 import javafx.scene.control.MenuItem;
@@ -39,7 +41,10 @@ public class relatorioController implements Initializable {
     }
     
     @FXML
-    private AnchorPane profilePane; 
+    private AnchorPane profilePane;
+    
+    @FXML
+    private AnchorPane profileBack; 
   
     public void initialize(URL url, ResourceBundle rb) {
         // Criar o menu
@@ -50,8 +55,20 @@ public class relatorioController implements Initializable {
         MenuItem menuItem2 = new MenuItem("Sair");
 
         // Ações dos itens do menu
-        menuItem1.setOnAction(event -> System.out.println("MenuItem1 Selected"));
-        menuItem2.setOnAction(event -> System.out.println("MenuItem2 Selected"));
+        menuItem1.setOnAction(event ->  {
+            try {
+                App.setRoot("visualizarFuncionario");
+            } catch (IOException ex) {
+                Logger.getLogger(dashboardController.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        });
+        menuItem2.setOnAction(event -> {
+            try {
+                App.setRoot("menu");
+            } catch (IOException ex) {
+                Logger.getLogger(dashboardController.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        });
 
         // Adicionar itens ao menu
         contextMenu.getItems().addAll(menuItem1, menuItem2);
@@ -66,6 +83,15 @@ public class relatorioController implements Initializable {
                 // Exibe o menu na nova posição, em coordenadas absolutas
                 contextMenu.show(profilePane, xPos, yPos);
             });
+        });
+        
+         profilePane.setOnMouseEntered(event -> {
+            profileBack.getStyleClass().add("image-view-hover");
+        });
+
+        // Remove a classe CSS de hover ao sair do profilePane
+        profilePane.setOnMouseExited(event -> {
+            profileBack.getStyleClass().remove("image-view-hover");
         });
     }
 }

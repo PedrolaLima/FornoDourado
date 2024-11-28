@@ -31,7 +31,7 @@
                   <Image url="@Imagens/icons/data.png" />
                </image>
             </ImageView>
-            <AnchorPane layoutX="16.0" layoutY="891.0" prefHeight="215.0" prefWidth="60.0" style="-fx-background-color: #f2d335; -fx-background-radius: 15;">
+            <AnchorPane fx:id="profileBack" layoutX="16.0" layoutY="891.0" prefHeight="215.0" prefWidth="60.0" style="-fx-background-color: #f2d335; -fx-background-radius: 15;">
                <children>
                   <StackPane layoutX="5.0" layoutY="17.0" prefHeight="45.0" prefWidth="50.0" rotate="90.0" style="-fx-background-radius: 15; -fx-border-radius: 15;">
                      <children>
@@ -63,27 +63,27 @@
                   <Image url="@Imagens/FornoDourado-semFundo.png" />
                </image>
             </ImageView>
-            <ImageView id="logo" fx:id="btn_dashboard" fitHeight="80.0" fitWidth="80.0" layoutX="10.0" layoutY="197.0" onMouseClicked="#carregarDashboard" pickOnBounds="true" preserveRatio="true">
+            <ImageView id="logo" fx:id="btn_dashboard" fitHeight="80.0" fitWidth="80.0" layoutX="10.0" layoutY="197.0" onMouseClicked="#carregarDashboard" pickOnBounds="true" preserveRatio="true" styleClass="botoes">
                <image>
                   <Image url="@Imagens/icons/dashboard.png" />
                </image>
             </ImageView>
-            <ImageView fx:id="btn_pedido" fitHeight="50.0" fitWidth="50.0" layoutX="25.0" layoutY="283.0" pickOnBounds="true" preserveRatio="true">
+            <ImageView fx:id="btn_pedido" fitHeight="50.0" fitWidth="50.0" layoutX="25.0" layoutY="283.0" pickOnBounds="true" preserveRatio="true" styleClass="botoes">
                <image>
                   <Image url="@Imagens/icons/pedidos/pedido-ativado.png" />
                </image>
             </ImageView>
-            <ImageView id="logo" fx:id="btn_relatorio" fitHeight="70.0" fitWidth="70.0" layoutX="15.0" layoutY="455.0" onMouseClicked="#carregarRelatorios" pickOnBounds="true" preserveRatio="true">
+            <ImageView id="logo" fx:id="btn_relatorio" fitHeight="70.0" fitWidth="70.0" layoutX="15.0" layoutY="455.0" onMouseClicked="#carregarRelatorios" pickOnBounds="true" preserveRatio="true" styleClass="botoes">
                <image>
                   <Image url="@Imagens/icons/relatorio.png" />
                </image>
             </ImageView>
-            <ImageView id="logo" fx:id="btn_funcionario" fitHeight="80.0" fitWidth="80.0" layoutX="10.0" layoutY="369.0" onMouseClicked="#carregarFuncionarios" pickOnBounds="true" preserveRatio="true">
+            <ImageView id="logo" fx:id="btn_funcionario" fitHeight="80.0" fitWidth="80.0" layoutX="10.0" layoutY="369.0" onMouseClicked="#carregarFuncionarios" pickOnBounds="true" preserveRatio="true" styleClass="botoes">
                <image>
                   <Image url="@Imagens/icons/funcionarios.png" />
                </image>
             </ImageView>
-            <ImageView fitHeight="70.0" fitWidth="70.0" layoutX="15.0" layoutY="541.0" onMouseClicked="#carregarProdutos" pickOnBounds="true" preserveRatio="true">
+            <ImageView fitHeight="70.0" fitWidth="70.0" layoutX="15.0" layoutY="541.0" onMouseClicked="#carregarProdutos" pickOnBounds="true" preserveRatio="true" styleClass="botoes">
                <image>
                   <Image url="@Imagens/icons/Produto.png" />
                </image>
@@ -91,7 +91,7 @@
          </children></AnchorPane>
       <AnchorPane layoutX="127.0" layoutY="202.0" prefHeight="548.0" prefWidth="548.0">
          <children>
-            <ImageView fx:id="btn_cancelar" fitHeight="60.0" fitWidth="632.0" layoutX="-1.0" layoutY="403.0" onMouseClicked="#carregarPedidos" pickOnBounds="true" preserveRatio="true">
+            <ImageView fx:id="btn_cancelar" fitHeight="60.0" fitWidth="632.0" layoutX="-1.0" layoutY="403.0" onMouseClicked="#carregarPedidos" pickOnBounds="true" preserveRatio="true" styleClass="botao-cancelar">
                <image>
                   <Image url="@Imagens/icons/pedidos/finalizarPedidos-cancelar.png" />
                </image>
@@ -124,7 +124,7 @@
                   <Image url="@Imagens/icons/pedidos/detalhesCompra.png" />
                </image>
             </ImageView>
-            <ImageView fx:id="btn_concluir" fitHeight="60.0" fitWidth="343.0" layoutX="2.0" layoutY="403.0" pickOnBounds="true" preserveRatio="true">
+            <ImageView fx:id="btn_concluir" fitHeight="60.0" fitWidth="343.0" layoutX="2.0" layoutY="403.0" pickOnBounds="true" preserveRatio="true" styleClass="botao-adicionar">
                <image>
                   <Image url="@Imagens/icons/pedidos/finalizarCompra.png" />
                </image>

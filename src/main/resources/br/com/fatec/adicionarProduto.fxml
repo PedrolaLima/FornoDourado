@@ -32,7 +32,7 @@
                   <Image url="@Imagens/icons/data.png" />
                </image>
             </ImageView>
-            <AnchorPane layoutX="16.0" layoutY="891.0" prefHeight="215.0" prefWidth="60.0" style="-fx-background-color: #f2d335; -fx-background-radius: 15;">
+            <AnchorPane fx:id="profileBack" layoutX="16.0" layoutY="891.0" prefHeight="215.0" prefWidth="60.0" style="-fx-background-color: #f2d335; -fx-background-radius: 15;">
                <children>
                   <StackPane layoutX="5.0" layoutY="17.0" prefHeight="45.0" prefWidth="50.0" rotate="90.0" style="-fx-background-radius: 15; -fx-border-radius: 15;">
                      <children>
@@ -64,27 +64,27 @@
                   <Image url="@Imagens/FornoDourado-semFundo.png" />
                </image>
             </ImageView>
-            <ImageView id="logo" fx:id="btn_dashboard" fitHeight="80.0" fitWidth="80.0" layoutX="10.0" layoutY="197.0" onMouseClicked="#carregarDashboard" pickOnBounds="true" preserveRatio="true">
+            <ImageView id="logo" fx:id="btn_dashboard" fitHeight="80.0" fitWidth="80.0" layoutX="10.0" layoutY="197.0" onMouseClicked="#carregarDashboard" pickOnBounds="true" preserveRatio="true" styleClass="botoes">
                <image>
                   <Image url="@Imagens/icons/dashboard.png" />
                </image>
             </ImageView>
-            <ImageView id="logo" fx:id="btn_pedido" fitHeight="50.0" fitWidth="50.0" layoutX="25.0" layoutY="283.0" onMouseClicked="#carregarPedidos" pickOnBounds="true" preserveRatio="true">
+            <ImageView id="logo" fx:id="btn_pedido" fitHeight="50.0" fitWidth="50.0" layoutX="25.0" layoutY="283.0" onMouseClicked="#carregarPedidos" pickOnBounds="true" preserveRatio="true" styleClass="botoes">
                <image>
                   <Image url="@Imagens/icons/pedido.png" />
                </image>
             </ImageView>
-            <ImageView id="logo" fx:id="btn_relatorio" fitHeight="70.0" fitWidth="70.0" layoutX="15.0" layoutY="455.0" onMouseClicked="#carregarRelatorios" pickOnBounds="true" preserveRatio="true">
+            <ImageView id="logo" fx:id="btn_relatorio" fitHeight="70.0" fitWidth="70.0" layoutX="15.0" layoutY="455.0" onMouseClicked="#carregarRelatorios" pickOnBounds="true" preserveRatio="true" styleClass="botoes">
                <image>
                   <Image url="@Imagens/icons/relatorio.png" />
                </image>
             </ImageView>
-            <ImageView id="logo" fx:id="btn_funcionario" fitHeight="80.0" fitWidth="80.0" layoutX="10.0" layoutY="369.0" onMouseClicked="#carregarFuncionarios" pickOnBounds="true" preserveRatio="true">
+            <ImageView id="logo" fx:id="btn_funcionario" fitHeight="80.0" fitWidth="80.0" layoutX="10.0" layoutY="369.0" onMouseClicked="#carregarFuncionarios" pickOnBounds="true" preserveRatio="true" styleClass="botoes">
                <image>
                   <Image url="@Imagens/icons/funcionarios.png" />
                </image>
             </ImageView>
-            <ImageView id="logo" fitHeight="70.0" fitWidth="70.0" layoutX="15.0" layoutY="541.0" pickOnBounds="true" preserveRatio="true">
+            <ImageView id="logo" fitHeight="70.0" fitWidth="70.0" layoutX="15.0" layoutY="541.0" pickOnBounds="true" preserveRatio="true" styleClass="botoes">
                <image>
                   <Image url="@Imagens/icons/produto/produto-ativado.png" />
                </image>
@@ -109,12 +109,12 @@
                   <ColorAdjust brightness="0.28" />
                </effect>
             </ComboBox>
-            <ImageView fitHeight="69.0" fitWidth="150.0" layoutX="747.0" layoutY="300.0" pickOnBounds="true" preserveRatio="true">
+            <ImageView fitHeight="69.0" fitWidth="150.0" layoutX="747.0" layoutY="300.0" pickOnBounds="true" preserveRatio="true" styleClass="botao-adicionar">
                <image>
                   <Image url="@Imagens/icons/produto/confirmar.png" />
                </image>
             </ImageView>
-            <ImageView fitHeight="67.0" fitWidth="138.0" layoutX="612.0" layoutY="300.0" onMouseClicked="#cancelarProduto" pickOnBounds="true" preserveRatio="true">
+            <ImageView fitHeight="67.0" fitWidth="138.0" layoutX="612.0" layoutY="300.0" onMouseClicked="#cancelarProduto" pickOnBounds="true" preserveRatio="true" styleClass="botao-cancelar">
                <image>
                   <Image url="@Imagens/icons/produto/cancelar.png" />
                </image>

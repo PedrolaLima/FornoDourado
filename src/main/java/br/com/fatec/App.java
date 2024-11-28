@@ -18,6 +18,7 @@ public class App extends Application {
     @Override
     public void start(Stage stage) throws IOException {
         scene = new Scene(loadFXML("dashboard"));
+        scene.getStylesheets().add(getClass().getResource("/br/com/fatec/Imagens/styles.css").toExternalForm());
         stage.setScene(scene);
         stage.show();
     }
