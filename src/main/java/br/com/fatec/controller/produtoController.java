@@ -1,27 +1,29 @@
-package br.com.fatec;
+package br.com.fatec.controller;
 
+import br.com.fatec.App;
 import javafx.fxml.FXML;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javafx.fxml.Initializable;
 import javafx.scene.control.ContextMenu;
 import javafx.scene.control.MenuItem;
 import javafx.scene.layout.AnchorPane;
-import javafx.fxml.Initializable;
 
+public class produtoController implements Initializable {
 
-public class pedidoController implements Initializable {
-
-    @FXML
-    private void carregarProdutos() throws IOException {
-        App.setRoot("produto");
-    }
-
+    // Método para carregar a tela de "Adicionar Produto"
     @FXML
     private void carregarDashboard() throws IOException {
         App.setRoot("dashboard");
+    }
+
+    // Método para carregar a tela de "Pedidos"
+    @FXML
+    private void carregarPedidos() throws IOException {
+        App.setRoot("pedido");
     }
     
     @FXML
@@ -35,12 +37,17 @@ public class pedidoController implements Initializable {
     }
     
     @FXML
-    private void carregarPedidos() throws IOException {
-        App.setRoot("pedidos");
+    private void carregarAddProduct() throws IOException {
+        App.setRoot("adicionarProduto");
     }
     
     @FXML
-    private AnchorPane profilePane;
+    private void cancelarProduto() throws IOException {
+        App.setRoot("produto");
+    }
+    
+    @FXML
+    private AnchorPane profilePane; 
     
     @FXML
     private AnchorPane profileBack; 

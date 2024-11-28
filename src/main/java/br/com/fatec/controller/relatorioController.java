@@ -1,19 +1,18 @@
-package br.com.fatec;
+package br.com.fatec.controller;
 
+import br.com.fatec.App;
+import javafx.fxml.FXML;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.layout.AnchorPane;
 import javafx.scene.control.ContextMenu;
 import javafx.scene.control.MenuItem;
+import javafx.scene.layout.AnchorPane;
 
-
-
-public class dashboardController implements Initializable {
+public class relatorioController implements Initializable {
 
     // Método para carregar a tela de "Adicionar Produto"
     @FXML
@@ -33,18 +32,21 @@ public class dashboardController implements Initializable {
     }  
     
     @FXML
+    private void carregarDashboard() throws IOException {
+        App.setRoot("dashboard");
+    }
+    
+    @FXML
     private void carregarRelatorios() throws IOException {
         App.setRoot("relatorio");
     }
-
     
-   @FXML
-   private AnchorPane profilePane; 
+    @FXML
+    private AnchorPane profilePane;
+    
+    @FXML
+    private AnchorPane profileBack; 
   
-   @FXML
-   private AnchorPane profileBack; 
-
-    
     public void initialize(URL url, ResourceBundle rb) {
         // Criar o menu
         ContextMenu contextMenu = new ContextMenu();
@@ -86,7 +88,6 @@ public class dashboardController implements Initializable {
         
          profilePane.setOnMouseEntered(event -> {
             profileBack.getStyleClass().add("image-view-hover");
-            System.out.println("AAA");
         });
 
         // Remove a classe CSS de hover ao sair do profilePane
@@ -94,6 +95,4 @@ public class dashboardController implements Initializable {
             profileBack.getStyleClass().remove("image-view-hover");
         });
     }
-    
 }
-

@@ -1,6 +1,6 @@
+package br.com.fatec.controller;
 
-package br.com.fatec;
-
+import br.com.fatec.App;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -8,19 +8,18 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.control.ContextMenu;
 import javafx.scene.control.MenuItem;
-import javafx.scene.layout.AnchorPane;
 
-/**
- *
- * @author Pedro
- */
-public class funcionarioController implements Initializable {
-     // Método para carregar a tela de "Adicionar Produto"
+
+
+public class dashboardController implements Initializable {
+
+    // Método para carregar a tela de "Adicionar Produto"
     @FXML
-    private void carregarDashboard() throws IOException {
-        App.setRoot("dashboard");
+    private void carregarProdutos() throws IOException {
+        App.setRoot("produto");
     }
 
     // Método para carregar a tela de "Pedidos"
@@ -30,32 +29,23 @@ public class funcionarioController implements Initializable {
     }
     
     @FXML
+    private void carregarFuncionarios() throws IOException {
+        App.setRoot("funcionarios");
+    }  
+    
+    @FXML
     private void carregarRelatorios() throws IOException {
         App.setRoot("relatorio");
     }
+
     
-    @FXML
-    private void carregarProdutos() throws IOException {
-        App.setRoot("produto");
-    }
-    
-    @FXML
-    private void adicionarFuncionario() throws IOException {
-        App.setRoot("adicionarFuncionario");
-    }
-    
-    @FXML
-    private void cancelarFuncionario() throws IOException {
-        App.setRoot("funcionarios");
-    }
-    
-    
-    @FXML
-    private AnchorPane profilePane; 
-    
-    @FXML
-    private AnchorPane profileBack; 
+   @FXML
+   private AnchorPane profilePane; 
   
+   @FXML
+   private AnchorPane profileBack; 
+
+    
     public void initialize(URL url, ResourceBundle rb) {
         // Criar o menu
         ContextMenu contextMenu = new ContextMenu();
@@ -97,6 +87,7 @@ public class funcionarioController implements Initializable {
         
          profilePane.setOnMouseEntered(event -> {
             profileBack.getStyleClass().add("image-view-hover");
+            System.out.println("AAA");
         });
 
         // Remove a classe CSS de hover ao sair do profilePane
@@ -104,4 +95,6 @@ public class funcionarioController implements Initializable {
             profileBack.getStyleClass().remove("image-view-hover");
         });
     }
+    
 }
+

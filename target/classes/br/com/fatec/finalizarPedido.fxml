@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.effect.*?>
 <?import javafx.geometry.*?>
 <?import javafx.scene.text.*?>
 <?import javafx.scene.control.*?>
@@ -11,9 +12,9 @@
 <?import javafx.scene.control.Button?>
 <?import javafx.geometry.Insets?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="762.0" prefWidth="1151.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="br.com.fatec.controller.relatorioController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="762.0" prefWidth="1151.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="br.com.fatec.pedidoController">
    <children>
-      <AnchorPane layoutX="525.0" layoutY="-524.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="1150.0" prefWidth="103.0" rotate="-90.0" style="-fx-background-color: linear-gradient(to bottom, #f9d835, #d8b11c);">
+      <AnchorPane layoutX="525.0" layoutY="-525.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="1150.0" prefWidth="103.0" rotate="-90.0" style="-fx-background-color: linear-gradient(to bottom, #f9d835, #d8b11c);">
          <children>
             <Label alignment="CENTER" layoutX="-149.0" layoutY="254.0" prefHeight="103.0" prefWidth="400.0" rotate="90.0" text="PADARIA FORNO DOURADO">
                <font>
@@ -54,8 +55,7 @@
                </font>
             </Label>
             <AnchorPane fx:id="profilePane" layoutX="10.0" layoutY="890.0" prefHeight="215.0" prefWidth="70.0" />
-         </children>
-      </AnchorPane>
+         </children></AnchorPane>
       <AnchorPane prefHeight="762.0" prefWidth="100.0" style="-fx-background-color: linear-gradient(to bottom, #f9d835, #d8b11c);">
          <children>
             <ImageView id="logo" fitHeight="93.0" fitWidth="92.0" layoutX="4.0" pickOnBounds="true" preserveRatio="true">
@@ -68,14 +68,14 @@
                   <Image url="@Imagens/icons/dashboard.png" />
                </image>
             </ImageView>
-            <ImageView fx:id="btn_pedido" fitHeight="50.0" fitWidth="50.0" layoutX="25.0" layoutY="283.0" onMouseClicked="#carregarPedidos" pickOnBounds="true" preserveRatio="true" styleClass="botoes">
+            <ImageView fx:id="btn_pedido" fitHeight="50.0" fitWidth="50.0" layoutX="25.0" layoutY="283.0" pickOnBounds="true" preserveRatio="true" styleClass="botoes">
                <image>
-                  <Image url="@Imagens/icons/pedido.png" />
+                  <Image url="@Imagens/icons/pedidos/pedido-ativado.png" />
                </image>
             </ImageView>
-            <ImageView id="logo" fx:id="btn_relatorio" fitHeight="70.0" fitWidth="70.0" layoutX="15.0" layoutY="454.0" pickOnBounds="true" preserveRatio="true" styleClass="botoes">
+            <ImageView id="logo" fx:id="btn_relatorio" fitHeight="70.0" fitWidth="70.0" layoutX="15.0" layoutY="455.0" onMouseClicked="#carregarRelatorios" pickOnBounds="true" preserveRatio="true" styleClass="botoes">
                <image>
-                  <Image url="@Imagens/icons/relatorio/relatorio-ativado.png" />
+                  <Image url="@Imagens/icons/relatorio.png" />
                </image>
             </ImageView>
             <ImageView id="logo" fx:id="btn_funcionario" fitHeight="80.0" fitWidth="80.0" layoutX="10.0" layoutY="369.0" onMouseClicked="#carregarFuncionarios" pickOnBounds="true" preserveRatio="true" styleClass="botoes">
@@ -83,73 +83,73 @@
                   <Image url="@Imagens/icons/funcionarios.png" />
                </image>
             </ImageView>
-            <ImageView id="logo" fx:id="btn_produto" fitHeight="70.0" fitWidth="70.0" layoutX="15.0" layoutY="541.0" onMouseClicked="#carregarProdutos" pickOnBounds="true" preserveRatio="true" styleClass="botoes">
+            <ImageView fitHeight="70.0" fitWidth="70.0" layoutX="15.0" layoutY="541.0" onMouseClicked="#carregarProdutos" pickOnBounds="true" preserveRatio="true" styleClass="botoes">
                <image>
-                  <Image url="@Imagens/icons/produto.png" />
+                  <Image url="@Imagens/icons/Produto.png" />
                </image>
             </ImageView>
          </children></AnchorPane>
-      <AnchorPane layoutX="194.0" layoutY="259.0" prefHeight="481.0" prefWidth="826.0" style="-fx-border-color: black; -fx-border-radius: 5;">
+      <AnchorPane layoutX="127.0" layoutY="202.0" prefHeight="548.0" prefWidth="548.0">
          <children>
-            <Label layoutX="306.0" layoutY="20.0" prefHeight="31.0" prefWidth="215.0" text="Histórico de Pedidos">
-               <font>
-                  <Font size="21.0" />
-               </font>
-            </Label>
-            <TableView layoutX="2.0" layoutY="77.0" prefHeight="404.0" prefWidth="826.0">
+            <ImageView fx:id="btn_cancelar" fitHeight="60.0" fitWidth="632.0" layoutX="-1.0" layoutY="403.0" onMouseClicked="#carregarPedidos" pickOnBounds="true" preserveRatio="true" styleClass="botao-cancelar">
+               <image>
+                  <Image url="@Imagens/icons/pedidos/finalizarPedidos-cancelar.png" />
+               </image>
+            </ImageView>
+            <TableView layoutY="6.0" prefHeight="397.0" prefWidth="619.0" style="-fx-background-color: #F4F4F4;">
               <columns>
-                <TableColumn prefWidth="127.0" text="PEDIDO" />
-                <TableColumn prefWidth="198.0" text="DATA" />
-                  <TableColumn prefWidth="158.0" text="TOTAL" />
-                  <TableColumn prefWidth="342.0" text="FORMA DE PAGAMENTO" />
+                <TableColumn prefWidth="169.0" text="Produto" />
+                  <TableColumn prefWidth="171.0" text="Preço" />
+                <TableColumn minWidth="0.0" prefWidth="178.0" text="Qtd" />
+                  <TableColumn minWidth="0.0" text="Subtotal" />
+                  <TableColumn minWidth="0.0" prefWidth="17.0" text="Ação" />
               </columns>
             </TableView>
-            <ImageView fitHeight="38.0" fitWidth="131.0" layoutX="14.0" layoutY="17.0" styleClass="botao-amarelo">
+            <ImageView fitHeight="45.0" fitWidth="619.0" layoutY="-1.0">
                <image>
-                  <Image url="@Imagens/icons/relatorio/filter.png" />
-               </image>
-            </ImageView>
-            <TextField alignment="CENTER" layoutX="566.0" layoutY="20.0" prefHeight="31.0" prefWidth="215.0" promptText="Procurar" />
-            <ImageView fitHeight="25.0" fitWidth="26.0" layoutX="576.0" layoutY="23.0">
-               <image>
-                  <Image url="@Imagens/icons/relatorio/search.png" />
+                  <Image url="@Imagens/icons/pedidos/finalizarPedidos-header.png" />
                </image>
             </ImageView>
          </children>
       </AnchorPane>
-      <AnchorPane layoutX="142.0" layoutY="136.0">
+      <Label layoutX="135.0" layoutY="137.0" prefHeight="47.0" prefWidth="415.0" text="PEDIDO #XXXXXXXX">
+         <font>
+            <Font size="32.0" />
+         </font>
+      </Label>
+      <AnchorPane layoutX="784.0" layoutY="204.0" prefHeight="460.0" prefWidth="342.0" style="-fx-border-color: gray; -fx-border-width: 0.5;">
          <children>
-            <ImageView fitHeight="114.0" fitWidth="931.0">
+            <ImageView fitHeight="460.0" fitWidth="291.0" pickOnBounds="true" preserveRatio="true">
                <image>
-                  <Image url="@Imagens/icons/relatorio/metricas.png" />
+                  <Image url="@Imagens/icons/pedidos/detalhesCompra.png" />
                </image>
             </ImageView>
-            <Label layoutX="27.0" layoutY="57.0" prefHeight="31.0" prefWidth="70.0" text="R$">
-               <font>
-                  <Font name="System Bold" size="21.0" />
-               </font>
-            </Label>
-            <Label layoutX="213.0" layoutY="57.0" prefHeight="31.0" prefWidth="70.0" text="R$">
-               <font>
-                  <Font name="System Bold" size="21.0" />
-               </font>
-            </Label>
-            <Label layoutX="428.0" layoutY="57.0" prefHeight="31.0" prefWidth="26.0" text="x">
-               <font>
-                  <Font name="System Bold" size="21.0" />
-               </font>
-            </Label>
-            <Label layoutX="625.0" layoutY="57.0" prefHeight="31.0" prefWidth="16.0" text="x">
-               <font>
-                  <Font name="System Bold" size="21.0" />
-               </font>
-            </Label>
-            <Label layoutX="829.0" layoutY="57.0" prefHeight="31.0" prefWidth="16.0" text="x">
-               <font>
-                  <Font name="System Bold" size="21.0" />
-               </font>
-            </Label>
+            <ImageView fx:id="btn_concluir" fitHeight="60.0" fitWidth="343.0" layoutX="2.0" layoutY="403.0" pickOnBounds="true" preserveRatio="true" styleClass="botao-adicionar">
+               <image>
+                  <Image url="@Imagens/icons/pedidos/finalizarCompra.png" />
+               </image>
+            </ImageView>
          </children>
       </AnchorPane>
+      <RadioButton layoutX="807.0" layoutY="245.0" mnemonicParsing="false" prefHeight="38.0" prefWidth="113.0" text="Dinheiro">
+         <font>
+            <Font size="15.0" />
+         </font>
+      </RadioButton>
+      <RadioButton layoutX="807.0" layoutY="283.0" mnemonicParsing="false" prefHeight="38.0" prefWidth="173.0" text="Cartao de Crédito">
+         <font>
+            <Font size="15.0" />
+         </font>
+      </RadioButton>
+      <RadioButton layoutX="807.0" layoutY="321.0" mnemonicParsing="false" prefHeight="38.0" prefWidth="156.0" text="Cartão de Débito">
+         <font>
+            <Font size="15.0" />
+         </font>
+      </RadioButton>
+      <RadioButton layoutX="807.0" layoutY="359.0" mnemonicParsing="false" prefHeight="38.0" prefWidth="113.0" text="Pix">
+         <font>
+            <Font size="15.0" />
+         </font>
+      </RadioButton>
    </children>
 </AnchorPane>

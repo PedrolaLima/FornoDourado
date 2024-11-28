@@ -1,19 +1,24 @@
-package br.com.fatec;
 
-import javafx.fxml.FXML;
+package br.com.fatec.controller;
+
+import br.com.fatec.App;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.ContextMenu;
 import javafx.scene.control.MenuItem;
 import javafx.scene.layout.AnchorPane;
 
-public class produtoController implements Initializable {
-
-    // Método para carregar a tela de "Adicionar Produto"
+/**
+ *
+ * @author Pedro
+ */
+public class funcionarioController implements Initializable {
+     // Método para carregar a tela de "Adicionar Produto"
     @FXML
     private void carregarDashboard() throws IOException {
         App.setRoot("dashboard");
@@ -26,24 +31,25 @@ public class produtoController implements Initializable {
     }
     
     @FXML
-    private void carregarFuncionarios() throws IOException {
-        App.setRoot("funcionarios");
-    }  
-    
-    @FXML
     private void carregarRelatorios() throws IOException {
         App.setRoot("relatorio");
     }
     
     @FXML
-    private void carregarAddProduct() throws IOException {
-        App.setRoot("adicionarProduto");
+    private void carregarProdutos() throws IOException {
+        App.setRoot("produto");
     }
     
     @FXML
-    private void cancelarProduto() throws IOException {
-        App.setRoot("produto");
+    private void adicionarFuncionario() throws IOException {
+        App.setRoot("adicionarFuncionario");
     }
+    
+    @FXML
+    private void cancelarFuncionario() throws IOException {
+        App.setRoot("funcionarios");
+    }
+    
     
     @FXML
     private AnchorPane profilePane; 

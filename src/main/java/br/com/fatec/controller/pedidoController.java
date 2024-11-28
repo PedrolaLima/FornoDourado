@@ -1,28 +1,28 @@
-package br.com.fatec;
+package br.com.fatec.controller;
 
+import br.com.fatec.App;
 import javafx.fxml.FXML;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javafx.fxml.Initializable;
 import javafx.scene.control.ContextMenu;
 import javafx.scene.control.MenuItem;
 import javafx.scene.layout.AnchorPane;
+import javafx.fxml.Initializable;
 
-public class relatorioController implements Initializable {
 
-    // Método para carregar a tela de "Adicionar Produto"
+public class pedidoController implements Initializable {
+
     @FXML
     private void carregarProdutos() throws IOException {
         App.setRoot("produto");
     }
 
-    // Método para carregar a tela de "Pedidos"
     @FXML
-    private void carregarPedidos() throws IOException {
-        App.setRoot("pedido");
+    private void carregarDashboard() throws IOException {
+        App.setRoot("dashboard");
     }
     
     @FXML
@@ -31,13 +31,13 @@ public class relatorioController implements Initializable {
     }  
     
     @FXML
-    private void carregarDashboard() throws IOException {
-        App.setRoot("dashboard");
+    private void carregarRelatorios() throws IOException {
+        App.setRoot("relatorio");
     }
     
     @FXML
-    private void carregarRelatorios() throws IOException {
-        App.setRoot("relatorio");
+    private void carregarPedidos() throws IOException {
+        App.setRoot("pedidos");
     }
     
     @FXML
