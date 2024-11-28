@@ -36,7 +36,12 @@ public class pedidoController implements Initializable {
     
     @FXML
     private void carregarPedidos() throws IOException {
-        App.setRoot("pedidos");
+        App.setRoot("pedido");
+    }
+     
+    @FXML
+    private void carregarFimPedido() throws IOException {
+        App.setRoot("finalizarPedido");
     }
     
     @FXML

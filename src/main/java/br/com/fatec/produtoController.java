@@ -44,7 +44,7 @@ public class produtoController implements Initializable {
     private void cancelarProduto() throws IOException {
         App.setRoot("produto");
     }
-    
+ 
     @FXML
     private AnchorPane profilePane; 
     
