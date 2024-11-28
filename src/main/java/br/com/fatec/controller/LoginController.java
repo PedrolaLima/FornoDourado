@@ -4,8 +4,11 @@
  */
 package br.com.fatec.controller;
 
+import br.com.fatec.App;
 import br.com.fatec.dao.FuncionarioDAO;
+import java.io.IOException;
 import java.sql.SQLException;
+import javafx.fxml.FXML;
 
 /**
  *
@@ -21,5 +24,10 @@ public class LoginController {
         } catch (SQLException e) {
             //TODO
         }
+    }
+    
+    @FXML
+    private void Login() throws IOException {
+        App.setRoot("dashboard");
     }
 }

@@ -93,12 +93,13 @@
          <children>
             <TableView layoutX="1.0" layoutY="6.0" prefHeight="545.0" prefWidth="994.0">
               <columns>
-                <TableColumn prefWidth="320.0" text="Produto" />
-                <TableColumn minWidth="0.0" prefWidth="106.0" text="Código" />
-                  <TableColumn prefWidth="122.0" text="Categoria" />
-                  <TableColumn prefWidth="129.0" text="Preço" />
-                  <TableColumn prefWidth="206.0" text="Disponibilidade" />
-                  <TableColumn prefWidth="109.0" text="Ação" />
+                <TableColumn prefWidth="489.0" text="Produto" />
+                <TableColumn minWidth="0.0" prefWidth="82.0" text="Código" />
+                  <TableColumn prefWidth="125.0" text="Categoria" />
+                  <TableColumn prefWidth="109.0" text="Preço" />
+                  <TableColumn minWidth="0.0" prefWidth="111.0" text="Disponibilidade" />
+                  <TableColumn minWidth="0.0" prefWidth="43.0" text="Editar" />
+                  <TableColumn prefWidth="34.0" text="Deletar" />
               </columns>
             </TableView>
             <ImageView fitHeight="45.0" fitWidth="996.0" layoutY="-1.0">
@@ -108,12 +109,12 @@
             </ImageView>
          </children>
       </AnchorPane>
-      <ImageView fitHeight="45.0" fitWidth="152.0" layoutX="133.0" layoutY="137.0">
+      <ImageView fitHeight="45.0" fitWidth="152.0" layoutX="133.0" layoutY="137.0" styleClass="botao-amarelo">
          <image>
             <Image url="@Imagens/icons/relatorio/filter.png" />
          </image>
          <effect>
-            <InnerShadow />
+            <InnerShadow height="47.44" radius="16.61" />
          </effect>
       </ImageView>
       <ImageView fx:id="btn_addproduct" fitHeight="45.0" fitWidth="152.0" layoutX="963.0" layoutY="137.0" onMouseClicked="#carregarAddProduct" styleClass="botao-amarelo">

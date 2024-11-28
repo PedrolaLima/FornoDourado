@@ -93,11 +93,13 @@
          <children>
             <TableView layoutX="1.0" layoutY="6.0" prefHeight="397.0" prefWidth="994.0" style="-fx-background-color: #F4F4F4;">
               <columns>
-                <TableColumn prefWidth="486.0" text="Produto" />
-                <TableColumn minWidth="0.0" prefWidth="101.0" text="Código" />
-                  <TableColumn minWidth="0.0" prefWidth="159.0" text="Categoria" />
+                <TableColumn prefWidth="557.0" text="Produto" />
+                <TableColumn minWidth="0.0" prefWidth="118.0" text="Código" />
+                  <TableColumn minWidth="0.0" prefWidth="94.0" text="Categoria" />
                   <TableColumn prefWidth="143.0" text="Preço" />
-                  <TableColumn minWidth="0.0" prefWidth="104.0" text="Ação" />
+                  <TableColumn minWidth="0.0" prefWidth="36.0" text="menos" />
+                  <TableColumn minWidth="0.0" prefWidth="21.0" text="qtd" />
+                  <TableColumn minWidth="0.0" prefWidth="31.0" text="mais" />
               </columns>
             </TableView>
             <ImageView fitHeight="45.0" fitWidth="996.0" layoutY="-1.0">
