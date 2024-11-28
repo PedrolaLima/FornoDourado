@@ -86,7 +86,7 @@
             </ImageView>
             <ImageView id="logo" fitHeight="70.0" fitWidth="70.0" layoutX="15.0" layoutY="541.0" pickOnBounds="true" preserveRatio="true" styleClass="botoes">
                <image>
-                  <Image url="@Imagens/icons/produto.png" />
+                  <Image url="@Imagens/icons/Produto.png" />
                </image>
             </ImageView>
          </children></AnchorPane>

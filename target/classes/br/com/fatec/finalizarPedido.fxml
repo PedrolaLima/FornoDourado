@@ -96,7 +96,7 @@
                   <Image url="@Imagens/icons/pedidos/finalizarPedidos-cancelar.png" />
                </image>
             </ImageView>
-            <TableView layoutY="6.0" prefHeight="397.0" prefWidth="619.0" style="-fx-background-color: #F4F4F4;">
+            <TableView layoutY="6.0" prefHeight="391.0" prefWidth="619.0" style="-fx-background-color: #F4F4F4;">
               <columns>
                 <TableColumn prefWidth="169.0" text="Produto" />
                   <TableColumn prefWidth="171.0" text="Preço" />
@@ -124,7 +124,7 @@
                   <Image url="@Imagens/icons/pedidos/detalhesCompra.png" />
                </image>
             </ImageView>
-            <ImageView fx:id="btn_concluir" fitHeight="60.0" fitWidth="343.0" layoutX="2.0" layoutY="403.0" pickOnBounds="true" preserveRatio="true" styleClass="botao-adicionar">
+            <ImageView fx:id="btn_concluir" fitHeight="60.0" fitWidth="343.0" layoutX="2.0" layoutY="403.0" onMouseClicked="#carregarPedidos" pickOnBounds="true" preserveRatio="true" styleClass="botao-adicionar">
                <image>
                   <Image url="@Imagens/icons/pedidos/finalizarCompra.png" />
                </image>
