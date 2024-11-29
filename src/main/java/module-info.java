@@ -3,8 +3,7 @@ module FornoDourado {
     requires javafx.fxml;    
     requires javafx.base;
     requires java.sql;
-    //requires java.util.HexFormat;
-    
+
     opens br.com.fatec to javafx.fxml;
     opens br.com.fatec.controller to javafx.fxml;
 
