@@ -11,6 +11,11 @@ import javafx.scene.control.ContextMenu;
 import javafx.scene.control.MenuItem;
 import javafx.scene.layout.AnchorPane;
 import javafx.fxml.Initializable;
+import javafx.scene.SnapshotParameters;
+import javafx.scene.image.ImageView;
+import javafx.scene.image.WritableImage;
+import javafx.scene.paint.Color;
+import javafx.scene.shape.Rectangle;
 
 
 public class pedidoController implements Initializable {
@@ -50,9 +55,13 @@ public class pedidoController implements Initializable {
     
     @FXML
     private AnchorPane profileBack; 
+    
+    @FXML
+    private ImageView profile; 
+
   
     public void initialize(URL url, ResourceBundle rb) {
-        // Criar o menu
+         // Criar o menu
         ContextMenu contextMenu = new ContextMenu();
 
         // Criar itens do menu
@@ -98,5 +107,25 @@ public class pedidoController implements Initializable {
         profilePane.setOnMouseExited(event -> {
             profileBack.getStyleClass().remove("image-view-hover");
         });
+    
+        
+        // Adiciona bordas arredondadas ao ImageView.
+        Rectangle clip = new Rectangle(
+         profile.getFitWidth(), profile.getFitHeight()
+        );
+        clip.setArcWidth(25); // Ajuste o raio para bordas mais ou menos arredondadas.
+        clip.setArcHeight(25);
+        profile.setClip(clip);
+
+        // Cria uma imagem arredondada.
+        SnapshotParameters parameters = new SnapshotParameters();
+        parameters.setFill(Color.TRANSPARENT); // Fundo transparente.
+        WritableImage image = profile.snapshot(parameters, null);
+
+        // Remove o clipe para exibir os efeitos.
+        profile.setClip(null);
+
+        // Define a imagem arredondada no ImageView.
+        profile.setImage(image);
     }
 }

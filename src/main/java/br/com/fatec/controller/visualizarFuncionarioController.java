@@ -1,28 +1,30 @@
 package br.com.fatec.controller;
 
 import br.com.fatec.App;
-import javafx.fxml.FXML;
+import java.io.File;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.SnapshotParameters;
 import javafx.scene.control.ContextMenu;
 import javafx.scene.control.MenuItem;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.image.WritableImage;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
+import javafx.stage.FileChooser;
 
-public class relatorioController implements Initializable {
-
-    // Método para carregar a tela de "Adicionar Produto"
+public class visualizarFuncionarioController implements Initializable {
+     // Método para carregar a tela de "Adicionar Produto"
     @FXML
-    private void carregarProdutos() throws IOException {
-        App.setRoot("produto");
+    private void carregarDashboard() throws IOException {
+        App.setRoot("dashboard");
     }
 
     // Método para carregar a tela de "Pedidos"
@@ -32,29 +34,37 @@ public class relatorioController implements Initializable {
     }
     
     @FXML
-    private void carregarFuncionarios() throws IOException {
-        App.setRoot("funcionarios");
-    }  
-    
-    @FXML
-    private void carregarDashboard() throws IOException {
-        App.setRoot("dashboard");
-    }
-    
-    @FXML
     private void carregarRelatorios() throws IOException {
         App.setRoot("relatorio");
     }
     
     @FXML
-    private AnchorPane profilePane;
+    private void carregarProdutos() throws IOException {
+        App.setRoot("produto");
+    }
+    
+    @FXML
+    private void adicionarFuncionario() throws IOException {
+        App.setRoot("adicionarFuncionario");
+    }
+    
+    @FXML
+    private void cancelarFuncionario() throws IOException {
+        App.setRoot("funcionarios");
+    }
+    
+    
+    @FXML
+    private AnchorPane profilePane; 
     
     @FXML
     private AnchorPane profileBack; 
     
     @FXML
-    private ImageView profile; 
-
+    private ImageView profile;
+        
+    @FXML
+    private ImageView employeeview;
   
     public void initialize(URL url, ResourceBundle rb) {
         // Criar o menu
@@ -95,7 +105,7 @@ public class relatorioController implements Initializable {
             });
         });
         
-         profilePane.setOnMouseEntered(event -> {
+        profilePane.setOnMouseEntered(event -> {
             profileBack.getStyleClass().add("image-view-hover");
         });
 
@@ -105,7 +115,7 @@ public class relatorioController implements Initializable {
         });
     
         
-        // Adiciona bordas arredondadas ao ImageView.
+        // Adiciona bordas arredondadas ao ImageView do profile.
         Rectangle clip = new Rectangle(
          profile.getFitWidth(), profile.getFitHeight()
         );
@@ -123,5 +133,28 @@ public class relatorioController implements Initializable {
 
         // Define a imagem arredondada no ImageView.
         profile.setImage(image);
+       
+        
+        //FOTO DO EMPREGADO
+        
+        // Adiciona bordas arredondadas ao ImageView.
+        Rectangle clip2 = new Rectangle(
+            employeeview.getFitWidth(), employeeview.getFitHeight()
+        );
+        clip2.setArcWidth(25); // Ajuste o raio para bordas mais ou menos arredondadas.
+        clip2.setArcHeight(25);
+        employeeview.setClip(clip2);
+
+        // Cria uma imagem arredondada.
+        SnapshotParameters parameters2 = new SnapshotParameters();
+        parameters.setFill(Color.TRANSPARENT); // Fundo transparente.
+        WritableImage image2 = employeeview.snapshot(parameters2, null);
+
+        // Remove o clipe para exibir os efeitos.
+        employeeview.setClip(null);
+
+        // Define a imagem arredondada no ImageView.
+        employeeview.setImage(image2);
     }
 }
+

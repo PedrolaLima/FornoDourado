@@ -33,9 +33,9 @@
             </ImageView>
             <AnchorPane fx:id="profileBack" layoutX="16.0" layoutY="891.0" prefHeight="215.0" prefWidth="60.0" style="-fx-background-color: #f2d335; -fx-background-radius: 15;">
                <children>
-                  <StackPane layoutX="5.0" layoutY="17.0" prefHeight="45.0" prefWidth="50.0" rotate="90.0" style="-fx-background-radius: 15; -fx-border-radius: 15;">
+                  <StackPane layoutX="5.0" layoutY="12.0" prefHeight="45.0" prefWidth="50.0" rotate="90.0" style="-fx-background-radius: 15; -fx-border-radius: 15;">
                      <children>
-                        <ImageView id="profile" fitHeight="45.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true" styleClass="profile">
+                        <ImageView id="profile" fx:id="profile" fitHeight="45.0" fitWidth="45.0" pickOnBounds="true" preserveRatio="true" styleClass="profile">
                            <image>
                               <Image url="@Imagens/icons/placeholder_user.png" />
                            </image>
@@ -109,7 +109,7 @@
             </ImageView>
          </children>
       </AnchorPane>
-      <ImageView fitHeight="45.0" fitWidth="152.0" layoutX="133.0" layoutY="137.0" styleClass="botao-amarelo">
+      <ImageView fitHeight="45.0" fitWidth="152.0" layoutX="133.0" layoutY="137.0" pickOnBounds="true" styleClass="botao-amarelo">
          <image>
             <Image url="@Imagens/icons/relatorio/filter.png" />
          </image>

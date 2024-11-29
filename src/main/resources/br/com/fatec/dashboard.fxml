@@ -13,7 +13,7 @@
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="762.0" prefWidth="1151.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="br.com.fatec.controller.dashboardController">
    <children>
-      <AnchorPane layoutX="525.0" layoutY="-524.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="1150.0" prefWidth="103.0" rotate="-90.0" style="-fx-background-color: linear-gradient(to bottom, #f9d835, #d8b11c);">
+      <AnchorPane layoutX="525.0" layoutY="-525.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="1150.0" prefWidth="103.0" rotate="-90.0" style="-fx-background-color: linear-gradient(to bottom, #f9d835, #d8b11c);">
          <children>
             <Label alignment="CENTER" layoutX="-149.0" layoutY="254.0" prefHeight="103.0" prefWidth="400.0" rotate="90.0" text="PADARIA FORNO DOURADO">
                <font>
@@ -32,9 +32,9 @@
             </ImageView>
             <AnchorPane fx:id="profileBack" layoutX="16.0" layoutY="891.0" prefHeight="215.0" prefWidth="60.0" style="-fx-background-color: #f2d335; -fx-background-radius: 15;">
                <children>
-                  <StackPane layoutX="5.0" layoutY="17.0" prefHeight="45.0" prefWidth="50.0" rotate="90.0" style="-fx-background-radius: 15; -fx-border-radius: 15;">
+                  <StackPane layoutX="5.0" layoutY="12.0" prefHeight="45.0" prefWidth="50.0" rotate="90.0" style="-fx-background-radius: 15; -fx-border-radius: 15;">
                      <children>
-                        <ImageView id="profile" fitHeight="45.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true" styleClass="profile">
+                        <ImageView id="profile" fx:id="profile" fitHeight="45.0" fitWidth="45.0" pickOnBounds="true" preserveRatio="true" styleClass="profile">
                            <image>
                               <Image url="@Imagens/icons/placeholder_user.png" />
                            </image>
@@ -85,7 +85,7 @@
             </ImageView>
             <ImageView fx:id="btn_produto" fitHeight="70.0" fitWidth="70.0" layoutX="15.0" layoutY="541.0" onMouseClicked="#carregarProdutos" pickOnBounds="true" preserveRatio="true" styleClass="botoes">
                <image>
-                  <Image url="@Imagens/icons/Produto.png" />
+                  <Image url="@Imagens/icons/produto.png" />
                </image>
             </ImageView>
          </children></AnchorPane>

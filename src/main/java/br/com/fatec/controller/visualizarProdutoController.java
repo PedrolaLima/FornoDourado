@@ -17,12 +17,12 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 
-public class relatorioController implements Initializable {
+public class visualizarProdutoController implements Initializable {
 
     // Método para carregar a tela de "Adicionar Produto"
     @FXML
-    private void carregarProdutos() throws IOException {
-        App.setRoot("produto");
+    private void carregarDashboard() throws IOException {
+        App.setRoot("dashboard");
     }
 
     // Método para carregar a tela de "Pedidos"
@@ -37,26 +37,34 @@ public class relatorioController implements Initializable {
     }  
     
     @FXML
-    private void carregarDashboard() throws IOException {
-        App.setRoot("dashboard");
-    }
-    
-    @FXML
     private void carregarRelatorios() throws IOException {
         App.setRoot("relatorio");
     }
     
     @FXML
-    private AnchorPane profilePane;
+    private void carregarAddProduct() throws IOException {
+        App.setRoot("adicionarProduto");
+    }
+    
+    @FXML
+    private void cancelarProduto() throws IOException {
+        App.setRoot("produto");
+    }
+ 
+    @FXML
+    private AnchorPane profilePane; 
     
     @FXML
     private AnchorPane profileBack; 
     
     @FXML
     private ImageView profile; 
+    
+    @FXML
+    private ImageView productview;
 
   
-    public void initialize(URL url, ResourceBundle rb) {
+public void initialize(URL url, ResourceBundle rb) {
         // Criar o menu
         ContextMenu contextMenu = new ContextMenu();
 
@@ -95,7 +103,7 @@ public class relatorioController implements Initializable {
             });
         });
         
-         profilePane.setOnMouseEntered(event -> {
+        profilePane.setOnMouseEntered(event -> {
             profileBack.getStyleClass().add("image-view-hover");
         });
 
@@ -105,7 +113,7 @@ public class relatorioController implements Initializable {
         });
     
         
-        // Adiciona bordas arredondadas ao ImageView.
+        // Adiciona bordas arredondadas ao ImageView do profile.
         Rectangle clip = new Rectangle(
          profile.getFitWidth(), profile.getFitHeight()
         );
@@ -123,5 +131,27 @@ public class relatorioController implements Initializable {
 
         // Define a imagem arredondada no ImageView.
         profile.setImage(image);
+        
+        
+        //FOTO DO PRODUTO
+        
+        // Adiciona bordas arredondadas ao ImageView.
+        Rectangle clip2 = new Rectangle(
+            productview.getFitWidth(), productview.getFitHeight()
+        );
+        clip2.setArcWidth(25); // Ajuste o raio para bordas mais ou menos arredondadas.
+        clip2.setArcHeight(25);
+        productview.setClip(clip2);
+
+        // Cria uma imagem arredondada.
+        SnapshotParameters parameters2 = new SnapshotParameters();
+        parameters.setFill(Color.TRANSPARENT); // Fundo transparente.
+        WritableImage image2 = productview.snapshot(parameters2, null);
+
+        // Remove o clipe para exibir os efeitos.
+        productview.setClip(null);
+
+        // Define a imagem arredondada no ImageView.
+        productview.setImage(image2);
     }
 }
