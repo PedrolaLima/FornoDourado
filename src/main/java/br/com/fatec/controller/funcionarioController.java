@@ -135,6 +135,65 @@ public class funcionarioController implements Initializable {
 
         // Define a imagem arredondada no ImageView.
         profile.setImage(image); 
-     
+    
+        //FILTRO FUNCIONÁRIOS
+    
+        // Criar o ContextMenu principal para o "filter"
+        ContextMenu filterMenu = new ContextMenu();
+
+        // Criar os itens principais do menu
+        MenuItem cargoMenuItem = new MenuItem("Cargo");
+        MenuItem statusMenuItem = new MenuItem("Status");
+        MenuItem semFiltro = new MenuItem("Sem filtro");
+
+
+        // Submenu para "Cargo"
+        ContextMenu cargoSubMenu = new ContextMenu();
+        MenuItem adminItem = new MenuItem("Administrador");
+        MenuItem supervisorItem = new MenuItem("Supervisor");
+        MenuItem atendenteItem = new MenuItem("Atendente");
+        cargoSubMenu.getItems().addAll(adminItem, supervisorItem, atendenteItem);
+
+        // Submenu para "Status"
+        ContextMenu statusSubMenu = new ContextMenu();
+        MenuItem ativoItem = new MenuItem("Ativo");
+        MenuItem desativadoItem = new MenuItem("Desativado");
+        statusSubMenu.getItems().addAll(ativoItem, desativadoItem);
+
+        // Configurar eventos para abrir os submenus
+        cargoMenuItem.setOnAction(event -> {
+            double xPos = filter.localToScreen(filter.getLayoutX(), filter.getLayoutY()).getX()- 70;
+            double yPos = filter.localToScreen(filter.getLayoutX(), filter.getLayoutY()).getY() - 92;
+            cargoSubMenu.show(filter, xPos, yPos);
+        });
+
+        statusMenuItem.setOnAction(event -> {
+            double xPos = filter.localToScreen(filter.getLayoutX(), filter.getLayoutY()).getX() - 70;
+            double yPos = filter.localToScreen(filter.getLayoutX(), filter.getLayoutY()).getY() - 92;
+            statusSubMenu.show(filter, xPos, yPos);
+        });
+        
+        semFiltro.setOnAction(event -> {
+            System.out.println("TÁ SEM FILTRO CONFIA");
+            
+            //TO DO
+        });
+
+        
+        
+        // Adicionar os itens principais ao menu do "filter"
+        filterMenu.getItems().addAll(cargoMenuItem, statusMenuItem, semFiltro);
+
+        // Configurar o evento de clique no "filter" para abrir o menu
+        filter.setOnMouseClicked(event -> {
+            filterMenu.hide();
+            statusSubMenu.hide();
+            cargoSubMenu.hide();
+            
+            double xPos = filter.localToScreen(filter.getLayoutX(), filter.getLayoutY()).getX() - 125;
+            double yPos = filter.localToScreen(filter.getLayoutX(), filter.getLayoutY()).getY() - 86;
+            filterMenu.show(filter, xPos, yPos);
+        });
     }
 }
+   

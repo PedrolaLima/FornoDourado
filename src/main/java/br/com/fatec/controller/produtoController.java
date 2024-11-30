@@ -61,7 +61,7 @@ public class produtoController implements Initializable {
     private ImageView profile; 
     
     @FXML
-    private ImageView product;
+    private ImageView filter;
 
   
     public void initialize(URL url, ResourceBundle rb) {
@@ -132,5 +132,66 @@ public class produtoController implements Initializable {
         // Define a imagem arredondada no ImageView.
         profile.setImage(image);
         
+
+
+        //FILTRO FUNCIONÁRIOS
+    
+        // Criar o ContextMenu principal para o "filter"
+        ContextMenu filterMenu = new ContextMenu();
+
+        // Criar os itens principais do menu
+        MenuItem categoriaMenuItem = new MenuItem("Categoria");
+        MenuItem statusMenuItem = new MenuItem("Status");
+        MenuItem semFiltro = new MenuItem("Sem filtro");
+
+
+        // Submenu para "Categoria"
+        ContextMenu categoriaSubMenu = new ContextMenu();
+        MenuItem breadItem = new MenuItem("Pães");
+        MenuItem dessertItem = new MenuItem("Doces");
+        MenuItem saltyFoodItem = new MenuItem("Salgados");
+        categoriaSubMenu.getItems().addAll(breadItem, dessertItem, saltyFoodItem);
+
+        // Submenu para "Status"
+        ContextMenu statusSubMenu = new ContextMenu();
+        MenuItem ativoItem = new MenuItem("Ativo");
+        MenuItem desativadoItem = new MenuItem("Desativado");
+        statusSubMenu.getItems().addAll(ativoItem, desativadoItem);
+
+        // Configurar eventos para abrir os submenus
+        categoriaMenuItem.setOnAction(event -> {
+            double xPos = filter.localToScreen(filter.getLayoutX(), filter.getLayoutY()).getX()- 70;
+            double yPos = filter.localToScreen(filter.getLayoutX(), filter.getLayoutY()).getY() - 92;
+            categoriaSubMenu.show(filter, xPos, yPos);
+        });
+
+        statusMenuItem.setOnAction(event -> {
+            double xPos = filter.localToScreen(filter.getLayoutX(), filter.getLayoutY()).getX() - 70;
+            double yPos = filter.localToScreen(filter.getLayoutX(), filter.getLayoutY()).getY() - 92;
+            statusSubMenu.show(filter, xPos, yPos);
+        });
+        
+        semFiltro.setOnAction(event -> {
+            System.out.println("TÁ SEM FILTRO CONFIA");
+            
+            //TO DO
+        });
+
+        
+        
+        // Adicionar os itens principais ao menu do "filter"
+        filterMenu.getItems().addAll(categoriaMenuItem, statusMenuItem, semFiltro);
+
+        // Configurar o evento de clique no "filter" para abrir o menu
+        filter.setOnMouseClicked(event -> {
+            filterMenu.hide();
+            statusSubMenu.hide();
+            categoriaSubMenu.hide();
+            
+            double xPos = filter.localToScreen(filter.getLayoutX(), filter.getLayoutY()).getX() - 125;
+            double yPos = filter.localToScreen(filter.getLayoutX(), filter.getLayoutY()).getY() - 86;
+            filterMenu.show(filter, xPos, yPos);
+        });
     }
 }
+   

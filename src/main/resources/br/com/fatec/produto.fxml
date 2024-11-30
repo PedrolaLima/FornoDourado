@@ -109,7 +109,7 @@
             </ImageView>
          </children>
       </AnchorPane>
-      <ImageView fitHeight="45.0" fitWidth="152.0" layoutX="133.0" layoutY="137.0" pickOnBounds="true" styleClass="botao-amarelo">
+      <ImageView fx:id="filter" fitHeight="45.0" fitWidth="152.0" layoutX="133.0" layoutY="137.0" pickOnBounds="true" styleClass="botao-amarelo">
          <image>
             <Image url="@Imagens/icons/relatorio/filter.png" />
          </image>

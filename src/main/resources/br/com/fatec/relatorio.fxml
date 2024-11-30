@@ -104,7 +104,7 @@
                   <TableColumn prefWidth="361.0" text="FORMA DE PAGAMENTO" />
               </columns>
             </TableView>
-            <ImageView fitHeight="38.0" fitWidth="131.0" layoutX="14.0" layoutY="17.0" pickOnBounds="true" styleClass="botao-amarelo">
+            <ImageView fx:id="filter" fitHeight="38.0" fitWidth="131.0" layoutX="14.0" layoutY="17.0" pickOnBounds="true" styleClass="botao-amarelo">
                <image>
                   <Image url="@Imagens/icons/relatorio/filter.png" />
                </image>
