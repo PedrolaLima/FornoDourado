@@ -29,7 +29,7 @@ public class ProdutoDAO implements DAO {
     }
 
     @Override
-    public Collection search(Collection Field, Collection Value) throws SQLException {
+    public Collection search(String Field, String Value) throws SQLException {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
     

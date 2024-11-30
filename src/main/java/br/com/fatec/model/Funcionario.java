@@ -4,27 +4,38 @@
  */
 package br.com.fatec.model;
 
+import java.util.PrimitiveIterator;
+
 /**
  *
  * @author alberto
  */
 public class Funcionario {
     
-    private int cpf= 0;
+    private String cpf;
     private String name;
     private String occupation;
-    private String username;
+    private String email;
+    private String cep;
+    private String endereco;
+    private String cidade;
+    private String uf;
     private boolean status;
     
-    public Funcionario(int cpf,String name,String occupation,String username,boolean status) {
+    public Funcionario(String cpf, String name, String occupation, String email,
+                       String cep,String endereco,String cidade,String uf,boolean status) {
         this.name = name;
         this.cpf = cpf;
         this.occupation=occupation;
-        this.username=username;
+        this.email = email;
+        this.cep=cep;
+        this.endereco=endereco;
+        this.cidade=cidade;
+        this.uf=uf;
         this.status=status;
     }
 
-    public void setCpf(int cpf) {
+    public void setCpf(String cpf) {
         this.cpf = cpf;
     }
 
@@ -36,12 +47,12 @@ public class Funcionario {
         this.occupation = occupation;
     }
 
-    public String getUsername() {
-        return username;
+    public String getEmail() {
+        return email;
     }
 
-    public void setUsername(String username) {
-        this.username = username;
+    public void setEmail(String email) {
+        this.email = email;
     }
 
     public boolean isStatus() {
@@ -52,9 +63,7 @@ public class Funcionario {
         this.status = status;
     }
 
-    
-
-    public int getCpf() {
+    public String getCpf() {
         return cpf;
     }
 

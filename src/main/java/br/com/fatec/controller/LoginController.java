@@ -4,6 +4,8 @@ import br.com.fatec.App;
 import br.com.fatec.dao.FuncionarioDAO;
 import java.io.IOException;
 import java.sql.SQLException;
+import java.util.Arrays;
+
 import javafx.fxml.FXML;
 import javafx.scene.control.TextField;
 import javafx.beans.value.ChangeListener;
@@ -45,7 +47,7 @@ public class LoginController {
     public void login() throws IOException {
         FuncionarioDAO fd = new FuncionarioDAO();
         try {
-            if (fd.login("nome", "senha")) {
+            if (fd.login(userInput.getText(), passwInput.getText())) {
                 carregarDashboard();
             } else{
                 // Caso ocorra erro no login, adiciona a classe 'errorInput' ao campo
@@ -53,7 +55,8 @@ public class LoginController {
                 passwInput.getStyleClass().add("errorInput");
             }
         } catch (SQLException e) {
-         
+            System.out.println(e);
+            System.out.println(Arrays.toString(e.getStackTrace()));
         }
     }
 
