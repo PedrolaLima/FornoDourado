@@ -131,22 +131,25 @@
             </ImageView>
          </children>
       </AnchorPane>
-      <RadioButton layoutX="807.0" layoutY="245.0" mnemonicParsing="false" prefHeight="38.0" prefWidth="113.0" text="Dinheiro">
+      <RadioButton fx:id="money" layoutX="807.0" layoutY="245.0" mnemonicParsing="false" prefHeight="38.0" prefWidth="113.0" selected="true" text="Dinheiro">
+         <font>
+            <Font size="15.0" />
+         </font>
+         <toggleGroup>
+            <ToggleGroup fx:id="payment" />
+         </toggleGroup>
+      </RadioButton>
+      <RadioButton fx:id="credit" layoutX="807.0" layoutY="283.0" mnemonicParsing="false" prefHeight="38.0" prefWidth="173.0" text="Cartao de Crédito" toggleGroup="$payment">
          <font>
             <Font size="15.0" />
          </font>
       </RadioButton>
-      <RadioButton layoutX="807.0" layoutY="283.0" mnemonicParsing="false" prefHeight="38.0" prefWidth="173.0" text="Cartao de Crédito">
+      <RadioButton fx:id="debit" layoutX="807.0" layoutY="321.0" mnemonicParsing="false" prefHeight="38.0" prefWidth="156.0" text="Cartão de Débito" toggleGroup="$payment">
          <font>
             <Font size="15.0" />
          </font>
       </RadioButton>
-      <RadioButton layoutX="807.0" layoutY="321.0" mnemonicParsing="false" prefHeight="38.0" prefWidth="156.0" text="Cartão de Débito">
-         <font>
-            <Font size="15.0" />
-         </font>
-      </RadioButton>
-      <RadioButton layoutX="807.0" layoutY="359.0" mnemonicParsing="false" prefHeight="38.0" prefWidth="113.0" text="Pix">
+      <RadioButton fx:id="pix" layoutX="807.0" layoutY="359.0" mnemonicParsing="false" prefHeight="38.0" prefWidth="113.0" text="Pix" toggleGroup="$payment">
          <font>
             <Font size="15.0" />
          </font>
