@@ -44,7 +44,7 @@
                                     <Font name="System Bold" size="17.0" />
                                  </font>
                               </Label>
-                              <TextField prefHeight="48.0" prefWidth="620.0" promptText="Coloque seu usuário" style="-fx-background-radius: 10;">
+                              <TextField fx:id="userInput" prefHeight="48.0" prefWidth="620.0" promptText="Coloque seu usuário" style="-fx-background-radius: 10;">
                                  <font>
                                     <Font size="15.0" />
                                  </font>
@@ -61,7 +61,7 @@
                                     <Font name="System Bold" size="17.0" />
                                  </font>
                               </Label>
-                              <TextField prefHeight="50.0" prefWidth="620.0" promptText="Coloque sua senha" style="-fx-background-radius: 10;" styleClass="password-field">
+                              <TextField fx:id="passwInput" prefHeight="50.0" prefWidth="620.0" promptText="Coloque sua senha" style="-fx-background-radius: 10;">
                                  <font>
                                     <Font size="15.0" />
                                  </font>
@@ -73,7 +73,7 @@
                         <Insets top="10.0" />
                      </padding>
                   </VBox>
-                  <Button alignment="CENTER" mnemonicParsing="false" onMouseClicked="#Login" prefHeight="30.0" prefWidth="218.0" styleClass="botao-amarelo" text="Login" translateX="170.0" translateY="50.0">
+                  <Button alignment="CENTER" mnemonicParsing="false" onMouseClicked="#login" prefHeight="30.0" prefWidth="218.0" styleClass="botao-amarelo" text="Login" translateX="170.0" translateY="50.0">
                      <font>
                         <Font name="System Bold" size="21.0" />
                      </font>

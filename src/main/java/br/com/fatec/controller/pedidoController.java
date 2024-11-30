@@ -12,6 +12,7 @@ import javafx.scene.control.MenuItem;
 import javafx.scene.layout.AnchorPane;
 import javafx.fxml.Initializable;
 import javafx.scene.SnapshotParameters;
+import javafx.scene.control.ComboBox;
 import javafx.scene.image.ImageView;
 import javafx.scene.image.WritableImage;
 import javafx.scene.paint.Color;
@@ -49,7 +50,10 @@ public class pedidoController implements Initializable {
     private void carregarFimPedido() throws IOException {
         App.setRoot("finalizarPedido");
     }
-    
+      
+    @FXML
+    private ComboBox<String> productCategory;  // A ComboBox para categorias de produtos
+
     @FXML
     private AnchorPane profilePane;
     
@@ -59,9 +63,39 @@ public class pedidoController implements Initializable {
     @FXML
     private ImageView profile; 
 
-  
+    
+    // Método para buscar as categorias no banco de dados e adicionar na ComboBox
+    private void carregarCategorias() {
+        /**ObservableList<String> categorias = FXCollections.observableArrayList();  // Lista observável para as categorias
+
+        // Conectando ao banco de dados
+        try (Connection conn = FuncionarioDAO.getConnection()) {
+            String sql = "SELECT DISTINCT categoria FROM produtos";  // Query SQL para pegar as categorias únicas
+
+            // Executando a consulta
+            try (PreparedStatement stmt = conn.prepareStatement(sql);
+                 ResultSet rs = stmt.executeQuery()) {
+                
+                // Adicionando as categorias na lista
+                while (rs.next()) {
+                    categorias.add(rs.getString("categoria"));
+                }
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        // Adicionando as categorias na ComboBox
+        productCategory.setItems(categorias);
+    */}
+    
     public void initialize(URL url, ResourceBundle rb) {
-         // Criar o menu
+        
+        carregarCategorias();
+
+        
+        // Criar o menu
         ContextMenu contextMenu = new ContextMenu();
 
         // Criar itens do menu

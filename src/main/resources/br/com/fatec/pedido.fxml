@@ -119,6 +119,6 @@
             </ImageView>
          </children>
       </AnchorPane>
-      <ComboBox layoutX="134.0" layoutY="137.0" prefHeight="43.0" prefWidth="284.0" style="-fx-background-color: white; -fx-border-color: gray; -fx-border-width: 0.6; -fx-border-radius: 10;" />
+      <ComboBox fx:id="productCategory" layoutX="134.0" layoutY="137.0" prefHeight="43.0" prefWidth="284.0" style="-fx-background-color: white; -fx-border-color: gray; -fx-border-width: 0.6; -fx-border-radius: 10;" />
    </children>
 </AnchorPane>
