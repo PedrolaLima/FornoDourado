@@ -140,58 +140,80 @@ public class adicionarFuncionarioController implements Initializable {
         });
 
        // Máscara para o campo de CEP (formatação dinâmica)
-        UnaryOperator<TextFormatter.Change> cepFilter = change -> {
-            String text = change.getControlNewText().replaceAll("[^\\d]", ""); // Remove qualquer não numérico
-            StringBuilder formatted = new StringBuilder();
+            UnaryOperator<TextFormatter.Change> cepFilter = change -> {
+          if (!change.isContentChange()) {
+              return change; // Mantém mudanças de estilo, etc.
+          }
 
-            // Formata como "00000-000"
-            if (text.length() > 5) {
-                formatted.append(text.substring(0, 5)).append("-");
-                formatted.append(text.substring(5, Math.min(text.length(), 8)));
-            } else {
-                formatted.append(text);
-            }
+          String text = change.getControlNewText().replaceAll("[^\\d]", ""); // Remove qualquer não numérico
 
-            // Atualiza o texto
-            change.setText(formatted.toString());
-            change.setRange(0, change.getControlText().length()); // Substitui tudo
-            return change;
-        };
+          // Limita o texto ao máximo de 8 dígitos
+          if (text.length() > 8) {
+              text = text.substring(0, 8);
+          }
 
-        TextFormatter<String> textFormatterCep = new TextFormatter<>(cepFilter);
-        cepField.setTextFormatter(textFormatterCep);
+          // Formata como "00000-000"
+          StringBuilder formatted = new StringBuilder();
+          if (text.length() > 5) {
+              formatted.append(text.substring(0, 5)).append("-");
+              formatted.append(text.substring(5));
+          } else {
+              formatted.append(text);
+          }
 
-            // Máscara para o campo de CPF (formatação dinâmica)
-        UnaryOperator<TextFormatter.Change> cpfFilter = change -> {
-                String text = change.getControlNewText().replaceAll("[^\\d]", ""); // Remove qualquer não numérico
-                StringBuilder formatted = new StringBuilder();
+          int caretPosition = formatted.length(); // Posiciona o cursor no final
+          change.setText(formatted.toString());
+          change.setRange(0, change.getControlText().length()); // Substitui tudo
+          change.selectRange(caretPosition, caretPosition); // Posiciona o cursor
 
-                // Formata como "000.000.000-00"
-                if (text.length() > 3) {
-                    formatted.append(text.substring(0, 3)).append(".");
-                    if (text.length() > 6) {
-                        formatted.append(text.substring(3, 6)).append(".");
-                        if (text.length() > 9) {
-                            formatted.append(text.substring(6, 9)).append("-");
-                            formatted.append(text.substring(9, Math.min(text.length(), 11)));
-                        } else {
-                            formatted.append(text.substring(6));
-                        }
-                    } else {
-                        formatted.append(text.substring(3));
-                    }
-                } else {
-                    formatted.append(text);
-                }
+          return change;
+      };
 
-                    // Atualiza o texto
-                    change.setText(formatted.toString());
-                    change.setRange(0, change.getControlText().length()); // Substitui tudo
-                    return change;
-            };
+      TextFormatter<String> textFormatterCep = new TextFormatter<>(cepFilter);
+      cepField.setTextFormatter(textFormatterCep);
 
-        TextFormatter<String> textFormatterCpf = new TextFormatter<>(cpfFilter);
-        cpfField.setTextFormatter(textFormatterCpf);
+       // Máscara para o campo de CPF (formatação dinâmica)
+                    UnaryOperator<TextFormatter.Change> cpfFilter = change -> {
+          if (!change.isContentChange()) {
+              return change; // Mantém mudanças de estilo, etc.
+          }
+
+          String text = change.getControlNewText().replaceAll("[^\\d]", ""); // Remove qualquer não numérico
+
+          // Limita o texto ao máximo de 11 dígitos
+          if (text.length() > 11) {
+              text = text.substring(0, 11);
+          }
+
+          // Formata como "000.000.000-00"
+          StringBuilder formatted = new StringBuilder();
+          if (text.length() > 3) {
+              formatted.append(text.substring(0, 3)).append(".");
+              if (text.length() > 6) {
+                  formatted.append(text.substring(3, 6)).append(".");
+                  if (text.length() > 9) {
+                      formatted.append(text.substring(6, 9)).append("-");
+                      formatted.append(text.substring(9));
+                  } else {
+                      formatted.append(text.substring(6));
+                  }
+              } else {
+                  formatted.append(text.substring(3));
+              }
+          } else {
+              formatted.append(text);
+          }
+
+          int caretPosition = formatted.length(); // Posiciona o cursor no final
+          change.setText(formatted.toString());
+          change.setRange(0, change.getControlText().length()); // Substitui tudo
+          change.selectRange(caretPosition, caretPosition); // Posiciona o cursor
+
+          return change;
+      };
+
+      TextFormatter<String> textFormatterCpf = new TextFormatter<>(cpfFilter);
+      cpfField.setTextFormatter(textFormatterCpf);
 
         cpfField.focusedProperty().addListener(new ChangeListener<Boolean>() {
             @Override
@@ -313,7 +335,7 @@ public class adicionarFuncionarioController implements Initializable {
             }
         });
 
-        statusCombo.setItems(FXCollections.observableArrayList("Trabalhando","Demitido"));
+        statusCombo.setItems(FXCollections.observableArrayList("Ativo","Desativado"));
 
         occupationCombo.setItems(FXCollections.observableArrayList("Administração","Cozinha","Caixa","Limpeza"));
 

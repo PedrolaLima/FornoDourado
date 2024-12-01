@@ -1,199 +1,270 @@
-
 package br.com.fatec.controller;
 
 import br.com.fatec.App;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+import javafx.fxml.FXML;
+import javafx.fxml.Initializable;
+import javafx.scene.control.*;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+import javafx.scene.layout.AnchorPane;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javafx.fxml.FXML;
-import javafx.fxml.Initializable;
-import javafx.scene.SnapshotParameters;
-import javafx.scene.control.ContextMenu;
-import javafx.scene.control.MenuItem;
-import javafx.scene.image.ImageView;
-import javafx.scene.image.WritableImage;
-import javafx.scene.layout.AnchorPane;
-import javafx.scene.paint.Color;
-import javafx.scene.shape.Rectangle;
+import javafx.scene.control.cell.PropertyValueFactory;
 
-/**
- *
- * @author Pedro
- */
 public class funcionarioController implements Initializable {
-     // Método para carregar a tela de "Adicionar Produto"
+
+    @FXML
+    private TableView<Funcionario> workersTable;
+
+    @FXML
+    private TableColumn<Funcionario, String> colNome;
+
+    @FXML
+    private TableColumn<Funcionario, String> colCpf;
+
+    @FXML
+    private TableColumn<Funcionario, String> colEmail;
+
+    @FXML
+    private TableColumn<Funcionario, String> colCargo;
+
+    @FXML
+    private TableColumn<Funcionario, String> colStatus;
+
+    @FXML
+    private AnchorPane profilePane;
+
+    @FXML
+    private AnchorPane profileBack;
+
+    @FXML
+    private ImageView profile;
+
+    @FXML
+    private ImageView filter;
+
+    // Método para carregar a tela de "Adicionar Produto"
     @FXML
     private void carregarDashboard() throws IOException {
         App.setRoot("dashboard");
     }
 
-    // Método para carregar a tela de "Pedidos"
     @FXML
     private void carregarPedidos() throws IOException {
         App.setRoot("pedido");
     }
-    
+
     @FXML
     private void carregarRelatorios() throws IOException {
         App.setRoot("relatorio");
     }
-    
+
     @FXML
     private void carregarProdutos() throws IOException {
         App.setRoot("produto");
     }
-    
+
     @FXML
     private void adicionarFuncionario() throws IOException {
         App.setRoot("adicionarFuncionario");
     }
-    
+
     @FXML
     private void cancelarFuncionario() throws IOException {
         App.setRoot("funcionarios");
     }
-    
-    
-    @FXML
-    private AnchorPane profilePane; 
-    
-    @FXML
-    private AnchorPane profileBack; 
-    
-    @FXML
-    private ImageView profile;
-    
-    @FXML
-    private ImageView filter;
-  
+
+    @Override
     public void initialize(URL url, ResourceBundle rb) {
-        // Criar o menu
+        // Inicializa o TableView
+        configurarTabela();
+
+        // Lógica do ContextMenu para o perfil
+        configurarProfileMenu();
+
+        // Lógica do filtro de funcionários
+        configurarFilterMenu();
+    }
+
+
+    private void editarFuncionario(Funcionario funcionario) {
+        System.out.println("Editando: " + funcionario.getNome());
+        // Implementar lógica de edição
+    }
+
+    private void deletarFuncionario(Funcionario funcionario) {
+        System.out.println("Deletando: " + funcionario.getNome());
+        // Implementar lógica de exclusão
+    }
+
+
+    private void configurarTabela() {
+        // Configuração das colunas
+        colNome.setCellValueFactory(new PropertyValueFactory<>("nome"));
+        colCpf.setCellValueFactory(new PropertyValueFactory<>("cpf"));
+        colEmail.setCellValueFactory(new PropertyValueFactory<>("usuario"));
+        colCargo.setCellValueFactory(new PropertyValueFactory<>("cargo"));
+        colStatus.setCellValueFactory(new PropertyValueFactory<>("status"));
+
+        // Adicionando dados ao TableView
+        ObservableList<Funcionario> funcionarios = FXCollections.observableArrayList(
+                new Funcionario("Pedro", "123.456.789-00", "pedro_henrique", "Gerente", "Ativo"),
+                new Funcionario("Ana", "987.654.321-00", "ana_clara", "Atendente", "Inativo")
+        );
+
+        workersTable.setItems(funcionarios);
+        
+        
+        
+        // Configurar a coluna de Ações com largura fixa e ícones
+        TableColumn<Funcionario, Void> actionColumn = new TableColumn<>("Ações");
+        actionColumn.setPrefWidth(80); // Definir a largura da coluna
+
+        // A célula da coluna de ações agora terá os botões com ícones
+        actionColumn.setCellFactory(param -> new TableCell<>() {
+            private final Button editButton = new Button();
+            private final Button deleteButton = new Button();
+
+            {
+                // Configurando os ícones para os botões de editar e excluir
+                ImageView editIcon = new ImageView("/br/com/fatec/Imagens/icons/pedidos/edit.png");
+                editIcon.setFitWidth(16);
+                editIcon.setFitHeight(16);
+                editButton.setGraphic(editIcon);
+
+                ImageView deleteIcon = new ImageView("/br/com/fatec/Imagens/icons/pedidos/trash.png");
+                deleteIcon.setFitWidth(16);
+                deleteIcon.setFitHeight(16);
+                deleteButton.setGraphic(deleteIcon);
+
+                // Ação de editar
+                editButton.setOnAction(event -> {
+                    Funcionario funcionario = getTableView().getItems().get(getIndex());
+                    editarFuncionario(funcionario);
+                });
+
+                // Ação de deletar
+                deleteButton.setOnAction(event -> {
+                    Funcionario funcionario = getTableView().getItems().get(getIndex());
+                    deletarFuncionario(funcionario);
+                });
+
+                // Estilizando os botões
+                editButton.getStyleClass().add("edit-button");
+                deleteButton.getStyleClass().add("delete-button");
+            }
+
+            @Override
+            protected void updateItem(Void item, boolean empty) {
+                super.updateItem(item, empty);
+
+                if (empty) {
+                    setGraphic(null);
+                } else {
+                    // Alinhando os botões no painel
+                    AnchorPane container = new AnchorPane(editButton, deleteButton);
+                    AnchorPane.setLeftAnchor(editButton, 5.0);
+                    AnchorPane.setLeftAnchor(deleteButton, 35.0);
+                    setGraphic(container);
+                }
+            }
+        });
+
+        workersTable.getColumns().add(actionColumn); // Adiciona apenas uma vez a coluna de Ações
+    }
+        
+        
+        
+    
+
+    private void configurarProfileMenu() {
+        // Criação do menu de contexto
         ContextMenu contextMenu = new ContextMenu();
 
-        // Criar itens do menu
         MenuItem menuItem1 = new MenuItem("Meu Perfil");
         MenuItem menuItem2 = new MenuItem("Sair");
 
-        // Ações dos itens do menu
-        menuItem1.setOnAction(event ->  {
+        menuItem1.setOnAction(event -> {
             try {
                 App.setRoot("visualizarFuncionario");
             } catch (IOException ex) {
-                Logger.getLogger(dashboardController.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(funcionarioController.class.getName()).log(Level.SEVERE, null, ex);
             }
         });
+
         menuItem2.setOnAction(event -> {
             try {
                 App.setRoot("menu");
             } catch (IOException ex) {
-                Logger.getLogger(dashboardController.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(funcionarioController.class.getName()).log(Level.SEVERE, null, ex);
             }
         });
 
-        // Adicionar itens ao menu
         contextMenu.getItems().addAll(menuItem1, menuItem2);
 
         profilePane.setOnMouseClicked(event -> {
-            // Chama o código dentro do thread JavaFX
             javafx.application.Platform.runLater(() -> {
-                // Obtém a posição do profilePane na tela
                 double xPos = profilePane.localToScreen(profilePane.getLayoutX(), profilePane.getLayoutY()).getX() - 880;
-                double yPos = profilePane.localToScreen(profilePane.getLayoutX(), profilePane.getLayoutY()).getY() - 3; // 70 pixels abaixo
-
-                // Exibe o menu na nova posição, em coordenadas absolutas
+                double yPos = profilePane.localToScreen(profilePane.getLayoutX(), profilePane.getLayoutY()).getY() - 3;
                 contextMenu.show(profilePane, xPos, yPos);
             });
         });
-        
-         profilePane.setOnMouseEntered(event -> {
-            profileBack.getStyleClass().add("image-view-hover");
-        });
+    }
 
-        // Remove a classe CSS de hover ao sair do profilePane
-        profilePane.setOnMouseExited(event -> {
-            profileBack.getStyleClass().remove("image-view-hover");
-        });
-    
-        
-        // Adiciona bordas arredondadas ao ImageView.
-        Rectangle clip = new Rectangle(
-         profile.getFitWidth(), profile.getFitHeight()
-        );
-        clip.setArcWidth(25); // Ajuste o raio para bordas mais ou menos arredondadas.
-        clip.setArcHeight(25);
-        profile.setClip(clip);
-
-        // Cria uma imagem arredondada.
-        SnapshotParameters parameters = new SnapshotParameters();
-        parameters.setFill(Color.TRANSPARENT); // Fundo transparente.
-        WritableImage image = profile.snapshot(parameters, null);
-
-        // Remove o clipe para exibir os efeitos.
-        profile.setClip(null);
-
-        // Define a imagem arredondada no ImageView.
-        profile.setImage(image); 
-    
-        //FILTRO FUNCIONÁRIOS
-    
-        // Criar o ContextMenu principal para o "filter"
+    private void configurarFilterMenu() {
         ContextMenu filterMenu = new ContextMenu();
 
-        // Criar os itens principais do menu
         MenuItem cargoMenuItem = new MenuItem("Cargo");
         MenuItem statusMenuItem = new MenuItem("Status");
         MenuItem semFiltro = new MenuItem("Sem filtro");
 
-
-        // Submenu para "Cargo"
-        ContextMenu cargoSubMenu = new ContextMenu();
-        MenuItem adminItem = new MenuItem("Administrador");
-        MenuItem supervisorItem = new MenuItem("Supervisor");
-        MenuItem atendenteItem = new MenuItem("Atendente");
-        cargoSubMenu.getItems().addAll(adminItem, supervisorItem, atendenteItem);
-
-        // Submenu para "Status"
-        ContextMenu statusSubMenu = new ContextMenu();
-        MenuItem ativoItem = new MenuItem("Ativo");
-        MenuItem desativadoItem = new MenuItem("Desativado");
-        statusSubMenu.getItems().addAll(ativoItem, desativadoItem);
-
-        // Configurar eventos para abrir os submenus
-        cargoMenuItem.setOnAction(event -> {
-            double xPos = filter.localToScreen(filter.getLayoutX(), filter.getLayoutY()).getX()- 70;
-            double yPos = filter.localToScreen(filter.getLayoutX(), filter.getLayoutY()).getY() - 92;
-            cargoSubMenu.show(filter, xPos, yPos);
-        });
-
-        statusMenuItem.setOnAction(event -> {
-            double xPos = filter.localToScreen(filter.getLayoutX(), filter.getLayoutY()).getX() - 70;
-            double yPos = filter.localToScreen(filter.getLayoutX(), filter.getLayoutY()).getY() - 92;
-            statusSubMenu.show(filter, xPos, yPos);
-        });
-        
-        semFiltro.setOnAction(event -> {
-            System.out.println("TÁ SEM FILTRO CONFIA");
-            
-            //TO DO
-        });
-
-        
-        
-        // Adicionar os itens principais ao menu do "filter"
         filterMenu.getItems().addAll(cargoMenuItem, statusMenuItem, semFiltro);
 
-        // Configurar o evento de clique no "filter" para abrir o menu
         filter.setOnMouseClicked(event -> {
-            filterMenu.hide();
-            statusSubMenu.hide();
-            cargoSubMenu.hide();
-            
             double xPos = filter.localToScreen(filter.getLayoutX(), filter.getLayoutY()).getX() - 125;
             double yPos = filter.localToScreen(filter.getLayoutX(), filter.getLayoutY()).getY() - 86;
             filterMenu.show(filter, xPos, yPos);
         });
     }
+
+    public static class Funcionario {
+        private String nome;
+        private String cpf;
+        private String usuario;
+        private String cargo;
+        private String status;
+
+        public Funcionario(String nome, String cpf, String usuario, String cargo, String status) {
+            this.nome = nome;
+            this.cpf = cpf;
+            this.usuario = usuario;
+            this.cargo = cargo;
+            this.status = status;
+        }
+
+        public String getNome() {
+            return nome;
+        }
+
+        public String getCpf() {
+            return cpf;
+        }
+
+        public String getUsuario() {
+            return usuario;
+        }
+
+        public String getCargo() {
+            return cargo;
+        }
+
+        public String getStatus() {
+            return status;
+        }
+    }
 }
-   
