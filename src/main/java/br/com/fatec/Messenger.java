@@ -10,6 +10,13 @@ public class Messenger {
         a.setHeaderText("");
         a.setContentText(s);
         a.showAndWait();
+    }
+
+    public static void info(String title, String msg){
+        Alert a = new Alert(Alert.AlertType.INFORMATION);
+        a.setTitle(title);
+        a.setHeaderText("");
+        a.setContentText(msg);
         a.showAndWait();
     }
 
@@ -28,6 +35,14 @@ public class Messenger {
         a.setTitle(title);
         a.setHeaderText("");
         a.setContentText(s);
+        a.showAndWait();
+    }
+
+    public static void error(String title, String msg){
+        Alert a = new Alert(Alert.AlertType.ERROR);
+        a.setTitle(title);
+        a.setHeaderText("");
+        a.setContentText(msg);
         a.showAndWait();
     }
 }

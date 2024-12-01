@@ -7,6 +7,7 @@ import java.net.URL;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
 import java.util.function.UnaryOperator;
@@ -14,6 +15,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import br.com.fatec.Messenger;
+import br.com.fatec.dao.FuncionarioDAO;
 import br.com.fatec.data.Database;
 import br.com.fatec.model.Funcionario;
 import javafx.beans.value.ChangeListener;
@@ -65,6 +67,8 @@ public class adicionarFuncionarioController implements Initializable {
     public ComboBox<String> cityCombo;
     @FXML
     public ComboBox<String> statusCombo;
+
+    public String img;
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -123,7 +127,8 @@ public class adicionarFuncionarioController implements Initializable {
             fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("Imagens", "*.jpg", "*.jpeg", "*.png"));
             File selectedFile = fileChooser.showOpenDialog(null);
             if (selectedFile != null) {
-                Image newImage = new Image(selectedFile.toURI().toString());
+                img = selectedFile.toURI().toString();
+                Image newImage = new Image(img);
                 employee.setImage(newImage);
 
                 SnapshotParameters newParams = new SnapshotParameters();
@@ -243,21 +248,23 @@ public class adicionarFuncionarioController implements Initializable {
                             PreparedStatement ps = Database.getConnection().prepareStatement(sql);
                             ResultSet rs = ps.executeQuery();
                             String e ="";
-                            ObservableList<String> c = FXCollections.observableArrayList();
+                            String c = "";
                             String u = "";
+                            if(rs.next()) {
+                                e = rs.getString(1) + " " + rs.getString(2);
+                                c = rs.getString(3);
+                                u = rs.getString(4);
+                                addressField.setText(e);
+                                stateCombo.setValue(u);
 
-                            rs.next();
-                            e=rs.getString(1)+" "+rs.getString(2);
-                            c.add(rs.getString(3));
-                            u=rs.getString(4);
-
+                                populateCity();
+                                cityCombo.setValue(c);
+                                cityCombo.setDisable(false);
+                            }else {
+                                Messenger.warn("CEP não encontrado",new String[]{cepField.getText()});
+                            }
                             Database.close();
-                            addressField.setText(e);
-                            stateCombo.setValue(u);
-                            populateCity();
 
-                           // cityCombo.setValue(c);
-                            cityCombo.setDisable(false);
                         }catch (SQLException e){
                             //Messenger.error("Erro de banco",new String[]{String.valueOf(e.getErrorCode())});
                             Messenger.error("SQLe",new String[]{e.toString()});
@@ -339,7 +346,8 @@ public class adicionarFuncionarioController implements Initializable {
 
         occupationCombo.setItems(FXCollections.observableArrayList("Administração","Cozinha","Caixa","Limpeza"));
 
-        ObservableList<String> uf =  FXCollections.observableArrayList("AC","AL","AM","AP","BA");
+        ObservableList<String> uf =  FXCollections.observableArrayList("AC","AL","AM","AP","BA","CE","DF",
+                "ES","GO","MA","MG","MS","MT","PA","PB","PE","PI","PR","RJ","RN","RO","RR","RS","SC","SE","SP","TO");
 
         stateCombo.setItems(uf);
         stateCombo.focusedProperty().addListener(new ChangeListener<Boolean>() {
@@ -412,7 +420,7 @@ public class adicionarFuncionarioController implements Initializable {
     private void populateCity(){
         try{
             Database.connect();
-            PreparedStatement ps = Database.getConnection().prepareStatement("SELECT DISTINCT DESCRICAO_CIDADE FROM logradouro WHERE UF = '"+stateCombo.getValue()+"';");
+            PreparedStatement ps = Database.getConnection().prepareStatement("SELECT DISTINCT DESCRICAO_CIDADE FROM logradouro WHERE UF = '"+stateCombo.getValue()+"' ORDER BY DESCRICAO_CIDADE ASC;");
             ResultSet rs = ps.executeQuery();
             ArrayList<String> u = new ArrayList<String>();
             while (rs.next()){
@@ -431,10 +439,20 @@ public class adicionarFuncionarioController implements Initializable {
 
     @FXML
     private void addFuncionario(){
-        if(verify()) {
-            /*Funcionario f = new Funcionario(cpfField.getText(),nameField.getText(),occupationCombo.getSelectionModel(),
-            *emailField.getText(),cepField.getText(),addressField.getText(),cityCombo.getSelectionModel(),stateCombo.getSelectionModel(),
-                    statusCombo.getSelectionModel().equals("Trabalhando")?true:false);*/
+        if(verify()) {  //cpf name birth occu email cep endereco cidade uf status img
+            Funcionario f = new Funcionario(cpfField.getText(),nameField.getText(),
+                    birthDate.getValue(),occupationCombo.getValue()
+                    ,emailField.getText(),cepField.getText(),addressField.getText(),cityCombo.getValue(),
+                    stateCombo.getValue(),
+                    statusCombo.getValue().equals("Ativo"));
+            try {
+                FuncionarioDAO fu =new FuncionarioDAO();
+                fu.insert(f);
+                Messenger.info("Concluido","Funcionario inserido no banco");
+            }catch (SQLException e){
+                Messenger.error("Erro de banco",e.getMessage());
+            }
+
         }
     }
 

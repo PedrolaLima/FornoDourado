@@ -4,7 +4,10 @@
  */
 package br.com.fatec.model;
 
-import java.util.PrimitiveIterator;
+import javafx.scene.image.Image;
+
+import java.time.LocalDate;
+import java.util.Date;
 
 /**
  *
@@ -14,17 +17,47 @@ public class Funcionario {
     
     private String cpf;
     private String name;
+    private LocalDate birth;
     private String occupation;
     private String email;
     private String cep;
     private String endereco;
-    private String cidade;
-    private String uf;
+    private String cidade ="";
+    private String uf="";
+    private String img = "";
     private boolean status;
     
-    public Funcionario(String cpf, String name, String occupation, String email,
+    public Funcionario(String cpf, String name,LocalDate birth, String occupation, String email,
+                       String cep,String endereco,String cidade,String uf,boolean status,String img) {
+        this.name = name;
+        this.birth=birth;
+        this.cpf = cpf;
+        this.occupation=occupation;
+        this.email = email;
+        this.cep=cep;
+        this.endereco=endereco;
+        this.cidade=cidade;
+        this.uf=uf;
+        this.status=status;
+        this.img=img;
+    }
+
+    public Funcionario(String cpf, String name,LocalDate birth, String occupation, String email,
+                       String cep,String endereco,boolean status) {
+        this.name = name;
+        this.birth=birth;
+        this.cpf = cpf;
+        this.occupation=occupation;
+        this.email = email;
+        this.cep=cep;
+        this.endereco=endereco;
+        this.status=status;
+    }
+
+    public Funcionario(String cpf, String name,LocalDate birth, String occupation, String email,
                        String cep,String endereco,String cidade,String uf,boolean status) {
         this.name = name;
+        this.birth=birth;
         this.cpf = cpf;
         this.occupation=occupation;
         this.email = email;
@@ -73,5 +106,29 @@ public class Funcionario {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public LocalDate getBirth() {
+        return birth;
+    }
+
+    public String getCep() {
+        return cep;
+    }
+
+    public String getEndereco() {
+        return endereco;
+    }
+
+    public String getCidade() {
+        return cidade;
+    }
+
+    public String getUf() {
+        return uf;
+    }
+
+    public String getImg() {
+        return img;
     }
 }
