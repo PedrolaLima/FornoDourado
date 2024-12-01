@@ -7,12 +7,15 @@ import java.net.URL;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.ResourceBundle;
 import java.util.function.UnaryOperator;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+import br.com.fatec.Messenger;
 import br.com.fatec.data.Database;
+import br.com.fatec.model.Funcionario;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
@@ -303,6 +306,8 @@ public class adicionarFuncionarioController implements Initializable {
             }
         });
 
+        statusCombo.setItems(FXCollections.observableArrayList("Trabalhando","DemitiSdo"));
+
         ObservableList<String> uf =  FXCollections.observableArrayList("AC","AL","AM","AP","BA");
 
         stateCombo.setItems(uf);
@@ -310,17 +315,82 @@ public class adicionarFuncionarioController implements Initializable {
             @Override
             public void changed(ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean newValue) {
                 if (!newValue){
-                    if(stateCombo.getSelectionModel().isEmpty()){
+                    if((stateCombo.getValue() == null)){
                         stateCombo.getStyleClass().add("errorInput");
                     }
                 }else{
-                    if(!stateCombo.getSelectionModel().isEmpty()){
+                    if(!(stateCombo.getValue() == null)){
                         stateCombo.getStyleClass().remove("errorInput");
+                        try{
+                            Database.connect();
+                            PreparedStatement ps = Database.getConnection().prepareStatement("SELECT DESCRICAO_CIDADE FROM logradouro WHERE UF = "+stateCombo.getValue()+";");
+                            ResultSet rs = ps.executeQuery();
+                            ArrayList<String> u = new ArrayList<String>();
+                            while (rs.next()){
+                                u.add(rs.getString(1));
+                            }
+                            Database.close();
+                            ObservableList<String> o = FXCollections.observableArrayList();
+                            cityCombo.setItems(o);
+                            cityCombo.setDisable(false);
+
+                        }catch (SQLException e){
+                            //Messenger.error("Erro de banco",new String[]{String.valueOf(e.getErrorCode())});
+                            Messenger.error("SQLe",new String[]{e.toString()});
+                        }
                     }
                 }
             }
         });
 
+    }
+
+    private boolean verify(){
+        ArrayList<String> msg = new ArrayList<>();
+        ArrayList<String> context = new ArrayList<>();
+        if (cepField.getText().isEmpty()) {
+            msg.add("CEP");
+        }
+        if(cpfField.getText().isEmpty()) {
+            msg.add("CPF");
+        } else if (cpfField.getText().length() != 14) {
+            context.add("CPF inválido");
+        }
+        if (nameField.getText().isEmpty()) {
+            msg.add("Nome");
+        }
+        if (emailField.getText().isEmpty()) {
+            msg.add("Email");
+
+        } else if (!emailField.getText().matches("^(?=[A-Za-z0-9][A-Za-z0-9@._%+-]{5,253}+$)[A-Za-z0-9._%+-]{1,64}+@" +
+                "(?:(?=[A-Za-z0-9-]{1,63}+\\.)[A-Za-z0-9]++(?:-[A-Za-z0-9]++)*+\\.){1,8}+[A-Za-z]{2,63}+$")) {
+            context.add("Email inválido");
+        }
+        if (passwordField.getText().isEmpty()){
+            msg.add("Senha");
+            
+        }
+        if (addressField.getText().isEmpty()){
+            msg.add("Endereço");
+        }
+        if(statusCombo.getValue().isEmpty()){
+            msg.add("Status");
+        }
+        if(!msg.isEmpty()){
+            
+            Messenger.error("Campos obrigatorios não preenchidos",new String[]{String.join(",",msg),String.join("\n",context)});
+            return false;
+        }
+        return true;
+    }
+
+    @FXML
+    private void addFuncionario(){
+        if(verify()) {
+            /*Funcionario f = new Funcionario(cpfField.getText(),nameField.getText(),occupationCombo.getSelectionModel(),
+            *emailField.getText(),cepField.getText(),addressField.getText(),cityCombo.getSelectionModel(),stateCombo.getSelectionModel(),
+                    statusCombo.getSelectionModel().equals("Trabalhando")?true:false);*/
+        }
     }
 
     // Métodos para navegação entre telas

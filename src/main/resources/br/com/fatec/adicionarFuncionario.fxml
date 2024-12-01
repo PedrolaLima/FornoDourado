@@ -108,7 +108,7 @@
                   <ColorAdjust brightness="0.28" />
                </effect>
             </ComboBox>
-            <ImageView fitHeight="69.0" fitWidth="150.0" layoutX="747.0" layoutY="519.0" pickOnBounds="true" preserveRatio="true" styleClass="botao-adicionar">
+            <ImageView fitHeight="69.0" fitWidth="150.0" layoutX="747.0" layoutY="519.0" onMouseClicked="#addFuncionario" pickOnBounds="true" preserveRatio="true" styleClass="botao-adicionar">
                <image>
                   <Image url="@Imagens/icons/produto/confirmar.png" />
                </image>
