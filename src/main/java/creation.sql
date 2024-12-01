@@ -1,18 +1,9 @@
-/* 
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Other/SQLTemplate.sql to edit this template
- */
-/**
- * Author:  alberto
- * Created: Nov 22, 2024
- */
-
 -- phpMyAdmin SQL Dump
 -- version 5.2.1
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: Nov 27, 2024 at 10:16 PM
+-- Generation Time: Dec 01, 2024 at 12:38 AM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -20,11 +11,15 @@ SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
 SET time_zone = "+00:00";
 
+
+/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
+/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
+/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
+/*!40101 SET NAMES utf8mb4 */;
+
 --
 -- Database: `FornoDourado`
 --
-CREATE DATABASE IF NOT EXISTS `FornoDourado` DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci;
-USE `FornoDourado`;
 
 -- --------------------------------------------------------
 
@@ -32,14 +27,24 @@ USE `FornoDourado`;
 -- Table structure for table `funcionarios`
 --
 
-CREATE TABLE IF NOT EXISTS `funcionarios` (
-  `CPF` int(11) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `funcionarios` (
+  `CPF` varchar(14) NOT NULL,
   `NOME` varchar(120) NOT NULL,
-  `CARGO` varchar(10) NOT NULL,
-  `USUARIO` varchar(25) NOT NULL,
-  `STATUS` tinyint(1) NOT NULL,
-  PRIMARY KEY (`CPF`)
+  `CARGO` varchar(14) NOT NULL,
+  `EMAIL` varchar(25) NOT NULL,
+  `CEP` varchar(9) NOT NULL,
+  `ENDERECO` varchar(128) NOT NULL,
+  `CIDADE` varchar(64) NOT NULL,
+  `UF` varchar(2) NOT NULL,
+  `STATUS` tinyint(1) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `funcionarios`
+--
+
+INSERT INTO `funcionarios` (`CPF`, `NOME`, `CARGO`, `EMAIL`, `CEP`, `ENDERECO`, `CIDADE`, `UF`, `STATUS`) VALUES
+('123.456.789-01', 'admin', 'Administração', 'admin@email.net', '00000-000', 'Alameda do codigo,1001', 'Bugopolis', 'SP', 1);
 
 -- --------------------------------------------------------
 
@@ -47,11 +52,10 @@ CREATE TABLE IF NOT EXISTS `funcionarios` (
 -- Table structure for table `pedidos`
 --
 
-CREATE TABLE IF NOT EXISTS `pedidos` (
-  `CODPED` int(11) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `pedidos` (
+  `CODPED` int(11) NOT NULL,
   `DATAPED` date NOT NULL,
-  `PGTO` enum('DEBITO','CREDITO','PIX','BOLETO') NOT NULL,
-  PRIMARY KEY (`CODPED`)
+  `PGTO` enum('DINHEIRO','DEBITO','CREDITO','PIX') NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
@@ -60,11 +64,10 @@ CREATE TABLE IF NOT EXISTS `pedidos` (
 -- Table structure for table `pedidositem`
 --
 
-CREATE TABLE IF NOT EXISTS `pedidositem` (
+CREATE TABLE `pedidositem` (
   `CODPED` int(11) NOT NULL,
   `CODPROD` int(11) NOT NULL,
-  `QTD` int(11) NOT NULL,
-  KEY `CODPED` (`CODPED`)
+  `QTD` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
@@ -73,12 +76,12 @@ CREATE TABLE IF NOT EXISTS `pedidositem` (
 -- Table structure for table `produtos`
 --
 
-CREATE TABLE IF NOT EXISTS `produtos` (
-  `CODPROD` int(11) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `produtos` (
+  `CODPROD` int(11) NOT NULL,
   `NOME` varchar(50) NOT NULL,
   `VALUNI` double NOT NULL DEFAULT 0,
-  `IMG` blob DEFAULT NULL,
-  PRIMARY KEY (`CODPROD`)
+  `CTG` varchar(30) NOT NULL,
+  `IMG` blob DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
@@ -87,12 +90,68 @@ CREATE TABLE IF NOT EXISTS `produtos` (
 -- Table structure for table `shadow`
 --
 
-CREATE TABLE IF NOT EXISTS `shadow` (
-  `CODFUN` int(11) NOT NULL AUTO_INCREMENT,
-  `HASH` varchar(128) NOT NULL,
-  `SALT` varchar(128) NOT NULL,
-  PRIMARY KEY (`CODFUN`)
+CREATE TABLE `shadow` (
+  `CPF` varchar(14) NOT NULL,
+  `HASH` varchar(32) NOT NULL,
+  `SALT` varchar(32) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `shadow`
+--
+
+INSERT INTO `shadow` (`CPF`, `HASH`, `SALT`) VALUES
+('123.456.789-01', '7865c739c16d5086ba8807d52f680c41', 'd05532b807d6580a54ba3fd3b23f635e');
+
+--
+-- Indexes for dumped tables
+--
+
+--
+-- Indexes for table `funcionarios`
+--
+ALTER TABLE `funcionarios`
+  ADD PRIMARY KEY (`CPF`);
+
+--
+-- Indexes for table `pedidos`
+--
+ALTER TABLE `pedidos`
+  ADD PRIMARY KEY (`CODPED`);
+
+--
+-- Indexes for table `pedidositem`
+--
+ALTER TABLE `pedidositem`
+  ADD KEY `CODPED` (`CODPED`);
+
+--
+-- Indexes for table `produtos`
+--
+ALTER TABLE `produtos`
+  ADD PRIMARY KEY (`CODPROD`);
+
+--
+-- Indexes for table `shadow`
+--
+ALTER TABLE `shadow`
+  ADD PRIMARY KEY (`CPF`);
+
+--
+-- AUTO_INCREMENT for dumped tables
+--
+
+--
+-- AUTO_INCREMENT for table `pedidos`
+--
+ALTER TABLE `pedidos`
+  MODIFY `CODPED` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `produtos`
+--
+ALTER TABLE `produtos`
+  MODIFY `CODPROD` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- Constraints for dumped tables
@@ -104,3 +163,7 @@ CREATE TABLE IF NOT EXISTS `shadow` (
 ALTER TABLE `pedidositem`
   ADD CONSTRAINT `pedidositem_ibfk_1` FOREIGN KEY (`CODPED`) REFERENCES `pedidos` (`CODPED`);
 COMMIT;
+
+/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
+/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
+/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
