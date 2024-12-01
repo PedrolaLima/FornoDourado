@@ -36,6 +36,8 @@ import javafx.util.converter.IntegerStringConverter;
 public class adicionarFuncionarioController implements Initializable {
 
     @FXML
+    public DatePicker birthDate;
+    @FXML
     private AnchorPane profilePane;
     @FXML
     private AnchorPane profileBack;
@@ -209,7 +211,7 @@ public class adicionarFuncionarioController implements Initializable {
         cepField.focusedProperty().addListener(new ChangeListener<Boolean>() {
             @Override
             public void changed(ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean newValue) {
-                if (!newValue){
+                if (!newValue){//Lost focus
                     if(cepField.getText().isEmpty()){
                         cepField.getStyleClass().add("errorInput");
                     }else if(cepField.getText().length()==9){
@@ -219,9 +221,10 @@ public class adicionarFuncionarioController implements Initializable {
                             PreparedStatement ps = Database.getConnection().prepareStatement(sql);
                             ResultSet rs = ps.executeQuery();
                             String e ="";
-                            ObservableList c = FXCollections.observableArrayList();
+                            ObservableList<String> c = FXCollections.observableArrayList();
                             String u = "";
 
+                            rs.next();
                             e=rs.getString(1)+" "+rs.getString(2);
                             c.add(rs.getString(3));
                             u=rs.getString(4);
@@ -229,9 +232,13 @@ public class adicionarFuncionarioController implements Initializable {
                             Database.close();
                             addressField.setText(e);
                             stateCombo.setValue(u);
-                            cityCombo.setItems(c);
+                            populateCity();
+
+                           // cityCombo.setValue(c);
+                            cityCombo.setDisable(false);
                         }catch (SQLException e){
-                            System.out.println(e);
+                            //Messenger.error("Erro de banco",new String[]{String.valueOf(e.getErrorCode())});
+                            Messenger.error("SQLe",new String[]{e.toString()});
                         }
                     }
                 }else{
@@ -306,7 +313,9 @@ public class adicionarFuncionarioController implements Initializable {
             }
         });
 
-        statusCombo.setItems(FXCollections.observableArrayList("Trabalhando","DemitiSdo"));
+        statusCombo.setItems(FXCollections.observableArrayList("Trabalhando","Demitido"));
+
+        occupationCombo.setItems(FXCollections.observableArrayList("Administração","Cozinha","Caixa","Limpeza"));
 
         ObservableList<String> uf =  FXCollections.observableArrayList("AC","AL","AM","AP","BA");
 
@@ -314,30 +323,12 @@ public class adicionarFuncionarioController implements Initializable {
         stateCombo.focusedProperty().addListener(new ChangeListener<Boolean>() {
             @Override
             public void changed(ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean newValue) {
-                if (!newValue){
+                if (!newValue){//Lost focus
                     if((stateCombo.getValue() == null)){
                         stateCombo.getStyleClass().add("errorInput");
-                    }
-                }else{
-                    if(!(stateCombo.getValue() == null)){
+                    }else {
                         stateCombo.getStyleClass().remove("errorInput");
-                        try{
-                            Database.connect();
-                            PreparedStatement ps = Database.getConnection().prepareStatement("SELECT DESCRICAO_CIDADE FROM logradouro WHERE UF = "+stateCombo.getValue()+";");
-                            ResultSet rs = ps.executeQuery();
-                            ArrayList<String> u = new ArrayList<String>();
-                            while (rs.next()){
-                                u.add(rs.getString(1));
-                            }
-                            Database.close();
-                            ObservableList<String> o = FXCollections.observableArrayList();
-                            cityCombo.setItems(o);
-                            cityCombo.setDisable(false);
-
-                        }catch (SQLException e){
-                            //Messenger.error("Erro de banco",new String[]{String.valueOf(e.getErrorCode())});
-                            Messenger.error("SQLe",new String[]{e.toString()});
-                        }
+                        populateCity();
                     }
                 }
             }
@@ -373,8 +364,20 @@ public class adicionarFuncionarioController implements Initializable {
         if (addressField.getText().isEmpty()){
             msg.add("Endereço");
         }
-        if(statusCombo.getValue().isEmpty()){
+        if (statusCombo.getValue() == null){
             msg.add("Status");
+        }
+        if (stateCombo.getValue() == null){
+            msg.add("Estado");
+        }
+        if (cityCombo.getValue()  == null){
+            msg.add("Cidade");
+        }
+        if (occupationCombo.getValue()  == null){
+            msg.add("Cargo");
+        }
+        if (birthDate.getValue()  == null){
+            msg.add("Data de nascimento");
         }
         if(!msg.isEmpty()){
             
@@ -382,6 +385,26 @@ public class adicionarFuncionarioController implements Initializable {
             return false;
         }
         return true;
+    }
+
+    private void populateCity(){
+        try{
+            Database.connect();
+            PreparedStatement ps = Database.getConnection().prepareStatement("SELECT DISTINCT DESCRICAO_CIDADE FROM logradouro WHERE UF = '"+stateCombo.getValue()+"';");
+            ResultSet rs = ps.executeQuery();
+            ArrayList<String> u = new ArrayList<String>();
+            while (rs.next()){
+                u.add(rs.getString(1));
+            }
+            Database.close();
+            ObservableList<String> o = FXCollections.observableArrayList(u);
+            cityCombo.setItems(o);
+            cityCombo.setDisable(false);
+
+        }catch (SQLException e){
+            //Messenger.error("Erro de banco",new String[]{String.valueOf(e.getErrorCode())});
+            Messenger.error("SQLe",new String[]{e.toString()});
+        }
     }
 
     @FXML
