@@ -30,6 +30,11 @@ import javafx.stage.FileChooser;
 
 public class adicionarProdutoController implements Initializable {
 
+    @FXML
+    public CheckBox dispCheck;
+
+    @FXML
+    public ToggleGroup categoria;
 
     @FXML
     private AnchorPane profilePane;
@@ -52,21 +57,12 @@ public class adicionarProdutoController implements Initializable {
     @FXML
     public TextField codigoProduto;
 
-    @FXML
-    public ComboBox<String> dispoProduto;
-
-    @FXML
-    public ComboBox<String> categoriaProduto;
-
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         configureContextMenu();
         configureProfileImage();
         configureProductImage();
         configureValorProdutoMask();
-
-        dispoProduto.setItems(FXCollections.observableArrayList("Disponível","Não disponível"));
-        categoriaProduto.setItems(FXCollections.observableArrayList("Pães","Doces","Salgados"));
     }
 
     private boolean verifyForm(){
@@ -77,13 +73,10 @@ public class adicionarProdutoController implements Initializable {
         if (codigoProduto.getText().isEmpty()){
             msg.add("Código do produto  ");
         }
-        if (valorProduto.getText().isEmpty()){
+        if (valorProduto.getText().replaceAll("R\\$ ","").isEmpty()){
             msg.add("Valor do produto  ");
         }
-        if(dispoProduto.getValue() == null){
-            msg.add("Disponibilidade  ");
-        }
-        if (categoriaProduto.getValue() == null){
+        if (categoria.getSelectedToggle() == null){
             msg.add("Categoria do produto");
         }
 
@@ -98,10 +91,15 @@ public class adicionarProdutoController implements Initializable {
     private void addProduto(){
         if(verifyForm()){
             System.out.println(valorProduto.getText());
+
+            RadioButton selectedRadioButton = (RadioButton) categoria.getSelectedToggle();
+            String toogleGroupValue = selectedRadioButton.getText();
+            System.out.println(toogleGroupValue);
+
             Produto p = new Produto(nomeProduto.getText(),
                     Integer.parseInt(codigoProduto.getText()),
                     Float.parseFloat(valorProduto.getText().replaceAll(",",".").replaceAll("R\\$ ","")),
-                    dispoProduto.getValue().equals("Disponível"));
+                    toogleGroupValue,dispCheck.isSelected());
             try {
                 ProdutoDAO po =new ProdutoDAO();
                 po.insert(p);

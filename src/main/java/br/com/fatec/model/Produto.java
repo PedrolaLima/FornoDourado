@@ -12,6 +12,7 @@ public class Produto {
     private String nome;
     private int cod;
     private float preco;
+    private String cat;
     private boolean disp;
 
     public Produto(String nome, float preco) {
@@ -19,10 +20,11 @@ public class Produto {
         this.preco = preco;
     }
 
-    public Produto(String nome, int cod, float preco, boolean disp) {
+    public Produto(String nome, int cod, float preco,String cat, boolean disp) {
         this.nome = nome;
         this.cod = cod;
         this.preco = preco;
+        this.cat = cat;
         this.disp=disp;
     }
     
@@ -57,5 +59,9 @@ public class Produto {
 
     public void setDisp(boolean disp) {
         this.disp = disp;
+    }
+
+    public String getCat() {
+        return cat;
     }
 }

@@ -25,13 +25,14 @@ public class ProdutoDAO implements DAO <Produto> {
     public boolean insert(Produto model) throws SQLException {
         int  res = 0;
         Database.connect();
-        String sql ="INSERT INTO produtos(CODPROD,NOME,VALUNI,DISP) VALUES(?,?,?,?)";
+        String sql ="INSERT INTO produtos(CODPROD,NOME,VALUNI,CAT,DISP) VALUES(?,?,?,?,?)";
         ps = Database.getConnection().prepareStatement(sql);
 
         ps.setInt(1,model.getCod());
         ps.setString(2,model.getNome());
         ps.setFloat(3, model.getPreco());
-        ps.setBoolean(4, model.isDisp());
+        ps.setString(4,model.getCat());
+        ps.setBoolean(5, model.isDisp());
         //ps.setString(5,  model.getImg());
 
 
@@ -50,15 +51,16 @@ public class ProdutoDAO implements DAO <Produto> {
     public boolean update(Produto model, String pk) throws SQLException {
         int  res = 0;
         Database.connect();
-        String sql ="INSERT INTO produtos(CODPROD,NOME,VALUNI,DISP) VALUES(?,?,?,?) WHERE CODPROD = ?";
+        String sql ="UPDATE INTO produtos(CODPROD,NOME,VALUNI,CAT,DISP) VALUES(?,?,?,?,?) WHERE CODPROD = ?";
         ps = Database.getConnection().prepareStatement(sql);
 
         ps.setInt(1,model.getCod());
         ps.setString(2,model.getNome());
         ps.setFloat(3, model.getPreco());
-        ps.setBoolean(4, model.isDisp());
+        ps.setString(4,model.getCat());
+        ps.setBoolean(5, model.isDisp());
         //ps.setString(5,  model.getImg());
-        ps.setInt(5,Integer.parseInt(pk));
+        ps.setInt(6,Integer.parseInt(pk));
 
 
         try {
@@ -98,12 +100,12 @@ public class ProdutoDAO implements DAO <Produto> {
         ArrayList<Produto> r = new ArrayList<>();
         try {
             Database.connect();
-            String sql = "SELECT CODPROD,NOME,VALUNI,DISP FROM produtos WHERE "+Field+" = ?;";
+            String sql = "SELECT CODPROD,NOME,VALUNI,CAT,DISP FROM produtos WHERE "+Field+" = ?;";
             ps = Database.getConnection().prepareStatement(sql);
             rs= ps.executeQuery();
 
             while (rs.next()) {
-                Produto f = new Produto(rs.getString(2),rs.getInt(1),rs.getFloat(3),rs.getBoolean(4));
+                Produto f = new Produto(rs.getString(2),rs.getInt(1),rs.getFloat(3),rs.getString(4),rs.getBoolean(5));
                 r.add(f);
             }
 
@@ -118,12 +120,12 @@ public class ProdutoDAO implements DAO <Produto> {
         ArrayList<Produto> r = new ArrayList<>();
         try {
             Database.connect();
-            String sql = "SELECT CODPROD,NOME,VALUNI,DISP FROM produtos";
+            String sql = "SELECT CODPROD,NOME,VALUNI,CAT,DISP FROM produtos";
             ps = Database.getConnection().prepareStatement(sql);
             rs= ps.executeQuery();
 
             while (rs.next()) {
-                Produto f = new Produto(rs.getString(2),rs.getInt(1),rs.getFloat(3),rs.getBoolean(4));
+                Produto f = new Produto(rs.getString(2),rs.getInt(1),rs.getFloat(3),rs.getString(4),rs.getBoolean(5));
                 r.add(f);
             }
 
