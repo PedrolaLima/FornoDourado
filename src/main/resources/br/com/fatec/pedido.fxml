@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.*?>
 <?import javafx.scene.effect.*?>
 <?import javafx.geometry.*?>
 <?import javafx.scene.text.*?>
@@ -91,15 +92,12 @@
          </children></AnchorPane>
       <AnchorPane layoutX="133.0" layoutY="202.0" prefHeight="548.0" prefWidth="994.0">
          <children>
-            <TableView layoutX="1.0" layoutY="6.0" prefHeight="397.0" prefWidth="994.0" style="-fx-background-color: #F4F4F4;">
+            <TableView fx:id="ordersTable" layoutX="1.0" layoutY="6.0" prefHeight="397.0" prefWidth="994.0" style="-fx-background-color: #F4F4F4;">
               <columns>
-                <TableColumn prefWidth="557.0" text="Produto" />
-                <TableColumn minWidth="0.0" prefWidth="118.0" text="Código" />
-                  <TableColumn minWidth="0.0" prefWidth="94.0" text="Categoria" />
-                  <TableColumn prefWidth="143.0" text="Preço" />
-                  <TableColumn minWidth="0.0" prefWidth="36.0" text="menos" />
-                  <TableColumn minWidth="0.0" prefWidth="21.0" text="qtd" />
-                  <TableColumn minWidth="0.0" prefWidth="31.0" text="mais" />
+                <TableColumn fx:id="colProduto" prefWidth="573.0" text="Produto" />
+                <TableColumn fx:id="colCodigo" minWidth="0.0" prefWidth="102.0" text="Código" />
+                  <TableColumn fx:id="colCategoria" minWidth="0.0" prefWidth="107.0" text="Categoria" />
+                  <TableColumn fx:id="colPreco" prefWidth="130.0" text="Preço" />
               </columns>
             </TableView>
             <ImageView fitHeight="45.0" fitWidth="996.0" layoutY="-1.0">
@@ -120,5 +118,22 @@
          </children>
       </AnchorPane>
       <ComboBox fx:id="productCategory" layoutX="134.0" layoutY="137.0" prefHeight="43.0" prefWidth="284.0" style="-fx-background-color: white; -fx-border-color: gray; -fx-border-width: 0.6; -fx-border-radius: 10;" />
+      <Group layoutX="322.0" layoutY="123.0">
+         <children>
+            <TextField fx:id="searchBar" alignment="CENTER" layoutX="566.0" layoutY="20.0" prefHeight="31.0" prefWidth="215.0" promptText="Procurar">
+               <padding>
+                  <Insets left="50.0" right="50.0" />
+               </padding>
+            </TextField>
+            <ImageView fx:id="searchButton" fitHeight="25.0" fitWidth="26.0" layoutX="576.0" layoutY="23.0" pickOnBounds="true">
+               <cursor>
+                  <Cursor fx:constant="DEFAULT" />
+               </cursor>
+               <image>
+                  <Image url="@Imagens/icons/relatorio/search.png" />
+               </image>
+            </ImageView>
+         </children>
+      </Group>
    </children>
 </AnchorPane>

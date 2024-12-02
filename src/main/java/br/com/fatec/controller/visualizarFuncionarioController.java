@@ -4,6 +4,9 @@ import br.com.fatec.App;
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
+import java.time.LocalDate;
+import java.time.ZoneId;
+import java.time.format.DateTimeFormatter;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -11,6 +14,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.SnapshotParameters;
 import javafx.scene.control.ContextMenu;
+import javafx.scene.control.Label;
 import javafx.scene.control.MenuItem;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -65,8 +69,15 @@ public class visualizarFuncionarioController implements Initializable {
         
     @FXML
     private ImageView employeeview;
+    
+    @FXML
+    private Label date;
   
     public void initialize(URL url, ResourceBundle rb) {
+        
+         date.setText(LocalDate.now(
+                ZoneId.of( "America/Sao_Paulo" )
+        ).format(DateTimeFormatter.ofPattern("dd/MM/yyyy")));
         // Criar o menu
         ContextMenu contextMenu = new ContextMenu();
 

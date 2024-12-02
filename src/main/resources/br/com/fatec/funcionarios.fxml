@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.*?>
 <?import javafx.scene.effect.*?>
 <?import javafx.geometry.*?>
 <?import javafx.scene.text.*?>
@@ -95,9 +96,9 @@
               <columns>
                   <TableColumn fx:id="colNome" prefWidth="455.0" text="Funcionário" />
                   <TableColumn fx:id="colCpf" minWidth="0.0" prefWidth="100.0" text="CPF" />
-                  <TableColumn fx:id="colEmail" prefWidth="141.0" text="Email" />
-                  <TableColumn fx:id="colCargo" prefWidth="126.0" text="Cargo" />
-                  <TableColumn fx:id="colStatus" prefWidth="89.0" text="Status" />
+                  <TableColumn fx:id="colEmail" prefWidth="156.0" text="Email" />
+                  <TableColumn fx:id="colCargo" prefWidth="105.0" text="Cargo" />
+                  <TableColumn fx:id="colStatus" prefWidth="95.0" text="Status" />
               </columns>
             </TableView>
             <ImageView fitHeight="45.0" fitWidth="996.0" layoutY="-1.0">
@@ -120,5 +121,22 @@
             <Image url="@Imagens/icons/funcionarios/add-funcionario.png" />
          </image>
       </ImageView>
+      <Group layoutX="-42.0" layoutY="124.0">
+         <children>
+            <TextField fx:id="searchBar" alignment="CENTER" layoutX="566.0" layoutY="20.0" prefHeight="31.0" prefWidth="215.0" promptText="Procurar">
+               <padding>
+                  <Insets left="50.0" right="50.0" />
+               </padding>
+            </TextField>
+            <ImageView fx:id="searchButton" fitHeight="25.0" fitWidth="26.0" layoutX="576.0" layoutY="23.0" pickOnBounds="true">
+               <image>
+                  <Image url="@Imagens/icons/relatorio/search.png" />
+               </image>
+               <cursor>
+                  <Cursor fx:constant="DEFAULT" />
+               </cursor>
+            </ImageView>
+         </children>
+      </Group>
    </children>
 </AnchorPane>

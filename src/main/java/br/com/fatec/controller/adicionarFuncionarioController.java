@@ -439,8 +439,10 @@ public class adicionarFuncionarioController implements Initializable {
         if (occupationCombo.getValue()  == null){
             msg.add("Cargo");
         }
-        if (birthDate.getValue()  == null){
+        if (birthDate.getValue() == null) {
             msg.add("Data de nascimento");
+        } else if (birthDate.getValue().isAfter(LocalDate.now())) {
+            msg.add("Data de nascimento não pode ser maior do que a data de hoje");
         }
         if(!msg.isEmpty()){
             

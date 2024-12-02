@@ -22,7 +22,12 @@ import java.time.format.DateTimeFormatter;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javafx.beans.property.SimpleStringProperty;
+import javafx.scene.SnapshotParameters;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.image.WritableImage;
+import javafx.scene.paint.Color;
+import javafx.scene.shape.Rectangle;
 
 public class funcionarioController implements Initializable {
 
@@ -58,6 +63,9 @@ public class funcionarioController implements Initializable {
     @FXML
     private ImageView filter;
 
+    @FXML
+    private TextField searchBar;
+
     // Método para carregar a tela de "Adicionar Produto"
     @FXML
     private void carregarDashboard() throws IOException {
@@ -92,7 +100,7 @@ public class funcionarioController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         date.setText(LocalDate.now(
-                ZoneId.of( "America/Sao_Paulo" )
+                ZoneId.of("America/Sao_Paulo")
         ).format(DateTimeFormatter.ofPattern("dd/MM/yyyy")));
 
         // Inicializa o TableView
@@ -103,9 +111,39 @@ public class funcionarioController implements Initializable {
 
         // Lógica do filtro de funcionários
         configurarFilterMenu();
+
+        // Configurar a barra de pesquisa
+        configurarBarraDePesquisa();
+    }
+    
+    private void configurarBarraDePesquisa() {
+        // Configurar evento de digitação na barra de pesquisa
+        searchBar.textProperty().addListener((observable, oldValue, newValue) -> {
+            filtrarFuncionarios(newValue);
+        });
+    }
+    
+    private void filtrarFuncionarios(String query) {
+        ObservableList<Funcionario> todosFuncionarios = FXCollections.observableArrayList(new FuncionarioDAO().getTable());
+
+        if (query == null || query.isBlank()) {
+            workersTable.setItems(todosFuncionarios); // Mostra todos os funcionários se não houver consulta
+            return;
+        }
+
+        String filtro = query.toLowerCase();
+        ObservableList<Funcionario> filtrados = todosFuncionarios.filtered(funcionario
+                -> funcionario.getName().toLowerCase().contains(filtro)
+                || funcionario.getCpf().toLowerCase().contains(filtro)
+                || funcionario.getEmail().toLowerCase().contains(filtro)
+                || funcionario.getOccupation().toLowerCase().contains(filtro)
+                || (funcionario.isStatus() ? "ativo" : "desativado").contains(filtro)
+        );
+
+        workersTable.setItems(filtrados); // Atualiza a tabela com os resultados filtrados
     }
 
-
+    
     private void editarFuncionario(Funcionario funcionario) {
         System.out.println("Editando: " + funcionario.getName());
         FuncionarioHolder.setF(funcionario);
@@ -130,9 +168,9 @@ public class funcionarioController implements Initializable {
         alert.showAndWait().ifPresent(response -> {
             if (response == ButtonType.OK) {
                 try {
-                    FuncionarioDAO f =new FuncionarioDAO();
+                    FuncionarioDAO f = new FuncionarioDAO();
                     f.delete(funcionario.getCpf());
-                    Messenger.info("Successo","O funcionario"+funcionario.getName()+" foi excluido");
+                    Messenger.info("Successo", "O funcionário " + funcionario.getName() + " foi excluido");
 
                     // Remove o funcionário do ObservableList
                     ObservableList<Funcionario> funcionarios = workersTable.getItems();
@@ -141,13 +179,12 @@ public class funcionarioController implements Initializable {
                     // Atualiza o TableView
                     workersTable.setItems(funcionarios);
 
-                }catch (SQLException e){
-                    Messenger.error("Erro no banco","O funcionario não foi deletado");
+                } catch (SQLException e) {
+                    Messenger.error("Erro no banco", "O funcionario não foi deletado");
                 }
             }
         });
     }
-
 
     private void configurarTabela() {
         // Configuração das colunas
@@ -155,16 +192,19 @@ public class funcionarioController implements Initializable {
         colCpf.setCellValueFactory(new PropertyValueFactory<>("cpf"));
         colEmail.setCellValueFactory(new PropertyValueFactory<>("email"));
         colCargo.setCellValueFactory(new PropertyValueFactory<>("occupation"));
-        colStatus.setCellValueFactory(new PropertyValueFactory<>("status"));
 
-        
+        // Configurando o status com base no valor booleano
+        colStatus.setCellValueFactory(cellData -> {
+            Funcionario funcionario = cellData.getValue();
+            String status = funcionario.isStatus() ? "Ativo" : "Desativado"; // Lógica condicional
+            return new SimpleStringProperty(status); // Retorna o valor como uma propriedade observável
+        });
+
         // Adicionando dados ao TableView
         FuncionarioDAO funcionarioDAO = new FuncionarioDAO();
         ObservableList<Funcionario> funcionarios = FXCollections.observableArrayList(funcionarioDAO.getTable());
         workersTable.setItems(funcionarios); // Adicionando funcionários à tabela
 
-        
-        
         // Configurar a coluna de Ações com largura fixa e ícones
         TableColumn<Funcionario, Void> actionColumn = new TableColumn<>("Ações");
         actionColumn.setPrefWidth(80); // Definir a largura da coluna
@@ -217,7 +257,6 @@ public class funcionarioController implements Initializable {
 
         workersTable.getColumns().add(actionColumn); // Adiciona apenas uma vez a coluna de Ações
     }
-        
 
     private void configurarProfileMenu() {
         // Criação do menu de contexto
@@ -251,6 +290,22 @@ public class funcionarioController implements Initializable {
                 contextMenu.show(profilePane, xPos, yPos);
             });
         });
+
+        profilePane.setOnMouseEntered(event -> profileBack.getStyleClass().add("image-view-hover"));
+        profilePane.setOnMouseExited(event -> profileBack.getStyleClass().remove("image-view-hover"));
+
+        // Configuração de bordas arredondadas no profile
+        Rectangle clip = new Rectangle(profile.getFitWidth(), profile.getFitHeight());
+        clip.setArcWidth(25);
+        clip.setArcHeight(25);
+        profile.setClip(clip);
+
+        SnapshotParameters parameters = new SnapshotParameters();
+        parameters.setFill(Color.TRANSPARENT);
+        WritableImage image = profile.snapshot(parameters, null);
+        profile.setClip(null);
+        profile.setImage(image);
+
     }
 
     private void configurarFilterMenu() {
@@ -262,12 +317,6 @@ public class funcionarioController implements Initializable {
 
         filterMenu.getItems().addAll(cargoMenuItem, statusMenuItem, semFiltro);
 
-        filter.setOnMouseClicked(event -> {
-            double xPos = filter.localToScreen(filter.getLayoutX(), filter.getLayoutY()).getX() - 125;
-            double yPos = filter.localToScreen(filter.getLayoutX(), filter.getLayoutY()).getY() - 86;
-            filterMenu.show(filter, xPos, yPos);
-        });
-        
         // Submenu para "Cargo"
         ContextMenu cargoSubMenu = new ContextMenu();
         MenuItem adminItem = new MenuItem("Administrador");
@@ -283,7 +332,7 @@ public class funcionarioController implements Initializable {
 
         // Configurar eventos para abrir os submenus
         cargoMenuItem.setOnAction(event -> {
-            double xPos = filter.localToScreen(filter.getLayoutX(), filter.getLayoutY()).getX()- 70;
+            double xPos = filter.localToScreen(filter.getLayoutX(), filter.getLayoutY()).getX() - 70;
             double yPos = filter.localToScreen(filter.getLayoutX(), filter.getLayoutY()).getY() - 92;
             cargoSubMenu.show(filter, xPos, yPos);
         });
@@ -293,47 +342,50 @@ public class funcionarioController implements Initializable {
             double yPos = filter.localToScreen(filter.getLayoutX(), filter.getLayoutY()).getY() - 92;
             statusSubMenu.show(filter, xPos, yPos);
         });
-        
+
         semFiltro.setOnAction(event -> {
-            System.out.println("TÁ SEM FILTRO CONFIA");
-            
-            //TO DO
+            carregarFuncionariosSemFiltro();
+        });
+
+        // Eventos para filtrar por Cargo
+        adminItem.setOnAction(event -> aplicarFiltroPorCargo("Administrador"));
+        supervisorItem.setOnAction(event -> aplicarFiltroPorCargo("Supervisor"));
+        atendenteItem.setOnAction(event -> aplicarFiltroPorCargo("Atendente"));
+
+        // Eventos para filtrar por Status
+        ativoItem.setOnAction(event -> aplicarFiltroPorStatus("Ativo"));
+        desativadoItem.setOnAction(event -> aplicarFiltroPorStatus("Desativado"));
+
+        // Mostrar o menu principal
+        filter.setOnMouseClicked(event -> {
+            double xPos = filter.localToScreen(filter.getLayoutX(), filter.getLayoutY()).getX() - 125;
+            double yPos = filter.localToScreen(filter.getLayoutX(), filter.getLayoutY()).getY() - 86;
+            filterMenu.show(filter, xPos, yPos);
+            cargoSubMenu.hide(); // Fecha o submenu de cargo
+            statusSubMenu.hide();
         });
     }
 
-    /*public static class Funcionario {
-        private String nome;
-        private String cpf;
-        private String usuario;
-        private String cargo;
-        private String status;
+    // Método para aplicar o filtro por cargo
+    private void aplicarFiltroPorCargo(String cargo) {
+        ObservableList<Funcionario> todosFuncionarios = FXCollections.observableArrayList(new FuncionarioDAO().getTable());
+        ObservableList<Funcionario> filtrados = todosFuncionarios.filtered(funcionario -> cargo.equals(funcionario.getOccupation()));
+        workersTable.setItems(filtrados);
+    }
 
-        public Funcionario(String nome, String cpf, String usuario, String cargo, String status) {
-            this.nome = nome;
-            this.cpf = cpf;
-            this.usuario = usuario;
-            this.cargo = cargo;
-            this.status = status;
-        }
+    // Método para aplicar o filtro por status
+    private void aplicarFiltroPorStatus(String status) {
+        ObservableList<Funcionario> todosFuncionarios = FXCollections.observableArrayList(new FuncionarioDAO().getTable());
+        ObservableList<Funcionario> filtrados = todosFuncionarios.filtered(funcionario -> {
+            String funcionarioStatus = funcionario.isStatus() ? "Ativo" : "Desativado";
+            return status.equals(funcionarioStatus);
+        });
+        workersTable.setItems(filtrados);
+    }
 
-        public String getNome() {
-            return nome;
-        }
-
-        public String getCpf() {
-            return cpf;
-        }
-
-        public String getUsuario() {
-            return usuario;
-        }
-
-        public String getCargo() {
-            return cargo;
-        }
-
-        public String getStatus() {
-            return status;
-        }
-    }*/
+    // Método para carregar todos os funcionários sem filtro
+    private void carregarFuncionariosSemFiltro() {
+        ObservableList<Funcionario> todosFuncionarios = FXCollections.observableArrayList(new FuncionarioDAO().getTable());
+        workersTable.setItems(todosFuncionarios);
+    }
 }

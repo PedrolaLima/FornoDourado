@@ -6,6 +6,7 @@ package br.com.fatec.dao;
 
 import br.com.fatec.Messenger;
 import br.com.fatec.data.Database;
+import br.com.fatec.model.Funcionario;
 import br.com.fatec.model.Produto;
 
 import java.sql.PreparedStatement;
@@ -13,6 +14,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.List;
 
 /**
  *
@@ -134,5 +136,34 @@ public class ProdutoDAO implements DAO <Produto> {
         }
         return r;
     }
+    
+    //Arrumar função getTable
+    
+   /* public List<Produto> getTable() {
+        List<Produto> produtos = new ArrayList<>();
+        try {
+            Database.connect();
+            String sql = "SELECT NOME, NOME, CARGO, EMAIL, STATUS FROM funcionarios";
+            ps = Database.getConnection().prepareStatement(sql);
+            rs = ps.executeQuery();
 
+            while (rs.next()) {
+                Funcionario funcionario = new Funcionario(
+                        rs.getString("CPF"),
+                        rs.getString("NOME"),
+                        null, // Se não houver data de nascimento na consulta
+                        rs.getString("CARGO"),
+                        rs.getString("EMAIL"),
+                        null, // Se não houver endereço ou CEP na consulta
+                        null,
+                        rs.getBoolean("STATUS")
+                );
+                funcionarios.add(funcionario);
+            }
+        } catch (SQLException e) {
+            Messenger.error("Erro no banco", e.getMessage());
+        }
+        return funcionarios;
+    }
+    */
 }

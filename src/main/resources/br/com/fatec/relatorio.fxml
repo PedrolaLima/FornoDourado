@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.*?>
 <?import javafx.geometry.*?>
 <?import javafx.scene.text.*?>
 <?import javafx.scene.control.*?>
@@ -109,12 +110,20 @@
                   <Image url="@Imagens/icons/relatorio/filter.png" />
                </image>
             </ImageView>
-            <TextField alignment="CENTER" layoutX="566.0" layoutY="20.0" prefHeight="31.0" prefWidth="215.0" promptText="Procurar" />
-            <ImageView fitHeight="25.0" fitWidth="26.0" layoutX="576.0" layoutY="23.0">
-               <image>
-                  <Image url="@Imagens/icons/relatorio/search.png" />
-               </image>
-            </ImageView>
+            <Group>
+               <children>
+                  <TextField alignment="CENTER" layoutX="566.0" layoutY="20.0" prefHeight="31.0" prefWidth="215.0" promptText="Procurar">
+                     <padding>
+                        <Insets left="50.0" right="50.0" />
+                     </padding>
+                  </TextField>
+                  <ImageView fitHeight="25.0" fitWidth="26.0" layoutX="576.0" layoutY="23.0">
+                     <image>
+                        <Image url="@Imagens/icons/relatorio/search.png" />
+                     </image>
+                  </ImageView>
+               </children>
+            </Group>
             <ImageView fitHeight="45.0" fitWidth="824.0" layoutX="3.0" layoutY="73.0" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@Imagens/icons/relatorio/relatorio-header.png" />
