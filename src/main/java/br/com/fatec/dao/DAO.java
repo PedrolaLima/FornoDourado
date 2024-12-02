@@ -13,7 +13,7 @@ import java.util.Collection;
  */
 public interface DAO <T>{
     public boolean insert(T model) throws SQLException;
-    public boolean update(T model,int pk) throws SQLException;
-    public boolean delete(int pk) throws SQLException;
+    public boolean update(T model,String pk) throws SQLException;
+    public boolean delete(String pk) throws SQLException;
     public Collection<T> search(String Field,String Value) throws SQLException;
 }

@@ -7,9 +7,7 @@ package br.com.fatec.dao;
 import br.com.fatec.Security;
 import br.com.fatec.data.Database;
 import br.com.fatec.model.Funcionario;
-import javafx.scene.image.Image;
 
-import java.io.InputStream;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.Collection;
@@ -57,10 +55,10 @@ public class FuncionarioDAO implements DAO <Funcionario> {
     }
 
     @Override
-    public boolean update(Funcionario model,int cpf) throws SQLException {
+    public boolean update(Funcionario model,String cpf) throws SQLException {
         int  res = 0;
         Database.connect();
-        String sql ="INSERT CPF,NOME,NASC,CARGO,EMAIL,CEP,ENDERECO,CIDADE,UF,STATUS,IMG INTO funcionarios VALUES(?,?,?,?,?,?,?,?,?,?) WHERE CPF = ?";
+        String sql ="INSERT CPF,NOME,NASC,CARGO,EMAIL,CEP,ENDERECO,CIDADE,UF,STATUS,IMG INTO funcionarios VALUES(?,?,?,?,?,?,?,?,?,?,?) WHERE CPF = ?";
         ps = Database.getConnection().prepareStatement(sql);
 
         ps.setString(1,model.getCpf());
@@ -74,6 +72,7 @@ public class FuncionarioDAO implements DAO <Funcionario> {
         ps.setString(9, model.getUf());
         ps.setBoolean(10, model.isStatus());
         ps.setString(11,  model.getImg());
+        ps.setString(12,cpf);
         
         try {
             res = ps.executeUpdate();  
@@ -87,13 +86,13 @@ public class FuncionarioDAO implements DAO <Funcionario> {
     }
 
     @Override
-    public boolean delete(int cpf) throws SQLException {
+    public boolean delete(String cpf) throws SQLException {
         int  res = 0;
         Database.connect();
         String sql ="DELETE FROM funcionarios WHERE CPF = ?";
         ps = Database.getConnection().prepareStatement(sql);
         
-        ps.setInt(1, cpf);
+        ps.setString(1, cpf);
         
         try {
             res = ps.executeUpdate();  

@@ -4,17 +4,22 @@ import br.com.fatec.App;
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
+import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.ResourceBundle;
 import java.util.function.UnaryOperator;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+
+import br.com.fatec.Messenger;
+import br.com.fatec.dao.FuncionarioDAO;
+import br.com.fatec.dao.ProdutoDAO;
+import br.com.fatec.model.Produto;
+import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.SnapshotParameters;
-import javafx.scene.control.ContextMenu;
-import javafx.scene.control.MenuItem;
-import javafx.scene.control.TextField;
-import javafx.scene.control.TextFormatter;
+import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.image.WritableImage;
@@ -24,6 +29,7 @@ import javafx.scene.shape.Rectangle;
 import javafx.stage.FileChooser;
 
 public class adicionarProdutoController implements Initializable {
+
 
     @FXML
     private AnchorPane profilePane;
@@ -40,12 +46,67 @@ public class adicionarProdutoController implements Initializable {
     @FXML
     private TextField valorProduto;
 
+    @FXML
+    public TextField nomeProduto;
+
+    @FXML
+    public TextField codigoProduto;
+
+    @FXML
+    public ComboBox<String> dispoProduto;
+
+    @FXML
+    public ComboBox<String> categoriaProduto;
+
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         configureContextMenu();
         configureProfileImage();
         configureProductImage();
         configureValorProdutoMask();
+
+        dispoProduto.setItems(FXCollections.observableArrayList("Disponível","Não disponível"));
+        categoriaProduto.setItems(FXCollections.observableArrayList("Pães","Doces","Salgados"));
+    }
+
+    private boolean verifyForm(){
+        ArrayList<String> msg = new ArrayList<>();
+        if(nomeProduto.getText().isEmpty()){
+            msg.add("Nome  ");
+        }
+        if (codigoProduto.getText().isEmpty()){
+            msg.add("Código do produto  ");
+        }
+        if (valorProduto.getText().isEmpty()){
+            msg.add("Valor do produto  ");
+        }
+        if(dispoProduto.getValue() == null){
+            msg.add("Disponibilidade  ");
+        }
+        if (categoriaProduto.getValue() == null){
+            msg.add("Categoria do produto");
+        }
+
+        if(!msg.isEmpty()){
+            Messenger.error("Campos obrigatorios não preenchidos",new String[]{String.join(",",msg)});
+            return false;
+        }
+        return true;
+    }
+
+    @FXML
+    private void addProduto(){
+        if(verifyForm()){
+            Produto p = new Produto(nomeProduto.getText(),Integer.parseInt(codigoProduto.getText()),
+                    Float.parseFloat(valorProduto.getText()),dispoProduto.getValue().equals("Disponível"));
+            try {
+                ProdutoDAO po =new ProdutoDAO();
+                po.insert(p);
+                Messenger.info("Concluido","Funcionario inserido no banco");
+            }catch (SQLException e){
+                Messenger.error("Erro de banco",e.getMessage());
+            }
+        }
     }
 
     // Configura o menu de contexto

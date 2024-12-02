@@ -4,6 +4,11 @@
  */
 package br.com.fatec.dao;
 
+import br.com.fatec.data.Database;
+import br.com.fatec.model.Produto;
+
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Collection;
 
@@ -11,20 +16,62 @@ import java.util.Collection;
  *
  * @author alberto
  */
-public class ProdutoDAO implements DAO {
-
+public class ProdutoDAO implements DAO <Produto> {
+    private PreparedStatement ps;
+    private ResultSet rs;
     @Override
-    public boolean insert(Object model) throws SQLException {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    public boolean insert(Produto model) throws SQLException {
+        int  res = 0;
+        Database.connect();
+        String sql ="INSERT INTO produtos(CODPRO,NOME,VALUNI,QTD) VALUES(?,?,?,?)";
+        ps = Database.getConnection().prepareStatement(sql);
+
+        ps.setInt(1,model.getCod());
+        ps.setString(2,model.getNome());
+        ps.setFloat(3, model.getPreco());
+        ps.setBoolean(4, model.isDisp());
+        //ps.setString(5,  model.getImg());
+
+
+        try {
+            res = ps.executeUpdate();
+        } catch (SQLException e) {
+            Database.close();
+            throw e;
+        }
+
+        Database.close();
+        return res != 0;
     }
 
     @Override
-    public boolean update(Object model, int pk) throws SQLException {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    public boolean update(Produto model, String pk) throws SQLException {
+        int  res = 0;
+        Database.connect();
+        String sql ="INSERT INTO produtos(CODPRO,NOME,VALUNI,QTD) VALUES(?,?,?,?) WHERE CODPROD = ?";
+        ps = Database.getConnection().prepareStatement(sql);
+
+        ps.setInt(1,model.getCod());
+        ps.setString(2,model.getNome());
+        ps.setFloat(3, model.getPreco());
+        ps.setBoolean(4, model.isDisp());
+        //ps.setString(5,  model.getImg());
+        ps.setInt(5,Integer.parseInt(pk));
+
+
+        try {
+            res = ps.executeUpdate();
+        } catch (SQLException e) {
+            Database.close();
+            throw e;
+        }
+
+        Database.close();
+        return res != 0;
     }
 
     @Override
-    public boolean delete(int pk) throws SQLException {
+    public boolean delete(String pk) throws SQLException {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 
