@@ -5,6 +5,7 @@
 package br.com.fatec.dao;
 
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.Collection;
 
 /**
@@ -16,4 +17,5 @@ public interface DAO <T>{
     public boolean update(T model,String pk) throws SQLException;
     public boolean delete(String pk) throws SQLException;
     public Collection<T> search(String Field,String Value) throws SQLException;
+    public ArrayList<T> getAll();
 }

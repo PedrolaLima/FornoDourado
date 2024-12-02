@@ -143,13 +143,14 @@ public class funcionarioController implements Initializable {
 
     private void configurarTabela() {
         // Configuração das colunas
-        colNome.setCellValueFactory(new PropertyValueFactory<>("nome"));
+        colNome.setCellValueFactory(new PropertyValueFactory<>("name"));
         colCpf.setCellValueFactory(new PropertyValueFactory<>("cpf"));
-        colEmail.setCellValueFactory(new PropertyValueFactory<>("usuario"));
-        colCargo.setCellValueFactory(new PropertyValueFactory<>("cargo"));
+        colEmail.setCellValueFactory(new PropertyValueFactory<>("email"));
+        colCargo.setCellValueFactory(new PropertyValueFactory<>("occupation"));
         colStatus.setCellValueFactory(new PropertyValueFactory<>("status"));
 
         // Adicionando dados ao TableView
+
         ObservableList<Funcionario> funcionarios = FXCollections.observableArrayList(
                 new Funcionario("123.456.789-00","Pedro", LocalDate.now() ,"Gerente","pedroHhenrique@email.net","84067-284","Rua 1", true),
                 new Funcionario("987.654.321-00","Ana", LocalDate.now(),"Atendente","anaClara@email.net","03194-785","Rua 2", false)
@@ -170,12 +171,12 @@ public class funcionarioController implements Initializable {
 
             {
                 // Configurando os ícones para os botões de editar e excluir
-                ImageView editIcon = new ImageView("/br/com/fatec/Imagens/icons/pedidos/edit.png");
+                ImageView editIcon = new ImageView("br/com/fatec/Imagens/icons/pedidos/edit.png");
                 editIcon.setFitWidth(16);
                 editIcon.setFitHeight(16);
                 editButton.setGraphic(editIcon);
 
-                ImageView deleteIcon = new ImageView("/br/com/fatec/Imagens/icons/pedidos/trash.png");
+                ImageView deleteIcon = new ImageView("br/com/fatec/Imagens/icons/pedidos/trash.png");
                 deleteIcon.setFitWidth(16);
                 deleteIcon.setFitHeight(16);
                 deleteButton.setGraphic(deleteIcon);

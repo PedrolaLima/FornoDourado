@@ -4,6 +4,7 @@
  */
 package br.com.fatec.dao;
 
+import br.com.fatec.Messenger;
 import br.com.fatec.Security;
 import br.com.fatec.data.Database;
 import br.com.fatec.model.Funcionario;
@@ -95,7 +96,7 @@ public class FuncionarioDAO implements DAO <Funcionario> {
         ps.setString(1, cpf);
         
         try {
-            res = ps.executeUpdate();  
+            res = ps.executeUpdate();
         } catch (SQLException e) {
             Database.close();
             throw e;
@@ -119,7 +120,7 @@ public class FuncionarioDAO implements DAO <Funcionario> {
             rs=ps.executeQuery();  
         } catch (SQLException e) {
             Database.close();
-            throw e;
+            Messenger.error("Erro no banco",e.getMessage());
         }
 
         while (rs.next()) {
@@ -132,7 +133,29 @@ public class FuncionarioDAO implements DAO <Funcionario> {
         Database.close();
         return r;
     }
-    
+
+    @Override
+    public ArrayList<Funcionario> getAll() {
+        ArrayList<Funcionario> r = new ArrayList<>();
+        try {
+            Database.connect();
+            String sql = "SELECT CPF,NOME,NASC,CARGO,EMAIL,CEP,ENDERECO,CIDADE,UF,STATUS,IMG FROM funcionarios";
+            ps = Database.getConnection().prepareStatement(sql);
+            rs= ps.executeQuery();
+
+            while (rs.next()) {
+                Funcionario f = new Funcionario(rs.getString(1),rs.getString(2),
+                        rs.getDate(3).toLocalDate(),rs.getString(4),rs.getString(4),rs.getString(5),
+                        rs.getString(6),rs.getString(7),rs.getString(8), rs.getBoolean(9), rs.getString(10));
+                r.add(f);
+            }
+
+        }catch (SQLException e){
+            Messenger.error("Erro no banco",e.getMessage());
+        }
+        return r;
+    }
+
     public boolean login(String user,String psswd) throws SQLException{
 
         Collection<Funcionario> f =  search("NOME",user);
@@ -172,4 +195,6 @@ public class FuncionarioDAO implements DAO <Funcionario> {
         }
         return false;
     }
+
+
 }

@@ -4,12 +4,15 @@
  */
 package br.com.fatec.dao;
 
+import br.com.fatec.Messenger;
 import br.com.fatec.data.Database;
+import br.com.fatec.model.Funcionario;
 import br.com.fatec.model.Produto;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.Collection;
 
 /**
@@ -77,7 +80,42 @@ public class ProdutoDAO implements DAO <Produto> {
 
     @Override
     public Collection search(String Field, String Value) throws SQLException {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        ArrayList<Produto> r = new ArrayList<>();
+        try {
+            Database.connect();
+            String sql = "SELECT CODPROD,NOME,VALUNI,DISP FROM produtos WHERE "+Field+" = ?;";
+            ps = Database.getConnection().prepareStatement(sql);
+            rs= ps.executeQuery();
+
+            while (rs.next()) {
+                Produto f = new Produto(rs.getString(2),rs.getInt(1),rs.getFloat(3),rs.getBoolean(4));
+                r.add(f);
+            }
+
+        }catch (SQLException e){
+            Messenger.error("Erro no banco",e.getMessage());
+        }
+        return r;
     }
-    
+
+    @Override
+    public ArrayList<Produto> getAll() {
+        ArrayList<Produto> r = new ArrayList<>();
+        try {
+            Database.connect();
+            String sql = "SELECT CODPROD,NOME,VALUNI,DISP FROM produtos";
+            ps = Database.getConnection().prepareStatement(sql);
+            rs= ps.executeQuery();
+
+            while (rs.next()) {
+                Produto f = new Produto(rs.getString(2),rs.getInt(1),rs.getFloat(3),rs.getBoolean(4));
+                r.add(f);
+            }
+
+        }catch (SQLException e){
+            Messenger.error("Erro no banco",e.getMessage());
+        }
+        return r;
+    }
+
 }

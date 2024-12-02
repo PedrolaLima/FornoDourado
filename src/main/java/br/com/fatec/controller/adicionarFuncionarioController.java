@@ -73,6 +73,16 @@ public class adicionarFuncionarioController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+
+        cepField.setText("");
+        cpfField.setText("");
+        nameField.setText("");
+        emailField.setText("");
+        addressField.setText("");
+        statusCombo.setItems(FXCollections.observableArrayList());
+        stateCombo.setItems(FXCollections.observableArrayList());
+        cityCombo.setItems(FXCollections.observableArrayList());
+
         // Criar o menu
         ContextMenu contextMenu = new ContextMenu();
 
@@ -377,6 +387,7 @@ public class adicionarFuncionarioController implements Initializable {
             populateCity();
             cityCombo.setValue(f.getCidade());
             birthDate.setValue(f.getBirth());
+            FuncionarioHolder.clear();
         }
 
     }
