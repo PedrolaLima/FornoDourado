@@ -99,6 +99,7 @@ public class FuncionarioDAO implements DAO <Funcionario> {
             res = ps.executeUpdate();
         } catch (SQLException e) {
             Database.close();
+            Messenger.error("Erro no banco",e.getMessage());
             throw e;
         }
         

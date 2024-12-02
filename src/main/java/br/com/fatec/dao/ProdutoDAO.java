@@ -6,7 +6,6 @@ package br.com.fatec.dao;
 
 import br.com.fatec.Messenger;
 import br.com.fatec.data.Database;
-import br.com.fatec.model.Funcionario;
 import br.com.fatec.model.Produto;
 
 import java.sql.PreparedStatement;
@@ -75,11 +74,27 @@ public class ProdutoDAO implements DAO <Produto> {
 
     @Override
     public boolean delete(String pk) throws SQLException {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        int  res = 0;
+        Database.connect();
+        String sql ="DELETE FROM produtos WHERE CODPROD = ?";
+        ps = Database.getConnection().prepareStatement(sql);
+
+        ps.setInt(1,Integer.parseInt(pk));
+
+        try {
+            res = ps.executeUpdate();
+        } catch (SQLException e) {
+            Database.close();
+            Messenger.error("Erro no banco",e.getMessage());
+            throw e;
+        }
+
+        Database.close();
+        return res != 0;
     }
 
     @Override
-    public Collection search(String Field, String Value) throws SQLException {
+    public Collection<Produto> search(String Field, String Value) throws SQLException {
         ArrayList<Produto> r = new ArrayList<>();
         try {
             Database.connect();
