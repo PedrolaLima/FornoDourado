@@ -23,7 +23,7 @@ public class ProdutoDAO implements DAO <Produto> {
     public boolean insert(Produto model) throws SQLException {
         int  res = 0;
         Database.connect();
-        String sql ="INSERT INTO produtos(CODPRO,NOME,VALUNI,QTD) VALUES(?,?,?,?)";
+        String sql ="INSERT INTO produtos(CODPROD,NOME,VALUNI,DISP) VALUES(?,?,?,?)";
         ps = Database.getConnection().prepareStatement(sql);
 
         ps.setInt(1,model.getCod());
@@ -48,7 +48,7 @@ public class ProdutoDAO implements DAO <Produto> {
     public boolean update(Produto model, String pk) throws SQLException {
         int  res = 0;
         Database.connect();
-        String sql ="INSERT INTO produtos(CODPRO,NOME,VALUNI,QTD) VALUES(?,?,?,?) WHERE CODPROD = ?";
+        String sql ="INSERT INTO produtos(CODPROD,NOME,VALUNI,DISP) VALUES(?,?,?,?) WHERE CODPROD = ?";
         ps = Database.getConnection().prepareStatement(sql);
 
         ps.setInt(1,model.getCod());

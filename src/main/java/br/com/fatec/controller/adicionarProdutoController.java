@@ -97,12 +97,15 @@ public class adicionarProdutoController implements Initializable {
     @FXML
     private void addProduto(){
         if(verifyForm()){
-            Produto p = new Produto(nomeProduto.getText(),Integer.parseInt(codigoProduto.getText()),
-                    Float.parseFloat(valorProduto.getText()),dispoProduto.getValue().equals("Disponível"));
+            System.out.println(valorProduto.getText());
+            Produto p = new Produto(nomeProduto.getText(),
+                    Integer.parseInt(codigoProduto.getText()),
+                    Float.parseFloat(valorProduto.getText().replaceAll(",",".").replaceAll("R\\$ ","")),
+                    dispoProduto.getValue().equals("Disponível"));
             try {
                 ProdutoDAO po =new ProdutoDAO();
                 po.insert(p);
-                Messenger.info("Concluido","Funcionario inserido no banco");
+                Messenger.info("Concluido","Produto inserido no banco");
             }catch (SQLException e){
                 Messenger.error("Erro de banco",e.getMessage());
             }
