@@ -149,15 +149,12 @@ public class funcionarioController implements Initializable {
         colCargo.setCellValueFactory(new PropertyValueFactory<>("occupation"));
         colStatus.setCellValueFactory(new PropertyValueFactory<>("status"));
 
-        // Adicionando dados ao TableView
-
-        ObservableList<Funcionario> funcionarios = FXCollections.observableArrayList(
-                new Funcionario("123.456.789-00","Pedro", LocalDate.now() ,"Gerente","pedroHhenrique@email.net","84067-284","Rua 1", true),
-                new Funcionario("987.654.321-00","Ana", LocalDate.now(),"Atendente","anaClara@email.net","03194-785","Rua 2", false)
-        );
-
-        workersTable.setItems(funcionarios);
         
+        // Adicionando dados ao TableView
+        FuncionarioDAO funcionarioDAO = new FuncionarioDAO();
+        ObservableList<Funcionario> funcionarios = FXCollections.observableArrayList(funcionarioDAO.getTable());
+        workersTable.setItems(funcionarios); // Adicionando funcionários à tabela
+
         
         
         // Configurar a coluna de Ações com largura fixa e ícones

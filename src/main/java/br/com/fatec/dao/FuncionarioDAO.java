@@ -14,6 +14,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.Iterator;
+import java.util.List;
 
 /**
  *
@@ -198,26 +199,31 @@ public class FuncionarioDAO implements DAO <Funcionario> {
         return false;
     }
 
-    public ArrayList<ArrayList> getTable(){
-        ArrayList<ArrayList> r = new ArrayList<>();
+    public List<Funcionario> getTable() {
+        List<Funcionario> funcionarios = new ArrayList<>();
         try {
             Database.connect();
-            String sql = "SELECT CPF,NOME,CARGO,EMAIL,STATUS FROM funcionarios";
+            String sql = "SELECT CPF, NOME, CARGO, EMAIL, STATUS FROM funcionarios";
             ps = Database.getConnection().prepareStatement(sql);
-            rs= ps.executeQuery();
+            rs = ps.executeQuery();
 
             while (rs.next()) {
-                ArrayList<String> a = new ArrayList<String>();
-                a.add(rs.getString(1));
-                a.add(rs.getString(2));
-                a.add(rs.getString(3));
-                a.add(rs.getString(4));
-                r.add(a);
+                Funcionario funcionario = new Funcionario(
+                        rs.getString("CPF"),
+                        rs.getString("NOME"),
+                        null, // Se não houver data de nascimento na consulta
+                        rs.getString("CARGO"),
+                        rs.getString("EMAIL"),
+                        null, // Se não houver endereço ou CEP na consulta
+                        null,
+                        rs.getBoolean("STATUS")
+                );
+                funcionarios.add(funcionario);
             }
-
-        }catch (SQLException e){
-            Messenger.error("Erro no banco",e.getMessage());
+        } catch (SQLException e) {
+            Messenger.error("Erro no banco", e.getMessage());
         }
-        return r;
+        return funcionarios;
     }
+
 }
