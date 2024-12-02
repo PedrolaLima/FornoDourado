@@ -17,6 +17,7 @@ import java.util.logging.Logger;
 import br.com.fatec.Messenger;
 import br.com.fatec.dao.FuncionarioDAO;
 import br.com.fatec.data.Database;
+import br.com.fatec.data.FuncionarioHolder;
 import br.com.fatec.model.Funcionario;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
@@ -363,6 +364,20 @@ public class adicionarFuncionarioController implements Initializable {
                 }
             }
         });
+
+        if(!FuncionarioHolder.isEmpty()){
+            Funcionario f = FuncionarioHolder.getF();
+            cepField.setText(f.getCep());
+            cpfField.setText(f.getCpf());
+            nameField.setText(f.getName());
+            emailField.setText(f.getEmail());
+            addressField.setText(f.getEndereco());
+            statusCombo.setValue(f.isStatus()?"Ativo":"Desativado");
+            stateCombo.setValue(f.getUf());
+            populateCity();
+            cityCombo.setValue(f.getCidade());
+            birthDate.setValue(f.getBirth());
+        }
 
     }
 

@@ -1,6 +1,10 @@
 package br.com.fatec.controller;
 
 import br.com.fatec.App;
+import br.com.fatec.Messenger;
+import br.com.fatec.dao.FuncionarioDAO;
+import br.com.fatec.data.FuncionarioHolder;
+import br.com.fatec.model.Funcionario;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -11,6 +15,8 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import java.io.IOException;
 import java.net.URL;
+import java.sql.SQLException;
+import java.time.LocalDate;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -93,7 +99,15 @@ public class funcionarioController implements Initializable {
 
 
     private void editarFuncionario(Funcionario funcionario) {
-        System.out.println("Editando: " + funcionario.getNome());
+        System.out.println("Editando: " + funcionario.getName());
+        FuncionarioHolder.setF(funcionario);
+
+        try {
+            App.setRoot("adicionarFuncionario");
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+
         // Implementar lógica de edição
     }
 
@@ -102,20 +116,26 @@ public class funcionarioController implements Initializable {
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
         alert.setTitle("Confirmação de Exclusão");
         alert.setHeaderText("Você tem certeza que deseja excluir o funcionário?");
-        alert.setContentText("Nome: " + funcionario.getNome());
+        alert.setContentText("Nome: " + funcionario.getName());
 
         // Captura a resposta do usuário
         alert.showAndWait().ifPresent(response -> {
             if (response == ButtonType.OK) {
-                // Remove o funcionário do ObservableList
-                ObservableList<Funcionario> funcionarios = workersTable.getItems();
-                funcionarios.remove(funcionario);
+                try {
+                    FuncionarioDAO f =new FuncionarioDAO();
+                    f.delete(funcionario.getCpf());
+                    Messenger.info("Successo","O funcionario"+funcionario.getName()+" foi excluido");
 
-                // Atualiza o TableView
-                workersTable.setItems(funcionarios);
+                    // Remove o funcionário do ObservableList
+                    ObservableList<Funcionario> funcionarios = workersTable.getItems();
+                    funcionarios.remove(funcionario);
 
-                // Log ou mensagem adicional
-                System.out.println("Funcionário removido: " + funcionario.getNome());
+                    // Atualiza o TableView
+                    workersTable.setItems(funcionarios);
+
+                }catch (SQLException e){
+                    Messenger.error("Erro no banco","O funcionario não foi deletado");
+                }
             }
         });
     }
@@ -131,8 +151,8 @@ public class funcionarioController implements Initializable {
 
         // Adicionando dados ao TableView
         ObservableList<Funcionario> funcionarios = FXCollections.observableArrayList(
-                new Funcionario("Pedro", "123.456.789-00", "pedro_henrique", "Gerente", "Ativo"),
-                new Funcionario("Ana", "987.654.321-00", "ana_clara", "Atendente", "Inativo")
+                new Funcionario("123.456.789-00","Pedro", LocalDate.now() ,"Gerente","pedroHhenrique@email.net","84067-284","Rua 1", true),
+                new Funcionario("987.654.321-00","Ana", LocalDate.now(),"Atendente","anaClara@email.net","03194-785","Rua 2", false)
         );
 
         workersTable.setItems(funcionarios);
@@ -275,7 +295,7 @@ public class funcionarioController implements Initializable {
         });
     }
 
-    public static class Funcionario {
+    /*public static class Funcionario {
         private String nome;
         private String cpf;
         private String usuario;
@@ -309,5 +329,5 @@ public class funcionarioController implements Initializable {
         public String getStatus() {
             return status;
         }
-    }
+    }*/
 }
