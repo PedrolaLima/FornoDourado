@@ -344,7 +344,7 @@ public class adicionarFuncionarioController implements Initializable {
 
         statusCombo.setItems(FXCollections.observableArrayList("Ativo","Desativado"));
 
-        occupationCombo.setItems(FXCollections.observableArrayList("Administração","Cozinha","Caixa","Limpeza"));
+        occupationCombo.setItems(FXCollections.observableArrayList("Administrador","Supervisor","Atendente"));
 
         ObservableList<String> uf =  FXCollections.observableArrayList("AC","AL","AM","AP","BA","CE","DF",
                 "ES","GO","MA","MG","MS","MT","PA","PB","PE","PI","PR","RJ","RN","RO","RR","RS","SC","SE","SP","TO");

@@ -98,8 +98,26 @@ public class funcionarioController implements Initializable {
     }
 
     private void deletarFuncionario(Funcionario funcionario) {
-        System.out.println("Deletando: " + funcionario.getNome());
-        // Implementar lógica de exclusão
+        // Exibe uma caixa de diálogo de confirmação
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+        alert.setTitle("Confirmação de Exclusão");
+        alert.setHeaderText("Você tem certeza que deseja excluir o funcionário?");
+        alert.setContentText("Nome: " + funcionario.getNome());
+
+        // Captura a resposta do usuário
+        alert.showAndWait().ifPresent(response -> {
+            if (response == ButtonType.OK) {
+                // Remove o funcionário do ObservableList
+                ObservableList<Funcionario> funcionarios = workersTable.getItems();
+                funcionarios.remove(funcionario);
+
+                // Atualiza o TableView
+                workersTable.setItems(funcionarios);
+
+                // Log ou mensagem adicional
+                System.out.println("Funcionário removido: " + funcionario.getNome());
+            }
+        });
     }
 
 
@@ -153,10 +171,6 @@ public class funcionarioController implements Initializable {
                     Funcionario funcionario = getTableView().getItems().get(getIndex());
                     deletarFuncionario(funcionario);
                 });
-
-                // Estilizando os botões
-                editButton.getStyleClass().add("edit-button");
-                deleteButton.getStyleClass().add("delete-button");
             }
 
             @Override
@@ -178,9 +192,6 @@ public class funcionarioController implements Initializable {
         workersTable.getColumns().add(actionColumn); // Adiciona apenas uma vez a coluna de Ações
     }
         
-        
-        
-    
 
     private void configurarProfileMenu() {
         // Criação do menu de contexto
@@ -229,6 +240,38 @@ public class funcionarioController implements Initializable {
             double xPos = filter.localToScreen(filter.getLayoutX(), filter.getLayoutY()).getX() - 125;
             double yPos = filter.localToScreen(filter.getLayoutX(), filter.getLayoutY()).getY() - 86;
             filterMenu.show(filter, xPos, yPos);
+        });
+        
+        // Submenu para "Cargo"
+        ContextMenu cargoSubMenu = new ContextMenu();
+        MenuItem adminItem = new MenuItem("Administrador");
+        MenuItem supervisorItem = new MenuItem("Supervisor");
+        MenuItem atendenteItem = new MenuItem("Atendente");
+        cargoSubMenu.getItems().addAll(adminItem, supervisorItem, atendenteItem);
+
+        // Submenu para "Status"
+        ContextMenu statusSubMenu = new ContextMenu();
+        MenuItem ativoItem = new MenuItem("Ativo");
+        MenuItem desativadoItem = new MenuItem("Desativado");
+        statusSubMenu.getItems().addAll(ativoItem, desativadoItem);
+
+        // Configurar eventos para abrir os submenus
+        cargoMenuItem.setOnAction(event -> {
+            double xPos = filter.localToScreen(filter.getLayoutX(), filter.getLayoutY()).getX()- 70;
+            double yPos = filter.localToScreen(filter.getLayoutX(), filter.getLayoutY()).getY() - 92;
+            cargoSubMenu.show(filter, xPos, yPos);
+        });
+
+        statusMenuItem.setOnAction(event -> {
+            double xPos = filter.localToScreen(filter.getLayoutX(), filter.getLayoutY()).getX() - 70;
+            double yPos = filter.localToScreen(filter.getLayoutX(), filter.getLayoutY()).getY() - 92;
+            statusSubMenu.show(filter, xPos, yPos);
+        });
+        
+        semFiltro.setOnAction(event -> {
+            System.out.println("TÁ SEM FILTRO CONFIA");
+            
+            //TO DO
         });
     }
 
