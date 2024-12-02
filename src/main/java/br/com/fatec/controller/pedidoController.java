@@ -4,10 +4,14 @@ import br.com.fatec.App;
 import javafx.fxml.FXML;
 import java.io.IOException;
 import java.net.URL;
+import java.time.LocalDate;
+import java.time.ZoneId;
+import java.time.format.DateTimeFormatter;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javafx.scene.control.ContextMenu;
+import javafx.scene.control.Label;
 import javafx.scene.control.MenuItem;
 import javafx.scene.layout.AnchorPane;
 import javafx.fxml.Initializable;
@@ -20,6 +24,9 @@ import javafx.scene.shape.Rectangle;
 
 
 public class pedidoController implements Initializable {
+
+    @FXML
+    public Label date;
 
     @FXML
     private void carregarProdutos() throws IOException {
@@ -91,6 +98,10 @@ public class pedidoController implements Initializable {
     */}
     
     public void initialize(URL url, ResourceBundle rb) {
+
+        date.setText(LocalDate.now(
+                ZoneId.of( "America/Sao_Paulo" )
+        ).format(DateTimeFormatter.ofPattern("dd/MM/yyyy")));
         
         carregarCategorias();
 

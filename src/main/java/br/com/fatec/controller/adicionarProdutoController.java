@@ -5,6 +5,9 @@ import java.io.File;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
+import java.time.LocalDate;
+import java.time.ZoneId;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
 import java.util.function.UnaryOperator;
@@ -37,6 +40,9 @@ public class adicionarProdutoController implements Initializable {
     public ToggleGroup categoria;
 
     @FXML
+    public Label date;
+
+    @FXML
     private AnchorPane profilePane;
 
     @FXML
@@ -59,6 +65,9 @@ public class adicionarProdutoController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+        date.setText(LocalDate.now(
+                ZoneId.of( "America/Sao_Paulo" )
+        ).format(DateTimeFormatter.ofPattern("dd/MM/yyyy")));
         configureContextMenu();
         configureProfileImage();
         configureProductImage();

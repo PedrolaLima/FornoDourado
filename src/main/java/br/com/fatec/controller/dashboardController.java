@@ -3,12 +3,16 @@ package br.com.fatec.controller;
 import br.com.fatec.App;
 import java.io.IOException;
 import java.net.URL;
+import java.time.LocalDate;
+import java.time.ZoneId;
+import java.time.format.DateTimeFormatter;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.SnapshotParameters;
+import javafx.scene.control.Label;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.control.ContextMenu;
 import javafx.scene.control.MenuItem;
@@ -20,6 +24,8 @@ import javafx.scene.shape.Rectangle;
 
 
 public class dashboardController implements Initializable {
+    @FXML
+    public Label date;
 
     // Método para carregar a tela de "Adicionar Produto"
     @FXML
@@ -54,6 +60,9 @@ public class dashboardController implements Initializable {
    private ImageView profile;
     
     public void initialize(URL url, ResourceBundle rb) {
+        date.setText(LocalDate.now(
+                ZoneId.of( "America/Sao_Paulo" )
+        ).format(DateTimeFormatter.ofPattern("dd/MM/yyyy")));
         // Criar o menu
         ContextMenu contextMenu = new ContextMenu();
 

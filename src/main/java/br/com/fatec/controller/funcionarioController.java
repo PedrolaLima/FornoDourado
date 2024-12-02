@@ -17,6 +17,8 @@ import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
 import java.time.LocalDate;
+import java.time.ZoneId;
+import java.time.format.DateTimeFormatter;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -24,6 +26,8 @@ import javafx.scene.control.cell.PropertyValueFactory;
 
 public class funcionarioController implements Initializable {
 
+    @FXML
+    public Label date;
     @FXML
     private TableView<Funcionario> workersTable;
 
@@ -87,6 +91,10 @@ public class funcionarioController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+        date.setText(LocalDate.now(
+                ZoneId.of( "America/Sao_Paulo" )
+        ).format(DateTimeFormatter.ofPattern("dd/MM/yyyy")));
+
         // Inicializa o TableView
         configurarTabela();
 

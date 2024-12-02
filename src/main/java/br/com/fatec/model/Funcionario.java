@@ -7,14 +7,16 @@ package br.com.fatec.model;
 import javafx.scene.image.Image;
 
 import java.time.LocalDate;
-import java.util.Date;
+import java.time.ZoneId;
+import java.time.ZonedDateTime;
+
 
 /**
  *
  * @author alberto
  */
 public class Funcionario {
-    
+
     private String cpf;
     private String name;
     private LocalDate birth;

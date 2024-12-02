@@ -8,6 +8,8 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.time.LocalDate;
+import java.time.ZoneId;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
 import java.util.function.UnaryOperator;
@@ -41,6 +43,8 @@ public class adicionarFuncionarioController implements Initializable {
     @FXML
     public DatePicker birthDate;
     @FXML
+    public Label date;
+    @FXML
     private AnchorPane profilePane;
     @FXML
     private AnchorPane profileBack;
@@ -73,6 +77,9 @@ public class adicionarFuncionarioController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+        date.setText(LocalDate.now(
+                ZoneId.of( "America/Sao_Paulo" )
+        ).format(DateTimeFormatter.ofPattern("dd/MM/yyyy")));
 
         cepField.setText("");
         cpfField.setText("");

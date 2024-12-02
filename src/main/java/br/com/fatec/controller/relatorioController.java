@@ -4,6 +4,9 @@ import br.com.fatec.App;
 import javafx.fxml.FXML;
 import java.io.IOException;
 import java.net.URL;
+import java.time.LocalDate;
+import java.time.ZoneId;
+import java.time.format.DateTimeFormatter;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -24,7 +27,9 @@ import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
 
 public class relatorioController implements Initializable {
-    
+
+    @FXML
+    public Label date;
     // Referência global para o Stage da janela de quantidade
     private Stage quantidadeStage;
 
@@ -70,6 +75,10 @@ public class relatorioController implements Initializable {
 
   
     public void initialize(URL url, ResourceBundle rb) {
+        date.setText(LocalDate.now(
+                ZoneId.of( "America/Sao_Paulo" )
+        ).format(DateTimeFormatter.ofPattern("dd/MM/yyyy")));
+        
         // Criar o menu
         ContextMenu contextMenu = new ContextMenu();
 
