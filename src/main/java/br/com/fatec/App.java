@@ -15,6 +15,8 @@ public class App extends Application {
 
     private static Scene scene;
 
+    private static Object currentController;
+
     @Override
     public void start(Stage stage) throws IOException {
         //scene = new Scene(loadFXML("menu"));
@@ -25,16 +27,32 @@ public class App extends Application {
     }
 
     public static void setRoot(String fxml) throws IOException {
-        scene.setRoot(loadFXML(fxml));
+        // Carrega o novo FXML
+        FXMLLoader loader = new FXMLLoader(App.class.getResource(fxml + ".fxml"));
+        Parent root = loader.load();
+
+        // Atualiza a cena com o novo root
+        scene.setRoot(root);
+
+        // Armazena o controlador da nova tela
+        currentController = loader.getController();
     }
 
-    private static Parent loadFXML(String fxml) throws IOException   {
+    private static Parent loadFXML(String fxml) throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader(App.class.getResource(fxml + ".fxml"));
         return fxmlLoader.load();
     }
 
     public static void main(String[] args) {
         launch();
+    }
+
+    // Método para recuperar o controlador da tela atual
+    public static <T> T getController(String fxmlName) {
+        if (currentController != null) {
+            return (T) currentController; // Retorna o controlador armazenado
+        }
+        return null;
     }
 
 }

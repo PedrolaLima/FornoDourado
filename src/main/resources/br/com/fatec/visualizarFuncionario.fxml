@@ -97,17 +97,17 @@
                   <Image url="@Imagens/icons/produto/produto-placeholder.png" />
                </image>
             </ImageView>
-            <Label layoutX="82.0" layoutY="143.0" prefHeight="40.0" prefWidth="100.0" text="CPF" textFill="GREY">
+            <Label layoutX="82.0" layoutY="143.0" prefHeight="40.0" prefWidth="100.0" text="Nome" textFill="GREY">
                <font>
                   <Font size="17.0" />
                </font>
             </Label>
-            <Label layoutX="82.0" layoutY="180.0" prefHeight="40.0" prefWidth="138.0" text="xxxxxxxxx">
+            <Label fx:id="nameField" layoutX="82.0" layoutY="180.0" prefHeight="40.0" prefWidth="138.0" text="xxxxxxxxx">
                <font>
                   <Font name="System Bold" size="17.0" />
                </font>
             </Label>
-            <Label layoutX="82.0" layoutY="362.0" prefHeight="40.0" prefWidth="138.0" text="xxxxxxxxx">
+            <Label fx:id="occupationField" layoutX="82.0" layoutY="362.0" prefHeight="40.0" prefWidth="138.0" text="xxxxxxxxx">
                <font>
                   <Font name="System Bold" size="17.0" />
                </font>
@@ -117,37 +117,32 @@
                   <Font size="17.0" />
                </font>
             </Label>
-            <Label layoutX="603.0" layoutY="88.0" prefHeight="40.0" prefWidth="184.0" text="xxxxxxxxx">
+            <Label fx:id="cpfField" layoutX="603.0" layoutY="178.0" prefHeight="40.0" prefWidth="184.0" text="xxxxxxxxx">
                <font>
                   <Font name="System Bold" size="17.0" />
                </font>
             </Label>
-            <Label layoutX="603.0" layoutY="51.0" prefHeight="40.0" prefWidth="100.0" text="Nome" textFill="GREY">
+            <Label layoutX="603.0" layoutY="141.0" prefHeight="40.0" prefWidth="100.0" text="CPF" textFill="GREY">
                <font>
                   <Font size="17.0" />
                </font>
             </Label>
-            <Label layoutX="603.0" layoutY="180.0" prefHeight="40.0" prefWidth="152.0" text="xxxxxxxxxxxxx">
+            <Label fx:id="emailField" layoutX="603.0" layoutY="270.0" prefHeight="40.0" prefWidth="152.0" text="xxxxxxxxxxxxx">
                <font>
                   <Font name="System Bold" size="17.0" />
                </font>
             </Label>
-            <Label layoutX="603.0" layoutY="143.0" prefHeight="40.0" prefWidth="100.0" text="Email" textFill="GREY">
+            <Label layoutX="603.0" layoutY="233.0" prefHeight="40.0" prefWidth="100.0" text="Email" textFill="GREY">
                <font>
                   <Font size="17.0" />
                </font>
             </Label>
-            <Label layoutX="603.0" layoutY="362.0" prefHeight="40.0" prefWidth="215.0" text="xxxxxxx">
+            <Label fx:id="statusField" layoutX="603.0" layoutY="362.0" prefHeight="40.0" prefWidth="215.0" text="xxxxxxx">
                <font>
                   <Font name="System Bold" size="17.0" />
                </font>
             </Label>
-            <Label layoutX="603.0" layoutY="325.0" prefHeight="40.0" prefWidth="100.0" text="Senha" textFill="GREY">
-               <font>
-                  <Font size="17.0" />
-               </font>
-            </Label>
-            <Label layoutX="82.0" layoutY="271.0" prefHeight="40.0" prefWidth="184.0" text="xx de xxxx de xxxx">
+            <Label fx:id="birthDate" layoutX="82.0" layoutY="271.0" prefHeight="40.0" prefWidth="184.0" text="xx de xxxx de xxxx">
                <font>
                   <Font name="System Bold" size="17.0" />
                </font>
@@ -157,14 +152,9 @@
                   <Font size="17.0" />
                </font>
             </Label>
-            <Label layoutX="603.0" layoutY="234.0" prefHeight="40.0" prefWidth="167.0" text="Status" textFill="GREY">
+            <Label layoutX="603.0" layoutY="324.0" prefHeight="40.0" prefWidth="167.0" text="Status" textFill="GREY">
                <font>
                   <Font size="17.0" />
-               </font>
-            </Label>
-            <Label layoutX="603.0" layoutY="271.0" prefHeight="40.0" prefWidth="184.0" text="xxxxxxx">
-               <font>
-                  <Font name="System Bold" size="17.0" />
                </font>
             </Label>
             <Label layoutX="82.0" layoutY="416.0" prefHeight="40.0" prefWidth="100.0" text="Endereço" textFill="GREY">
@@ -172,7 +162,7 @@
                   <Font size="17.0" />
                </font>
             </Label>
-            <Label layoutX="82.0" layoutY="453.0" prefHeight="40.0" prefWidth="138.0" text="xxxxxxxxx">
+            <Label fx:id="addressField" layoutX="82.0" layoutY="453.0" prefHeight="40.0" prefWidth="138.0" text="xxxxxxxxx">
                <font>
                   <Font name="System Bold" size="17.0" />
                </font>
@@ -182,12 +172,12 @@
                   <Font size="17.0" />
                </font>
             </Label>
-            <Label layoutX="603.0" layoutY="453.0" prefHeight="40.0" prefWidth="138.0" text="xxxxxxxxx">
+            <Label fx:id="cepField" layoutX="603.0" layoutY="453.0" prefHeight="40.0" prefWidth="138.0" text="xxxxxxxxx">
                <font>
                   <Font name="System Bold" size="17.0" />
                </font>
             </Label>
-            <Label layoutX="82.0" layoutY="544.0" prefHeight="40.0" prefWidth="138.0" text="xxxxxxxxx">
+            <Label fx:id="stateField" layoutX="82.0" layoutY="544.0" prefHeight="40.0" prefWidth="138.0" text="xxxxxxxxx">
                <font>
                   <Font name="System Bold" size="17.0" />
                </font>
@@ -197,12 +187,12 @@
                   <Font size="17.0" />
                </font>
             </Label>
-            <Label layoutX="603.0" layoutY="507.0" prefHeight="40.0" prefWidth="100.0" text="Estado" textFill="GREY">
+            <Label layoutX="603.0" layoutY="507.0" prefHeight="40.0" prefWidth="100.0" text="Cidade" textFill="GREY">
                <font>
                   <Font size="17.0" />
                </font>
             </Label>
-            <Label layoutX="603.0" layoutY="544.0" prefHeight="40.0" prefWidth="138.0" text="xxxxxxxxx">
+            <Label fx:id="cityField" layoutX="603.0" layoutY="544.0" prefHeight="40.0" prefWidth="138.0" text="xxxxxxxxx">
                <font>
                   <Font name="System Bold" size="17.0" />
                </font>

@@ -56,26 +56,25 @@ public class FuncionarioDAO implements DAO <Funcionario> {
         Database.close();
         return res != 0;
     }
-
+    
     @Override
-    public boolean update(Funcionario model,String cpf) throws SQLException {
+    public boolean update(Funcionario f, String cpf) throws SQLException {
         int  res = 0;
         Database.connect();
-        String sql ="INSERT CPF,NOME,NASC,CARGO,EMAIL,CEP,ENDERECO,CIDADE,UF,STATUS,IMG INTO funcionarios VALUES(?,?,?,?,?,?,?,?,?,?,?) WHERE CPF = ?";
-        ps = Database.getConnection().prepareStatement(sql);
-
-        ps.setString(1,model.getCpf());
-        ps.setString(2,model.getName());
-        ps.setDate(3, Date.valueOf(model.getBirth()));
-        ps.setString(4, model.getOccupation());
-        ps.setString(5, model.getEmail());
-        ps.setString(6,model.getCep());
-        ps.setString(7, model.getEndereco());
-        ps.setString(8, model.getCidade());
-        ps.setString(9, model.getUf());
-        ps.setBoolean(10, model.isStatus());
-        ps.setString(11,  model.getImg());
-        ps.setString(12,cpf);
+        String sql = "UPDATE funcionarios SET "
+                + "nome = ?, nasc = ?, cargo = ?, email = ?, cep = ?, endereco = ?, cidade = ?, uf = ?, status = ? "
+                + "WHERE cpf = ?;";
+        PreparedStatement ps = Database.getConnection().prepareStatement(sql);
+        ps.setString(1, f.getName());
+        ps.setObject(2, f.getBirth());
+        ps.setString(3, f.getOccupation());
+        ps.setString(4, f.getEmail());
+        ps.setString(5, f.getCep());
+        ps.setString(6, f.getEndereco());
+        ps.setString(7, f.getCidade());
+        ps.setString(8, f.getUf());
+        ps.setBoolean(9, f.isStatus());
+        ps.setString(10, f.getCpf());
         
         try {
             res = ps.executeUpdate();  
@@ -128,8 +127,8 @@ public class FuncionarioDAO implements DAO <Funcionario> {
 
         while (rs.next()) {
             Funcionario f = new Funcionario(rs.getString(1),rs.getString(2),
-                    rs.getDate(3).toLocalDate(),rs.getString(4),rs.getString(4),rs.getString(5),
-                    rs.getString(6),rs.getString(7),rs.getString(8), rs.getBoolean(9), rs.getString(10));
+                    rs.getDate(3).toLocalDate(),rs.getString(4),rs.getString(5),rs.getString(6),
+                    rs.getString(7),rs.getString(8),rs.getString(9), rs.getBoolean(10), rs.getString(11));
             r.add(f); 
         }
 

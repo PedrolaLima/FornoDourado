@@ -115,14 +115,14 @@ public class funcionarioController implements Initializable {
         // Configurar a barra de pesquisa
         configurarBarraDePesquisa();
     }
-    
+
     private void configurarBarraDePesquisa() {
         // Configurar evento de digitação na barra de pesquisa
         searchBar.textProperty().addListener((observable, oldValue, newValue) -> {
             filtrarFuncionarios(newValue);
         });
     }
-    
+
     private void filtrarFuncionarios(String query) {
         ObservableList<Funcionario> todosFuncionarios = FXCollections.observableArrayList(new FuncionarioDAO().getTable());
 
@@ -143,18 +143,21 @@ public class funcionarioController implements Initializable {
         workersTable.setItems(filtrados); // Atualiza a tabela com os resultados filtrados
     }
 
-    
     private void editarFuncionario(Funcionario funcionario) {
         System.out.println("Editando: " + funcionario.getName());
         FuncionarioHolder.setF(funcionario);
 
         try {
             App.setRoot("adicionarFuncionario");
+            
+            adicionarFuncionarioController controller = App.getController("adicionarFuncionario");
+            if (controller != null) {
+                controller.botaoEditar();
+            }
+
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
-
-        // Implementar lógica de edição
     }
 
     private void deletarFuncionario(Funcionario funcionario) {
@@ -230,6 +233,7 @@ public class funcionarioController implements Initializable {
                 editButton.setOnAction(event -> {
                     Funcionario funcionario = getTableView().getItems().get(getIndex());
                     editarFuncionario(funcionario);
+
                 });
 
                 // Ação de deletar

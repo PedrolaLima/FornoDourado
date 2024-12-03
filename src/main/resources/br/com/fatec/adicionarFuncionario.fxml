@@ -108,7 +108,7 @@
                   <ColorAdjust brightness="0.28" />
                </effect>
             </ComboBox>
-            <ImageView fitHeight="69.0" fitWidth="150.0" layoutX="747.0" layoutY="519.0" onMouseClicked="#addFuncionario" pickOnBounds="true" preserveRatio="true" styleClass="botao-adicionar">
+            <ImageView fx:id="btn_confirm" fitHeight="69.0" fitWidth="150.0" layoutX="747.0" layoutY="519.0" onMouseClicked="#addFuncionario" pickOnBounds="true" preserveRatio="true" styleClass="botao-adicionar">
                <image>
                   <Image url="@Imagens/icons/produto/confirmar.png" />
                </image>
@@ -118,7 +118,7 @@
                   <Image url="@Imagens/icons/produto/cancelar.png" />
                </image>
             </ImageView>
-            <ComboBox fx:id="cityCombo" disable="true" layoutX="49.0" layoutY="451.0" prefHeight="43.0" prefWidth="420.0" promptText="Cidade" style="-fx-background-color: white; -fx-border-color: GRAY; -fx-border-radius: 10;">
+            <ComboBox fx:id="cityCombo" layoutX="49.0" layoutY="451.0" prefHeight="43.0" prefWidth="420.0" promptText="Cidade" style="-fx-background-color: white; -fx-border-color: GRAY; -fx-border-radius: 10;">
                <effect>
                   <ColorAdjust brightness="0.28" />
                </effect>
