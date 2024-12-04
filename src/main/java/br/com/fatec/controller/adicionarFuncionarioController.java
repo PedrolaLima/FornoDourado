@@ -559,6 +559,7 @@ public class adicionarFuncionarioController implements Initializable {
 
                         // Atualiza no banco de dados
                         FuncionarioDAO fu = new FuncionarioDAO();
+                        fu.insertPassword(updatedFuncionario.getCpf(),passwordField.getText());
                         fu.update(updatedFuncionario, cpfField.getText());
                         Messenger.info("Concluído", "Dados do funcionário atualizados com sucesso!");
                         App.setRoot("funcionarios");
@@ -579,6 +580,7 @@ public class adicionarFuncionarioController implements Initializable {
                     );
 
                     FuncionarioDAO fu = new FuncionarioDAO();
+                    fu.insertPassword(newFuncionario.getCpf(),passwordField.getText());
                     fu.insert(newFuncionario);
                     Messenger.info("Concluído", "Funcionário inserido com sucesso!");
                 }

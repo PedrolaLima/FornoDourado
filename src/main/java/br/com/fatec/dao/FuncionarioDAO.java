@@ -224,5 +224,20 @@ public class FuncionarioDAO implements DAO <Funcionario> {
         }
         return funcionarios;
     }
-
+    
+    public void insertPassword(String cpf,String psswd) throws SQLException{
+        Database.connect();
+        String sql = "INSERT INTO shadow(CPF,HASH,SALT) VALUES(?,?,?);";
+        ps = Database.getConnection().prepareStatement(sql);
+        ps.setString(1, cpf);
+        String salt = Security.newSalt();
+        ps.setString(2, Security.hashPassword(psswd, salt));
+        ps.setString(3,salt);
+        
+        try {
+            ps.executeUpdate();  
+        }finally{
+            Database.close();
+        }
+    }
 }
