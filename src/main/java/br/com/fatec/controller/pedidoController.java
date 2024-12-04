@@ -40,6 +40,12 @@ public class pedidoController implements Initializable {
     private Label date;
 
     @FXML
+    private Label profilePaneName;
+    
+    @FXML
+    private Label profilePaneType;
+
+    @FXML
     private TableView<Produto> ordersTable;
 
     @FXML
@@ -249,6 +255,11 @@ public class pedidoController implements Initializable {
 
     public void initialize(URL url, ResourceBundle rb) {
 
+        this.profilePaneName.setText("admin");
+        this.profilePaneType.setText("Administração");
+        //this.profilePaneName.setText(FuncionarioHolder.getUser().getName());
+        //this.profilePaneType.setText(FuncionarioHolder.getUser().getOccupation());
+        
         date.setText(LocalDate.now(
                 ZoneId.of("America/Sao_Paulo")
         ).format(DateTimeFormatter.ofPattern("dd/MM/yyyy")));

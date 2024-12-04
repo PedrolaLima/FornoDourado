@@ -2,6 +2,7 @@ package br.com.fatec.controller;
 
 import br.com.fatec.App;
 import br.com.fatec.data.ProdutoHolder;
+import br.com.fatec.data.FuncionarioHolder;
 import br.com.fatec.model.Produto;
 import javafx.fxml.FXML;
 import java.io.IOException;
@@ -72,6 +73,12 @@ public class visualizarProdutoController implements Initializable {
     private ImageView productview;
 
     @FXML
+    private Label profilePaneName;
+    
+    @FXML
+    private Label profilePaneType;
+
+    @FXML
     private Label produtoLabel;
 
     @FXML
@@ -85,7 +92,7 @@ public class visualizarProdutoController implements Initializable {
 
     @FXML
     private Label statusLabel;
-    
+
     @FXML
     private Label date;
 
@@ -132,9 +139,15 @@ public class visualizarProdutoController implements Initializable {
     }
 
     public void initialize(URL url, ResourceBundle rb) {
+        
+        this.profilePaneName.setText("admin");
+        this.profilePaneType.setText("Administração");
+        //this.profilePaneName.setText(FuncionarioHolder.getUser().getName());
+        //this.profilePaneType.setText(FuncionarioHolder.getUser().getOccupation());
+        
         // Exibe a data atual
         date.setText(LocalDate.now(ZoneId.of("America/Sao_Paulo")).format(DateTimeFormatter.ofPattern("dd/MM/yyyy")));
-        
+
         // Criar o menu
         ContextMenu contextMenu = new ContextMenu();
 

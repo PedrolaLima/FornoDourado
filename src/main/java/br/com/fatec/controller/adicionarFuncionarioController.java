@@ -33,7 +33,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.image.WritableImage;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.paint.Color;
-import javafx.scene.shape.Rectangle;;
+import javafx.scene.shape.Rectangle;
 
 public class adicionarFuncionarioController implements Initializable {
 
@@ -41,6 +41,10 @@ public class adicionarFuncionarioController implements Initializable {
     public DatePicker birthDate;
     @FXML
     public Label date;
+    @FXML
+    private Label profilePaneName;
+    @FXML
+    private Label profilePaneType;
     @FXML
     private AnchorPane profilePane;
     @FXML
@@ -90,6 +94,12 @@ public class adicionarFuncionarioController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+
+        this.profilePaneName.setText("admin");
+        this.profilePaneType.setText("Administração");
+        //this.profilePaneName.setText(FuncionarioHolder.getUser().getName());
+        //this.profilePaneType.setText(FuncionarioHolder.getUser().getOccupation());
+
         date.setText(LocalDate.now(
                 ZoneId.of("America/Sao_Paulo")
         ).format(DateTimeFormatter.ofPattern("dd/MM/yyyy")));

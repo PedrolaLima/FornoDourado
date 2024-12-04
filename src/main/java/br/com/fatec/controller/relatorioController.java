@@ -30,6 +30,13 @@ public class relatorioController implements Initializable {
 
     @FXML
     public Label date;
+    
+    @FXML
+    private Label profilePaneName;
+    
+    @FXML 
+    private Label profilePaneType;
+    
     // Referência global para o Stage da janela de quantidade
     private Stage quantidadeStage;
 
@@ -75,6 +82,12 @@ public class relatorioController implements Initializable {
 
   
     public void initialize(URL url, ResourceBundle rb) {
+        
+        this.profilePaneName.setText("admin");
+        this.profilePaneType.setText("Administração");
+        //this.profilePaneName.setText(FuncionarioHolder.getUser().getName());
+        //this.profilePaneType.setText(FuncionarioHolder.getUser().getOccupation());
+        
         date.setText(LocalDate.now(
                 ZoneId.of( "America/Sao_Paulo" )
         ).format(DateTimeFormatter.ofPattern("dd/MM/yyyy")));

@@ -4,6 +4,7 @@ import br.com.fatec.model.Funcionario;
 
 public class FuncionarioHolder {
     public static Funcionario f;
+    private static Funcionario u;
 
     public static Funcionario getF() {
         return f;
@@ -22,5 +23,13 @@ public class FuncionarioHolder {
             return true;
         }
         return false;
+    } 
+    
+    public static void setUser(Funcionario user){
+        FuncionarioHolder.u = user;
+    }
+    
+    public static Funcionario getUser(){
+        return u;
     }
 }
