@@ -78,6 +78,11 @@ public class adicionarFuncionarioController implements Initializable {
     public ImageView btn_confirm;
 
     public String img;
+    
+    // Caminhos das imagens
+    private String adminImagePath = "/br/com/fatec/Imagens/cadastros/Funcionarios/admin.jpg";
+    private String supervisorImagePath = "/br/com/fatec/Imagens/cadastros/Funcionarios/supervisor.png";
+    private String atendenteImagePath = "/br/com/fatec/Imagens/cadastros/Funcionarios/atendente.jpeg";
 
     // Método para desabilitar o campo CPF
     public void botaoEditar() {
@@ -92,6 +97,48 @@ public class adicionarFuncionarioController implements Initializable {
         btn_confirm.getStyleClass().add("botao-atualizar");
     }
 
+    // Método para atualizar a imagem dependendo da ocupação selecionada
+    private void updateEmployeeImage(String occupation) {
+        String imagePath = "";
+
+        switch (occupation) {
+            case "Administrador":
+                imagePath = adminImagePath;
+                break;
+            case "Supervisor":
+                imagePath = supervisorImagePath;
+                break;
+            case "Atendente":
+                imagePath = atendenteImagePath;
+                break;
+            default:
+                imagePath = atendenteImagePath;  // Imagem padrão se não for nenhum dos anteriores
+                break;
+        }
+
+        // Crie a nova imagem com o caminho determinado
+        if (!imagePath.isEmpty()) {
+            Image newImage = new Image(getClass().getResource(imagePath).toExternalForm());
+
+            // Defina a nova imagem no ImageView
+            employee.setImage(newImage);
+
+            // Configura bordas arredondadas para a imagem
+            SnapshotParameters parameters = new SnapshotParameters();
+            parameters.setFill(Color.TRANSPARENT);
+            WritableImage image = employee.snapshot(parameters, null);
+
+            // Configura o recorte arredondado da imagem
+            Rectangle clip = new Rectangle(employee.getFitWidth(), employee.getFitHeight());
+            clip.setArcWidth(25);
+            clip.setArcHeight(25);
+            employee.setClip(clip);
+
+            // Atualiza a imagem com o recorte
+            employee.setImage(image);
+        }
+    }
+
     @Override
     public void initialize(URL url, ResourceBundle rb) {
 
@@ -99,6 +146,22 @@ public class adicionarFuncionarioController implements Initializable {
         this.profilePaneType.setText("Administração");
         //this.profilePaneName.setText(FuncionarioHolder.getUser().getName());
         //this.profilePaneType.setText(FuncionarioHolder.getUser().getOccupation());
+
+        // Define uma imagem padrão ou inicial
+        if (occupationCombo.getValue() != null) {
+            updateEmployeeImage(occupationCombo.getValue());
+        }
+
+        // Adiciona um listener para detectar mudanças no valor da ComboBox de ocupação
+        occupationCombo.valueProperty().addListener(new ChangeListener<String>() {
+            @Override
+            public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
+                // Chama o método para atualizar a imagem quando a ocupação mudar
+                if (newValue != null) {
+                    updateEmployeeImage(newValue);
+                }
+            }
+        });
 
         date.setText(LocalDate.now(
                 ZoneId.of("America/Sao_Paulo")
@@ -559,7 +622,7 @@ public class adicionarFuncionarioController implements Initializable {
 
                         // Atualiza no banco de dados
                         FuncionarioDAO fu = new FuncionarioDAO();
-                        fu.insertPassword(updatedFuncionario.getCpf(),passwordField.getText());
+                        fu.insertPassword(updatedFuncionario.getCpf(), passwordField.getText());
                         fu.update(updatedFuncionario, cpfField.getText());
                         Messenger.info("Concluído", "Dados do funcionário atualizados com sucesso!");
                         App.setRoot("funcionarios");
@@ -580,7 +643,7 @@ public class adicionarFuncionarioController implements Initializable {
                     );
 
                     FuncionarioDAO fu = new FuncionarioDAO();
-                    fu.insertPassword(newFuncionario.getCpf(),passwordField.getText());
+                    fu.insertPassword(newFuncionario.getCpf(), passwordField.getText());
                     fu.insert(newFuncionario);
                     Messenger.info("Concluído", "Funcionário inserido com sucesso!");
                 }
