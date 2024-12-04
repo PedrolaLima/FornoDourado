@@ -10825,15 +10825,15 @@ CREATE TABLE `produtos` (
   `NOME` varchar(50) NOT NULL,
   `VALUNI` double NOT NULL DEFAULT 0,
   `DISP` tinyint(1) NOT NULL,
-  `IMG` blob DEFAULT NULL
+  `CAT` varchar(8) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `produtos`
 --
 
-INSERT INTO `produtos` (`CODPROD`, `NOME`, `VALUNI`, `DISP`, `IMG`) VALUES
-(124, 'Brioche', 13.9, 1, NULL);
+INSERT INTO `produtos` (`CODPROD`, `NOME`, `VALUNI`, `DISP`, `CAT`) VALUES
+(124, 'Brioche', 13.9, 1,'Pães');
 
 -- --------------------------------------------------------
 

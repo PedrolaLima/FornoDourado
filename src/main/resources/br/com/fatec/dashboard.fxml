@@ -43,12 +43,12 @@
                   </StackPane>
                </children>
             </AnchorPane>
-            <Label fx:id="profileLabel" layoutX="-16.0" layoutY="989.0" prefHeight="81.0" prefWidth="138.0" rotate="90.0" text="NomeDoUsuario">
+            <Label fx:id="nameLabel" layoutX="-16.0" layoutY="989.0" prefHeight="81.0" prefWidth="138.0" rotate="90.0" text="NomeDoUsuario">
                <font>
                   <Font name="System Bold" size="15.0" />
                </font>
             </Label>
-            <Label fx:id="profileLabel" layoutX="-35.0" layoutY="989.0" prefHeight="81.0" prefWidth="138.0" rotate="90.0" style="-fx-font-family: powdah;" text="TipoConta">
+            <Label fx:id="occupationLabel" layoutX="-35.0" layoutY="989.0" prefHeight="81.0" prefWidth="138.0" rotate="90.0" style="-fx-font-family: powdah;" text="TipoConta">
                <font>
                   <Font size="14.0" />
                </font>

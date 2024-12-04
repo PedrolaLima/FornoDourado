@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.*?>
 <?import javafx.scene.effect.*?>
 <?import javafx.geometry.*?>
 <?import javafx.scene.text.*?>
@@ -91,15 +92,13 @@
          </children></AnchorPane>
       <AnchorPane layoutX="133.0" layoutY="202.0" prefHeight="548.0" prefWidth="994.0">
          <children>
-            <TableView layoutX="1.0" layoutY="6.0" prefHeight="545.0" prefWidth="994.0">
+            <TableView fx:id="productsTable" layoutX="1.0" layoutY="18.0" prefHeight="534.0" prefWidth="994.0">
               <columns>
-                <TableColumn prefWidth="489.0" text="Produto" />
-                <TableColumn minWidth="0.0" prefWidth="82.0" text="Código" />
-                  <TableColumn prefWidth="125.0" text="Categoria" />
-                  <TableColumn prefWidth="109.0" text="Preço" />
-                  <TableColumn minWidth="0.0" prefWidth="111.0" text="Disponibilidade" />
-                  <TableColumn minWidth="0.0" prefWidth="43.0" text="Editar" />
-                  <TableColumn prefWidth="34.0" text="Deletar" />
+                <TableColumn fx:id="colProduto" prefWidth="489.0" text="Produto" />
+                <TableColumn fx:id="colCodigo" minWidth="0.0" prefWidth="89.0" text="Código" />
+                  <TableColumn fx:id="colCategoria" prefWidth="135.0" text="Categoria" />
+                  <TableColumn fx:id="colPreco" prefWidth="101.0" text="Preço" />
+                  <TableColumn fx:id="colDisp" minWidth="0.0" prefWidth="102.0" text="Disponibilidade" />
               </columns>
             </TableView>
             <ImageView fitHeight="45.0" fitWidth="996.0" layoutY="-1.0">
@@ -122,5 +121,22 @@
             <Image url="@Imagens/icons/produto/add-produto.png" />
          </image>
       </ImageView>
+      <Group layoutX="-42.0" layoutY="124.0">
+         <children>
+            <TextField fx:id="searchBar" alignment="CENTER" layoutX="566.0" layoutY="20.0" prefHeight="31.0" prefWidth="215.0" promptText="Procurar">
+               <padding>
+                  <Insets left="50.0" right="50.0" />
+               </padding>
+            </TextField>
+            <ImageView fx:id="searchButton" fitHeight="25.0" fitWidth="26.0" layoutX="576.0" layoutY="23.0" pickOnBounds="true">
+               <cursor>
+                  <Cursor fx:constant="DEFAULT" />
+               </cursor>
+               <image>
+                  <Image url="@Imagens/icons/relatorio/search.png" />
+               </image>
+            </ImageView>
+         </children>
+      </Group>
    </children>
 </AnchorPane>

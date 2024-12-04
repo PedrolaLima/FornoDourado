@@ -1,7 +1,6 @@
 package br.com.fatec.controller;
 
 import br.com.fatec.App;
-import java.io.File;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.PreparedStatement;
@@ -34,9 +33,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.image.WritableImage;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.paint.Color;
-import javafx.scene.shape.Rectangle;
-import javafx.stage.FileChooser;
-import javafx.util.converter.IntegerStringConverter;
+import javafx.scene.shape.Rectangle;;
 
 public class adicionarFuncionarioController implements Initializable {
 
@@ -154,29 +151,6 @@ public class adicionarFuncionarioController implements Initializable {
         WritableImage image = profile.snapshot(parameters, null);
         profile.setClip(null);
         profile.setImage(image);
-
-        // Configuração de imagem para o employee
-        employee.setOnMouseClicked(event -> {
-            FileChooser fileChooser = new FileChooser();
-            fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("Imagens", "*.jpg", "*.jpeg", "*.png"));
-            File selectedFile = fileChooser.showOpenDialog(null);
-            if (selectedFile != null) {
-                img = selectedFile.toURI().toString();
-                Image newImage = new Image(img);
-                employee.setImage(newImage);
-
-                SnapshotParameters newParams = new SnapshotParameters();
-                newParams.setFill(Color.TRANSPARENT);
-                WritableImage newWritableImage = employee.snapshot(newParams, null);
-                employee.setClip(null);
-                employee.setImage(newWritableImage);
-
-                Rectangle newClip = new Rectangle(employee.getFitWidth(), employee.getFitHeight());
-                newClip.setArcWidth(25);
-                newClip.setArcHeight(25);
-                employee.setClip(newClip);
-            }
-        });
 
         // Máscara para o campo de CEP (formatação dinâmica)
         UnaryOperator<TextFormatter.Change> cepFilter = change -> {
@@ -428,9 +402,9 @@ public class adicionarFuncionarioController implements Initializable {
                     + "FROM funcionarios WHERE CPF = ?";
 
             try {
-            Database.connect();
-            PreparedStatement ps = Database.getConnection().prepareStatement(sql);
-            ps.setString(1, f.getCpf());  // Preenche o CPF na consulta
+                Database.connect();
+                PreparedStatement ps = Database.getConnection().prepareStatement(sql);
+                ps.setString(1, f.getCpf());  // Preenche o CPF na consulta
                 try (ResultSet rs = ps.executeQuery()) {
                     if (rs.next()) {
                         // Recupera os dados do banco e preenche os campos
@@ -451,7 +425,7 @@ public class adicionarFuncionarioController implements Initializable {
                         Messenger.warn("Funcionário não encontrado no banco de dados", new String[]{f.getCpf()});
                     }
                 }
-            }catch (SQLException e) {
+            } catch (SQLException e) {
                 Messenger.error("Erro ao carregar dados do funcionário", new String[]{e.getMessage()});
             }
 
@@ -532,13 +506,15 @@ public class adicionarFuncionarioController implements Initializable {
 
     @FXML
     private void addFuncionario() throws IOException {
-        if (birthDate.getValue().isAfter(LocalDate.now())) {
-            ArrayList<String> msg = new ArrayList<>();
-            msg.add("Data de nascimento não pode ser maior do que a data de hoje");
+        if (birthDate.getValue() != null) {
+            if (birthDate.getValue().isAfter(LocalDate.now())) {
+                ArrayList<String> msg = new ArrayList<>();
+                msg.add("Data de nascimento não pode ser maior do que a data de hoje");
 
-            Messenger.error("Campos obrigatorios não preenchidos", new String[]{String.join(",", msg), String.join("\n", "")});
+                Messenger.error("Campos obrigatorios não preenchidos", new String[]{String.join(",", msg), String.join("\n", "")});
 
-            return;
+                return;
+            }
         }
         if (verify()) { // Validação dos campos
             try {
@@ -591,7 +567,7 @@ public class adicionarFuncionarioController implements Initializable {
                             stateCombo.getValue(),
                             statusCombo.getValue().equals("Ativo")
                     );
-                    
+
                     FuncionarioDAO fu = new FuncionarioDAO();
                     fu.insert(newFuncionario);
                     Messenger.info("Concluído", "Funcionário inserido com sucesso!");
@@ -603,7 +579,7 @@ public class adicionarFuncionarioController implements Initializable {
             }
         }
     }
-    
+
     // Métodos para navegação entre telas
     @FXML
     private void carregarDashboard() throws IOException {
