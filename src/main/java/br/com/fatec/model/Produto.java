@@ -4,6 +4,8 @@
  */
 package br.com.fatec.model;
 
+import javafx.scene.control.Label;
+
 /**
  *
  * @author alberto
@@ -14,6 +16,8 @@ public class Produto {
     private float preco;
     private String cat;
     private boolean disp;
+    private Label quantidadeLabel;
+
 
     public Produto(String nome, float preco) {
         this.nome = nome;

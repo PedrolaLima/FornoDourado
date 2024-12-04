@@ -107,6 +107,44 @@ public class produtoController implements Initializable {
     @FXML
     private TableColumn<Produto, String> colDisp;
 
+    private void configurarCliqueNaColunaProduto() {
+        colProduto.setCellFactory(tc -> {
+            TableCell<Produto, String> cell = new TableCell<>() {
+                @Override
+                protected void updateItem(String item, boolean empty) {
+                    super.updateItem(item, empty);
+                    if (empty || item == null) {
+                        setText(null);
+                        setGraphic(null);
+                    } else {
+                        setText(item);
+                    }
+                }
+            };
+
+            // Adiciona suporte ao duplo clique
+            cell.setOnMouseClicked(event -> {
+                if (event.getClickCount() == 2 && !cell.isEmpty()) { // Verifica duplo clique e célula válida
+                    Produto produto = productsTable.getItems().get(cell.getIndex());
+                    visualizarProduto(produto);
+                }
+            });
+
+            return cell;
+        });
+    }
+
+    private void visualizarProduto(Produto produto) {
+        System.out.println("Visualizando: " + produto.getNome());
+        ProdutoHolder.setP(produto);
+
+        try {
+            App.setRoot("visualizarProduto");
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         date.setText(LocalDate.now(
@@ -124,6 +162,8 @@ public class produtoController implements Initializable {
 
         // Configurar a barra de pesquisa
         configurarBarraDePesquisa();
+
+        configurarCliqueNaColunaProduto();
     }
 
     private void configurarBarraDePesquisa() {

@@ -92,12 +92,12 @@
          </children></AnchorPane>
       <AnchorPane layoutX="133.0" layoutY="202.0" prefHeight="548.0" prefWidth="994.0">
          <children>
-            <TableView fx:id="ordersTable" layoutX="1.0" layoutY="6.0" prefHeight="397.0" prefWidth="994.0" style="-fx-background-color: #F4F4F4;">
+            <TableView fx:id="ordersTable" layoutY="16.0" prefHeight="388.0" prefWidth="994.0" style="-fx-background-color: #F4F4F4;">
               <columns>
-                <TableColumn fx:id="colProduto" prefWidth="573.0" text="Produto" />
-                <TableColumn fx:id="colCodigo" minWidth="0.0" prefWidth="102.0" text="Código" />
-                  <TableColumn fx:id="colCategoria" minWidth="0.0" prefWidth="107.0" text="Categoria" />
-                  <TableColumn fx:id="colPreco" prefWidth="130.0" text="Preço" />
+                <TableColumn fx:id="colProduto" prefWidth="595.0" text="Produto" />
+                <TableColumn fx:id="colCodigo" minWidth="0.0" text="Código" />
+                  <TableColumn fx:id="colCategoria" minWidth="0.0" prefWidth="136.0" text="Categoria" />
+                  <TableColumn fx:id="colPreco" prefWidth="93.0" text="Preço" />
               </columns>
             </TableView>
             <ImageView fitHeight="45.0" fitWidth="996.0" layoutY="-1.0">
@@ -105,19 +105,19 @@
                   <Image url="@Imagens/icons/pedidos/pedidos-header.png" />
                </image>
             </ImageView>
-            <ImageView fitHeight="81.0" fitWidth="164.0" layoutX="212.0" layoutY="433.0" pickOnBounds="true" preserveRatio="true" styleClass="botao-cancelar">
+            <ImageView fx:id="btn_cancelar" fitHeight="81.0" fitWidth="164.0" layoutX="212.0" layoutY="433.0" onMouseClicked="#onCancelarClicked" pickOnBounds="true" preserveRatio="true" styleClass="botao-cancelar">
                <image>
                   <Image url="@Imagens/icons/pedidos/cancelar.png" />
                </image>
             </ImageView>
-            <ImageView fitHeight="79.0" fitWidth="173.0" layoutX="573.0" layoutY="434.0" onMouseClicked="#carregarFimPedido" pickOnBounds="true" preserveRatio="true" styleClass="botao-adicionar">
+            <ImageView fx:id="btn_confirmar" disable="true" fitHeight="79.0" fitWidth="173.0" layoutX="573.0" layoutY="434.0" onMouseClicked="#carregarFimPedido" opacity="0.5" pickOnBounds="true" preserveRatio="true" styleClass="botao-adicionar">
                <image>
                   <Image url="@Imagens/icons/pedidos/adicionar.png" />
                </image>
             </ImageView>
          </children>
       </AnchorPane>
-      <ComboBox fx:id="productCategory" layoutX="134.0" layoutY="137.0" prefHeight="43.0" prefWidth="284.0" style="-fx-background-color: white; -fx-border-color: gray; -fx-border-width: 0.6; -fx-border-radius: 10;" />
+      <ComboBox fx:id="productCategory" layoutX="134.0" layoutY="137.0" prefHeight="43.0" prefWidth="284.0" promptText="Categoria" style="-fx-background-color: white; -fx-border-color: gray; -fx-border-width: 0.6; -fx-border-radius: 10;" />
       <Group layoutX="322.0" layoutY="123.0">
          <children>
             <TextField fx:id="searchBar" alignment="CENTER" layoutX="566.0" layoutY="20.0" prefHeight="31.0" prefWidth="215.0" promptText="Procurar">

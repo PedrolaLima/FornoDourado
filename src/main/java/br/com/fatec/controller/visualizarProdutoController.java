@@ -1,16 +1,24 @@
 package br.com.fatec.controller;
 
 import br.com.fatec.App;
+import br.com.fatec.data.ProdutoHolder;
+import br.com.fatec.model.Produto;
 import javafx.fxml.FXML;
 import java.io.IOException;
 import java.net.URL;
+import java.time.LocalDate;
+import java.time.ZoneId;
+import java.time.format.DateTimeFormatter;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javafx.fxml.Initializable;
 import javafx.scene.SnapshotParameters;
 import javafx.scene.control.ContextMenu;
+import javafx.scene.control.Label;
 import javafx.scene.control.MenuItem;
+import javafx.scene.control.RadioButton;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.image.WritableImage;
 import javafx.scene.layout.AnchorPane;
@@ -30,41 +38,103 @@ public class visualizarProdutoController implements Initializable {
     private void carregarPedidos() throws IOException {
         App.setRoot("pedido");
     }
-    
+
     @FXML
     private void carregarFuncionarios() throws IOException {
         App.setRoot("funcionarios");
-    }  
-    
+    }
+
     @FXML
     private void carregarRelatorios() throws IOException {
         App.setRoot("relatorio");
     }
-    
+
     @FXML
     private void carregarAddProduct() throws IOException {
         App.setRoot("adicionarProduto");
     }
-    
+
     @FXML
     private void cancelarProduto() throws IOException {
         App.setRoot("produto");
     }
- 
+
     @FXML
-    private AnchorPane profilePane; 
-    
+    private AnchorPane profilePane;
+
     @FXML
-    private AnchorPane profileBack; 
-    
+    private AnchorPane profileBack;
+
     @FXML
-    private ImageView profile; 
-    
+    private ImageView profile;
+
     @FXML
     private ImageView productview;
 
-  
-public void initialize(URL url, ResourceBundle rb) {
+    @FXML
+    private Label produtoLabel;
+
+    @FXML
+    private Label precoLabel;
+
+    @FXML
+    private Label codigoLabel;
+
+    @FXML
+    private Label categoriaLabel;
+
+    @FXML
+    private Label statusLabel;
+    
+    @FXML
+    private Label date;
+
+    // Configura a imagem do produto com bordas arredondadas e troca de imagem
+    private void configureProductImage(String categoriaLabel) {
+        // Determine o caminho da imagem com base no valor da labelCategoria
+        String imagePath = "";
+
+        switch (categoriaLabel) {
+            case "Pães":
+                imagePath = "/br/com/fatec/Imagens/cadastros/Produtos/pao-brioche.png"; // Caminho correto para a imagem de pães
+                break;
+            case "Doces":
+                imagePath = "/br/com/fatec/Imagens/cadastros/Produtos/donuts.png"; // Caminho correto para a imagem de doces
+                break;
+            case "Salgados":
+                imagePath = "/br/com/fatec/Imagens/cadastros/Produtos/croissant.png"; // Caminho correto para a imagem de salgados
+                break;
+            default:
+                break;
+        }
+
+        // Crie a nova imagem com o caminho determinado
+        if (!imagePath.isEmpty()) {
+            Image newImage = new Image(getClass().getResource(imagePath).toExternalForm());
+
+            // Defina a nova imagem no ImageView
+            productview.setImage(newImage);
+
+            // Configura bordas arredondadas para a imagem
+            SnapshotParameters parameters = new SnapshotParameters();
+            parameters.setFill(Color.TRANSPARENT);
+            WritableImage image = productview.snapshot(parameters, null);
+
+            // Configura o recorte arredondado da imagem
+            Rectangle clip = new Rectangle(productview.getFitWidth(), productview.getFitHeight());
+            clip.setArcWidth(25);
+            clip.setArcHeight(25);
+            productview.setClip(clip);
+
+            // Atualiza a imagem com o recorte
+            productview.setImage(image);
+        }
+    }
+
+    public void initialize(URL url, ResourceBundle rb) {
+        // Exibe a data atual
+        date.setText(LocalDate.now(ZoneId.of("America/Sao_Paulo")).format(DateTimeFormatter.ofPattern("dd/MM/yyyy")));
+        
         // Criar o menu
         ContextMenu contextMenu = new ContextMenu();
 
@@ -73,7 +143,7 @@ public void initialize(URL url, ResourceBundle rb) {
         MenuItem menuItem2 = new MenuItem("Sair");
 
         // Ações dos itens do menu
-        menuItem1.setOnAction(event ->  {
+        menuItem1.setOnAction(event -> {
             try {
                 App.setRoot("visualizarFuncionario");
             } catch (IOException ex) {
@@ -102,7 +172,7 @@ public void initialize(URL url, ResourceBundle rb) {
                 contextMenu.show(profilePane, xPos, yPos);
             });
         });
-        
+
         profilePane.setOnMouseEntered(event -> {
             profileBack.getStyleClass().add("image-view-hover");
         });
@@ -111,11 +181,10 @@ public void initialize(URL url, ResourceBundle rb) {
         profilePane.setOnMouseExited(event -> {
             profileBack.getStyleClass().remove("image-view-hover");
         });
-    
-        
+
         // Adiciona bordas arredondadas ao ImageView do profile.
         Rectangle clip = new Rectangle(
-         profile.getFitWidth(), profile.getFitHeight()
+                profile.getFitWidth(), profile.getFitHeight()
         );
         clip.setArcWidth(25); // Ajuste o raio para bordas mais ou menos arredondadas.
         clip.setArcHeight(25);
@@ -131,27 +200,23 @@ public void initialize(URL url, ResourceBundle rb) {
 
         // Define a imagem arredondada no ImageView.
         profile.setImage(image);
-        
-        
-        //FOTO DO PRODUTO
-        
-        // Adiciona bordas arredondadas ao ImageView.
-        Rectangle clip2 = new Rectangle(
-            productview.getFitWidth(), productview.getFitHeight()
-        );
-        clip2.setArcWidth(25); // Ajuste o raio para bordas mais ou menos arredondadas.
-        clip2.setArcHeight(25);
-        productview.setClip(clip2);
 
-        // Cria uma imagem arredondada.
-        SnapshotParameters parameters2 = new SnapshotParameters();
-        parameters.setFill(Color.TRANSPARENT); // Fundo transparente.
-        WritableImage image2 = productview.snapshot(parameters2, null);
+        // Verifica se o ProdutoHolder contém um produto e preenche os campos, se necessário
+        if (!ProdutoHolder.isEmpty()) {
+            Produto p = ProdutoHolder.getP();
 
-        // Remove o clipe para exibir os efeitos.
-        productview.setClip(null);
+            // Preenche os campos com os dados do produto
+            produtoLabel.setText(p.getNome());
+            codigoLabel.setText(String.valueOf(p.getCod()));
+            precoLabel.setText("R$ " + String.format("%.2f", p.getPreco()).replace('.', ','));
 
-        // Define a imagem arredondada no ImageView.
-        productview.setImage(image2);
+            statusLabel.setText(p.isDisp() ? "Ativo" : "Desativado");
+
+            categoriaLabel.setText(p.getCat());
+
+            // Limpa o holder após a carga dos dados
+            ProdutoHolder.clear();
+        }
+        configureProductImage(categoriaLabel.getText());
     }
 }

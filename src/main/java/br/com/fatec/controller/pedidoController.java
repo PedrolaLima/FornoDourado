@@ -12,6 +12,7 @@ import java.time.format.DateTimeFormatter;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.scene.control.ContextMenu;
@@ -24,23 +25,23 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableRow;
 import javafx.scene.control.TableView;
+import javafx.scene.control.TextField;
 import javafx.scene.image.ImageView;
 import javafx.scene.image.WritableImage;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.control.cell.PropertyValueFactory;
 
-
-
 public class pedidoController implements Initializable {
 
     @FXML
-    public Label date;
-    
+    private Label date;
+
     @FXML
     private TableView<Produto> ordersTable;
-    
+
     @FXML
     private TableColumn<Produto, String> colProduto;
 
@@ -54,6 +55,9 @@ public class pedidoController implements Initializable {
     private TableColumn<Produto, String> colPreco;
 
     @FXML
+    private TextField searchBar;
+
+    @FXML
     private void carregarProdutos() throws IOException {
         App.setRoot("produto");
     }
@@ -62,41 +66,46 @@ public class pedidoController implements Initializable {
     private void carregarDashboard() throws IOException {
         App.setRoot("dashboard");
     }
-    
+
     @FXML
     private void carregarFuncionarios() throws IOException {
         App.setRoot("funcionarios");
-    }  
-    
+    }
+
     @FXML
     private void carregarRelatorios() throws IOException {
         App.setRoot("relatorio");
     }
-    
+
     @FXML
     private void carregarPedidos() throws IOException {
         App.setRoot("pedido");
     }
-     
+
     @FXML
     private void carregarFimPedido() throws IOException {
         App.setRoot("finalizarPedido");
     }
-      
+
     @FXML
     private ComboBox<String> productCategory;  // A ComboBox para categorias de produtos
 
     @FXML
     private AnchorPane profilePane;
-    
-    @FXML
-    private AnchorPane profileBack; 
-    
-    @FXML
-    private ImageView profile; 
 
-    
-    /**private void configurarTabela() {
+    @FXML
+    private AnchorPane profileBack;
+
+    @FXML
+    private ImageView profile;
+
+    @FXML
+    private ImageView btn_confirmar;
+
+    @FXML
+    private ImageView btn_cancelar;
+
+    private void configurarTabela() {
         // Configuração das colunas
         colProduto.setCellValueFactory(new PropertyValueFactory<>("nome"));
         colCodigo.setCellValueFactory(new PropertyValueFactory<>("cod"));
@@ -105,48 +114,57 @@ public class pedidoController implements Initializable {
 
         // Adicionando dados ao TableView
         ProdutoDAO produtoDAO = new ProdutoDAO();
-        ObservableList<Produto> produtos = FXCollections.observableArrayList(ProdutoDAO.getTable());
+        ObservableList<Produto> todosProdutos = FXCollections.observableArrayList(produtoDAO.getAll());
 
-        ordersTable.setItems(produtos); // Adicionando produtos à tabela
+        // Filtrar apenas os produtos disponíveis
+        ObservableList<Produto> produtosDisponiveis = todosProdutos.filtered(Produto::isDisp);
 
-        // Configurar a coluna de Ações
-        TableColumn<Produto, Void> actionColumn = new TableColumn<>("Quantidade");
-        actionColumn.setPrefWidth(120); // Define a largura para caber os botões e o valor de qtd
+        ordersTable.setItems(produtosDisponiveis); // Adicionando produtos disponíveis à tabela
 
+        // Variável global para armazenar a soma das quantidades
+        final int[] totalQuantidades = {0}; // Usando um array para modificar o valor dentro das funções anônimas
+
+        // Configurar a coluna de Ações com largura fixa e ícones
+        TableColumn<Produto, Void> actionColumn = new TableColumn<>("Ações");
+        actionColumn.setPrefWidth(120);
+
+        // A célula da coluna de ações agora terá os botões com ícones e o número entre eles
         actionColumn.setCellFactory(param -> new TableCell<>() {
-            private final Button plusButton = new Button();
-            private final Button minusButton = new Button();
-            private final Label qtdLabel = new Label("0"); // Label para exibir o valor da quantidade
+            private final Button menosButton = new Button();
+            private final Button maisButton = new Button();
+            private final Label quantidadeLabel = new Label("0");
+            private int quantidade = 0;
 
             {
-                // Configurando os ícones para os botões
-                ImageView plusIcon = new ImageView("br/com/fatec/Imagens/icons/pedidos/mais.png");
-                plusIcon.setFitWidth(16);
-                plusIcon.setFitHeight(16);
-                plusButton.setGraphic(plusIcon);
+                // Configurando os ícones para os botões de menos e mais
+                ImageView menosIcon = new ImageView("br/com/fatec/Imagens/icons/pedidos/menos.png");
+                menosIcon.setFitWidth(16);
+                menosIcon.setFitHeight(16);
+                menosButton.setGraphic(menosIcon);
 
-                ImageView minusIcon = new ImageView("br/com/fatec/Imagens/icons/pedidos/menos.png");
-                minusIcon.setFitWidth(16);
-                minusIcon.setFitHeight(16);
-                minusButton.setGraphic(minusIcon);
+                ImageView maisIcon = new ImageView("br/com/fatec/Imagens/icons/pedidos/mais.png");
+                maisIcon.setFitWidth(16);
+                maisIcon.setFitHeight(16);
+                maisButton.setGraphic(maisIcon);
 
-                // Configuração do estilo dos componentes
-                qtdLabel.setStyle("-fx-alignment: center; -fx-font-size: 14px;"); // Centraliza o texto e ajusta o tamanho
+                quantidadeLabel.setStyle("-fx-font-weight: bold;");
 
-                // Ação do botão mais
-                plusButton.setOnAction(event -> {
-                    Produto produto = getTableView().getItems().get(getIndex());
-                    produto.setQtd(produto.getQtd() + 1); // Incrementar a quantidade
-                    qtdLabel.setText(String.valueOf(produto.getQtd())); // Atualizar o valor no rótulo
+                // Ação do botão de "menos"
+                menosButton.setOnAction(event -> {
+                    if (quantidade > 0) {
+                        quantidade--;
+                        quantidadeLabel.setText(String.valueOf(quantidade));
+                        totalQuantidades[0]--; // Decrementa a quantidade total
+                        verificarBotaoConfirmacao(totalQuantidades); // Verifica o estado do botão de confirmação
+                    }
                 });
 
-                // Ação do botão menos
-                minusButton.setOnAction(event -> {
-                    Produto produto = getTableView().getItems().get(getIndex());
-                    if (produto.getQtd() > 0) { // Verifica para evitar valor negativo
-                        produto.setQtd(produto.getQtd() - 1); // Decrementar a quantidade
-                        qtdLabel.setText(String.valueOf(produto.getQtd())); // Atualizar o valor no rótulo
-                    }
+                // Ação do botão de "mais"
+                maisButton.setOnAction(event -> {
+                    quantidade++;
+                    quantidadeLabel.setText(String.valueOf(quantidade));
+                    totalQuantidades[0]++; // Incrementa a quantidade total
+                    verificarBotaoConfirmacao(totalQuantidades); // Verifica o estado do botão de confirmação
                 });
             }
 
@@ -157,27 +175,84 @@ public class pedidoController implements Initializable {
                 if (empty) {
                     setGraphic(null);
                 } else {
-                    // Configurar layout dos botões e do valor de qtd
-                    HBox container = new HBox(5); // Espaçamento entre os elementos
-                    container.setAlignment(Pos.CENTER); // Centraliza o conteúdo
-                    container.getChildren().addAll(minusButton, qtdLabel, plusButton); // Adiciona os componentes ao painel
+                    AnchorPane container = new AnchorPane(menosButton, quantidadeLabel, maisButton);
+                    AnchorPane.setLeftAnchor(menosButton, 5.0);
+                    AnchorPane.setLeftAnchor(quantidadeLabel, 55.0);
+                    AnchorPane.setLeftAnchor(maisButton, 75.0);
                     setGraphic(container);
                 }
             }
         });
 
-        ordersTable.getColumns().add(actionColumn); // Adiciona a coluna de ações
+        ordersTable.getColumns().add(actionColumn);
     }
-    */
-    
+
+    @FXML
+    private void onCancelarClicked() throws IOException {
+        App.setRoot("dashboard");
+        App.setRoot("pedido");
+    }
+
+    private void verificarBotaoConfirmacao(int[] totalQuantidades) {
+        // Verifica se a soma das quantidades é 0
+        if (totalQuantidades[0] == 0) {
+            btn_confirmar.setDisable(true); // Desabilita o botão de confirmação
+            btn_confirmar.setOpacity(0.5);
+        } else {
+            btn_confirmar.setDisable(false); // Habilita o botão de confirmação
+            btn_confirmar.setOpacity(1);
+        }
+    }
+
+    private void configurarBarraDePesquisa() {
+        // Configurar evento de digitação na barra de pesquisa
+        searchBar.textProperty().addListener((observable, oldValue, newValue) -> {
+            filtrarProdutos(newValue);
+        });
+    }
+
+    private void filtrarProdutos(String query) {
+        ObservableList<Produto> todosProdutos = FXCollections.observableArrayList(new ProdutoDAO().getAll());
+
+        if (query == null || query.isBlank()) {
+            ordersTable.setItems(todosProdutos); // Mostra todos os funcionários se não houver consulta
+            return;
+        }
+
+        String filtro = query.toLowerCase();
+        ObservableList<Produto> filtrados = todosProdutos.filtered(produto
+                -> produto.getNome().toLowerCase().contains(filtro)
+                || String.valueOf(produto.getCod()).contains(filtro)
+                || // Converte código para String
+                produto.getCat().toLowerCase().contains(filtro)
+                || String.valueOf(produto.getPreco()).contains(filtro));
+
+        ordersTable.setItems(filtrados); // Atualiza a tabela com os resultados filtrados
+    }
+
+    private void filtrarPorCategoria(String categoria) {
+        ProdutoDAO produtoDAO = new ProdutoDAO();
+        ObservableList<Produto> todosProdutos = FXCollections.observableArrayList(produtoDAO.getAll());
+
+        if (categoria == null || categoria.isBlank() || categoria.equals("Todos")) {
+            ordersTable.setItems(todosProdutos); // Mostra todos os produtos se a categoria for "Todos" ou estiver vazia
+            return;
+        }
+
+        // Filtra os produtos pela categoria
+        ObservableList<Produto> filtrados = todosProdutos.filtered(produto
+                -> categoria.equalsIgnoreCase(produto.getCat())
+        );
+
+        ordersTable.setItems(filtrados); // Atualiza a tabela com os produtos filtrados
+    }
+
     public void initialize(URL url, ResourceBundle rb) {
 
         date.setText(LocalDate.now(
-                ZoneId.of( "America/Sao_Paulo" )
+                ZoneId.of("America/Sao_Paulo")
         ).format(DateTimeFormatter.ofPattern("dd/MM/yyyy")));
-        
 
-        
         // Criar o menu
         ContextMenu contextMenu = new ContextMenu();
 
@@ -186,7 +261,7 @@ public class pedidoController implements Initializable {
         MenuItem menuItem2 = new MenuItem("Sair");
 
         // Ações dos itens do menu
-        menuItem1.setOnAction(event ->  {
+        menuItem1.setOnAction(event -> {
             try {
                 App.setRoot("visualizarFuncionario");
             } catch (IOException ex) {
@@ -215,8 +290,8 @@ public class pedidoController implements Initializable {
                 contextMenu.show(profilePane, xPos, yPos);
             });
         });
-        
-         profilePane.setOnMouseEntered(event -> {
+
+        profilePane.setOnMouseEntered(event -> {
             profileBack.getStyleClass().add("image-view-hover");
         });
 
@@ -224,11 +299,10 @@ public class pedidoController implements Initializable {
         profilePane.setOnMouseExited(event -> {
             profileBack.getStyleClass().remove("image-view-hover");
         });
-    
-        
+
         // Adiciona bordas arredondadas ao ImageView.
         Rectangle clip = new Rectangle(
-         profile.getFitWidth(), profile.getFitHeight()
+                profile.getFitWidth(), profile.getFitHeight()
         );
         clip.setArcWidth(25); // Ajuste o raio para bordas mais ou menos arredondadas.
         clip.setArcHeight(25);
@@ -244,5 +318,19 @@ public class pedidoController implements Initializable {
 
         // Define a imagem arredondada no ImageView.
         profile.setImage(image);
+
+        configurarTabela();
+
+        // Populando a ComboBox com categorias de produtos
+        ObservableList<String> categorias = FXCollections.observableArrayList("Todos", "Pães", "Doces", "Salgados");
+        productCategory.setItems(categorias); // Adiciona os itens à ComboBox
+        productCategory.setValue("Todos"); // Define "Todos" como valor inicial
+
+        //Listener para ComboBox de Categoria
+        productCategory.valueProperty().addListener((observable, oldValue, newValue) -> {
+            filtrarPorCategoria(newValue); // Chama o método de filtragem quando o valor muda
+        });
+
+        configurarBarraDePesquisa();
     }
 }
