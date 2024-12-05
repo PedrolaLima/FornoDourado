@@ -110,11 +110,10 @@
                 </ImageView>
                 <TableView layoutY="6.0" prefHeight="391.0" prefWidth="619.0" style="-fx-background-color: #F4F4F4;">
                     <columns>
-                        <TableColumn prefWidth="169.0" text="Produto" />
-                        <TableColumn prefWidth="171.0" text="Preço" />
-                        <TableColumn minWidth="0.0" prefWidth="178.0" text="Qtd" />
-                        <TableColumn minWidth="0.0" text="Subtotal" />
-                        <TableColumn minWidth="0.0" prefWidth="17.0" text="Ação" />
+                        <TableColumn prefWidth="169.0" text="colProduto" />
+                        <TableColumn prefWidth="171.0" text="colPreco" />
+                        <TableColumn minWidth="0.0" prefWidth="178.0" text="colQtd" />
+                        <TableColumn minWidth="0.0" text="colSubtotal" />
                     </columns>
                 </TableView>
                 <ImageView fitHeight="45.0" fitWidth="619.0" layoutY="-1.0">
@@ -124,7 +123,7 @@
                 </ImageView>
             </children>
         </AnchorPane>
-        <Label layoutX="135.0" layoutY="137.0" prefHeight="47.0" prefWidth="415.0" text="PEDIDO #XXXXXXXX">
+        <Label fx:id="orderNumberLabel" layoutX="135.0" layoutY="137.0" prefHeight="47.0" prefWidth="415.0" text="PEDIDO #XXXXXXXX">
             <font>
                 <Font size="32.0" />
             </font>
@@ -136,11 +135,26 @@
                         <Image url="@Imagens/icons/pedidos/detalhesCompra.png" />
                     </image>
                 </ImageView>
-                <ImageView fx:id="btn_concluir" fitHeight="60.0" fitWidth="343.0" layoutX="2.0" layoutY="403.0" onMouseClicked="#carregarPedidos" pickOnBounds="true" preserveRatio="true" styleClass="botao-adicionar">
+                <ImageView fx:id="btn_confirmar" fitHeight="60.0" fitWidth="343.0" layoutX="2.0" layoutY="403.0" onMouseClicked="#carregarPedidos" pickOnBounds="true" preserveRatio="true" styleClass="botao-adicionar">
                     <image>
                         <Image url="@Imagens/icons/pedidos/finalizarCompra.png" />
                     </image>
                 </ImageView>
+            <Label fx:id="subtotalLabel" layoutX="248.0" layoutY="223.0" text="Label">
+               <font>
+                  <Font size="15.0" />
+               </font>
+            </Label>
+            <Label fx:id="discountLabel" layoutX="248.0" layoutY="255.0" text="Label">
+               <font>
+                  <Font size="15.0" />
+               </font>
+            </Label>
+            <Label fx:id="totalLabel" layoutX="248.0" layoutY="337.0" text="Label">
+               <font>
+                  <Font name="System Bold" size="20.0" />
+               </font>
+            </Label>
             </children>
         </AnchorPane>
         <RadioButton fx:id="money" layoutX="807.0" layoutY="245.0" mnemonicParsing="false" prefHeight="38.0" prefWidth="113.0" selected="true" text="Dinheiro">

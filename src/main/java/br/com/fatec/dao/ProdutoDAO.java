@@ -145,6 +145,7 @@ public class ProdutoDAO implements DAO<Produto> {
             String sql = "SELECT COUNT(CODPROD) FROM produtos;";
             ps = Database.getConnection().prepareStatement(sql);
             rs = ps.executeQuery();
+            rs.next();
             return rs.getInt(1);
         } finally{
             Database.close();
@@ -158,6 +159,7 @@ public class ProdutoDAO implements DAO<Produto> {
             ps = Database.getConnection().prepareStatement(sql);
             ps.setInt(1, cod);
             rs = ps.executeQuery();
+            rs.next();
             return rs.getFloat(1);
         } finally{
             Database.close();

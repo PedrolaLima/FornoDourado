@@ -13,201 +13,193 @@
 <?import javafx.scene.control.Button?>
 <?import javafx.geometry.Insets?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="762.0" prefWidth="1151.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="br.com.fatec.funcionarioController">
-   <children>
-      <AnchorPane layoutX="525.0" layoutY="-525.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="1150.0" prefWidth="103.0" rotate="-90.0" style="-fx-background-color: linear-gradient(to bottom, #f9d835, #d8b11c);">
-         <children>
-            <Label alignment="CENTER" layoutX="-149.0" layoutY="254.0" prefHeight="103.0" prefWidth="400.0" rotate="90.0" text="PADARIA FORNO DOURADO">
-               <font>
-                  <Font name="System Bold" size="24.0" />
-               </font>
-            </Label>
-            <Label alignment="CENTER" layoutX="-150.0" layoutY="751.0" prefHeight="103.0" prefWidth="400.0" rotate="90.0" text="xx de xx xxxx, xx:xx">
-               <font>
-                  <Font size="18.0" />
-               </font>
-            </Label>
-            <ImageView id="logo" fx:id="logo1" fitHeight="18.0" fitWidth="16.0" layoutX="41.0" layoutY="703.0" pickOnBounds="true" preserveRatio="true" rotate="90.0">
-               <image>
-                  <Image url="@Imagens/icons/data.png" />
-               </image>
-            </ImageView>
-            <AnchorPane fx:id="profileBack" layoutX="16.0" layoutY="891.0" prefHeight="215.0" prefWidth="60.0" style="-fx-background-color: #f2d335; -fx-background-radius: 15;">
-               <children>
-                  <StackPane layoutX="5.0" layoutY="17.0" prefHeight="45.0" prefWidth="50.0" rotate="90.0" style="-fx-background-radius: 15; -fx-border-radius: 15;">
-                     <children>
-                        <ImageView id="profile" fx:id="logo11" fitHeight="45.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true" styleClass="profile">
-                           <image>
-                              <Image url="@Imagens/icons/placeholder_user.png" />
-                           </image>
-                        </ImageView>
-                     </children>
-                  </StackPane>
-               </children>
-            </AnchorPane>
-            <Label layoutX="-16.0" layoutY="989.0" prefHeight="81.0" prefWidth="138.0" rotate="90.0" text="NomeDoUsuario">
-               <font>
-                  <Font name="System Bold" size="15.0" />
-               </font>
-            </Label>
-            <Label layoutX="-35.0" layoutY="989.0" prefHeight="81.0" prefWidth="138.0" rotate="90.0" style="-fx-font-family: powdah;" text="TipoConta">
-               <font>
-                  <Font size="14.0" />
-               </font>
-            </Label>
-            <AnchorPane fx:id="profilePane" layoutX="10.0" layoutY="890.0" prefHeight="215.0" prefWidth="70.0" />
-         </children></AnchorPane>
-      <AnchorPane prefHeight="762.0" prefWidth="100.0" style="-fx-background-color: linear-gradient(to bottom, #f9d835, #d8b11c);">
-         <children>
-            <ImageView id="logo" fx:id="logo2" fitHeight="93.0" fitWidth="92.0" layoutX="4.0" pickOnBounds="true" preserveRatio="true">
-               <image>
-                  <Image url="@Imagens/FornoDourado-semFundo.png" />
-               </image>
-            </ImageView>
-            <ImageView id="logo" fx:id="logo" fitHeight="80.0" fitWidth="80.0" layoutX="10.0" layoutY="197.0" onMouseClicked="#carregarDashboard" pickOnBounds="true" preserveRatio="true" styleClass="botoes">
-               <image>
-                  <Image url="@Imagens/icons/dashboard.png" />
-               </image>
-            </ImageView>
-            <ImageView id="logo" fx:id="logo3" fitHeight="50.0" fitWidth="50.0" layoutX="25.0" layoutY="283.0" onMouseClicked="#carregarPedidos" pickOnBounds="true" preserveRatio="true" styleClass="botoes">
-               <image>
-                  <Image url="@Imagens/icons/pedido.png" />
-               </image>
-            </ImageView>
-            <ImageView id="logo" fx:id="logo31" fitHeight="70.0" fitWidth="70.0" layoutX="15.0" layoutY="455.0" onMouseClicked="#carregarRelatorios" pickOnBounds="true" preserveRatio="true" styleClass="botoes">
-               <image>
-                  <Image url="@Imagens/icons/relatorio.png" />
-               </image>
-            </ImageView>
-            <ImageView id="logo" fx:id="logo4" fitHeight="80.0" fitWidth="80.0" layoutX="10.0" layoutY="369.0" pickOnBounds="true" preserveRatio="true" styleClass="botoes">
-               <image>
-                  <Image url="@Imagens/icons/funcionarios/funcionarios-ativado.png" />
-               </image>
-            </ImageView>
-            <ImageView fx:id="logo41" fitHeight="70.0" fitWidth="70.0" layoutX="15.0" layoutY="541.0" pickOnBounds="true" preserveRatio="true" styleClass="botoes">
-               <image>
-                  <Image url="@Imagens/icons/Produto.png" />
-               </image>
-            </ImageView>
-         </children></AnchorPane>
-      <AnchorPane layoutX="159.0" layoutY="124.0" prefHeight="615.0" prefWidth="926.0" style="-fx-border-radius: 3; -fx-border-color: gray; -fx-border-width: 0.8;">
-         <children>
-            <ImageView fitHeight="45.0" fitWidth="50.0" layoutX="101.0" layoutY="61.0" pickOnBounds="true" preserveRatio="true" scaleX="2.0" scaleY="2.0">
-               <image>
-                  <Image url="@Imagens/icons/produto/produto-placeholder.png" />
-               </image>
-            </ImageView>
-            <Label layoutX="82.0" layoutY="143.0" prefHeight="40.0" prefWidth="100.0" text="CPF" textFill="GREY">
-               <font>
-                  <Font size="17.0" />
-               </font>
-            </Label>
-            <Label layoutX="82.0" layoutY="180.0" prefHeight="40.0" prefWidth="138.0" text="xxxxxxxxx">
-               <font>
-                  <Font name="System Bold" size="17.0" />
-               </font>
-            </Label>
-            <Label layoutX="82.0" layoutY="362.0" prefHeight="40.0" prefWidth="138.0" text="xxxxxxxxx">
-               <font>
-                  <Font name="System Bold" size="17.0" />
-               </font>
-            </Label>
-            <Label layoutX="82.0" layoutY="325.0" prefHeight="40.0" prefWidth="100.0" text="Cargo" textFill="GREY">
-               <font>
-                  <Font size="17.0" />
-               </font>
-            </Label>
-            <Label layoutX="603.0" layoutY="88.0" prefHeight="40.0" prefWidth="184.0" text="xxxxxxxxx">
-               <font>
-                  <Font name="System Bold" size="17.0" />
-               </font>
-            </Label>
-            <Label layoutX="603.0" layoutY="51.0" prefHeight="40.0" prefWidth="100.0" text="Nome" textFill="GREY">
-               <font>
-                  <Font size="17.0" />
-               </font>
-            </Label>
-            <Label layoutX="603.0" layoutY="180.0" prefHeight="40.0" prefWidth="152.0" text="xxxxxxxxxxxxx">
-               <font>
-                  <Font name="System Bold" size="17.0" />
-               </font>
-            </Label>
-            <Label layoutX="603.0" layoutY="143.0" prefHeight="40.0" prefWidth="100.0" text="Email" textFill="GREY">
-               <font>
-                  <Font size="17.0" />
-               </font>
-            </Label>
-            <Label layoutX="603.0" layoutY="362.0" prefHeight="40.0" prefWidth="215.0" text="xxxxxxx">
-               <font>
-                  <Font name="System Bold" size="17.0" />
-               </font>
-            </Label>
-            <Label layoutX="603.0" layoutY="325.0" prefHeight="40.0" prefWidth="100.0" text="Senha" textFill="GREY">
-               <font>
-                  <Font size="17.0" />
-               </font>
-            </Label>
-            <Label layoutX="82.0" layoutY="271.0" prefHeight="40.0" prefWidth="184.0" text="xx de xxxx de xxxx">
-               <font>
-                  <Font name="System Bold" size="17.0" />
-               </font>
-            </Label>
-            <Label layoutX="82.0" layoutY="234.0" prefHeight="40.0" prefWidth="167.0" text="Data de nascimento" textFill="GREY">
-               <font>
-                  <Font size="17.0" />
-               </font>
-            </Label>
-            <Label layoutX="603.0" layoutY="234.0" prefHeight="40.0" prefWidth="167.0" text="Status" textFill="GREY">
-               <font>
-                  <Font size="17.0" />
-               </font>
-            </Label>
-            <Label layoutX="603.0" layoutY="271.0" prefHeight="40.0" prefWidth="184.0" text="xxxxxxx">
-               <font>
-                  <Font name="System Bold" size="17.0" />
-               </font>
-            </Label>
-            <Label layoutX="82.0" layoutY="416.0" prefHeight="40.0" prefWidth="100.0" text="Endereço" textFill="GREY">
-               <font>
-                  <Font size="17.0" />
-               </font>
-            </Label>
-            <Label layoutX="82.0" layoutY="453.0" prefHeight="40.0" prefWidth="138.0" text="xxxxxxxxx">
-               <font>
-                  <Font name="System Bold" size="17.0" />
-               </font>
-            </Label>
-            <Label layoutX="603.0" layoutY="416.0" prefHeight="40.0" prefWidth="100.0" text="CEP" textFill="GREY">
-               <font>
-                  <Font size="17.0" />
-               </font>
-            </Label>
-            <Label layoutX="603.0" layoutY="453.0" prefHeight="40.0" prefWidth="138.0" text="xxxxxxxxx">
-               <font>
-                  <Font name="System Bold" size="17.0" />
-               </font>
-            </Label>
-            <Label layoutX="82.0" layoutY="544.0" prefHeight="40.0" prefWidth="138.0" text="xxxxxxxxx">
-               <font>
-                  <Font name="System Bold" size="17.0" />
-               </font>
-            </Label>
-            <Label layoutX="82.0" layoutY="507.0" prefHeight="40.0" prefWidth="100.0" text="Estado" textFill="GREY">
-               <font>
-                  <Font size="17.0" />
-               </font>
-            </Label>
-            <Label layoutX="603.0" layoutY="507.0" prefHeight="40.0" prefWidth="100.0" text="Estado" textFill="GREY">
-               <font>
-                  <Font size="17.0" />
-               </font>
-            </Label>
-            <Label layoutX="603.0" layoutY="544.0" prefHeight="40.0" prefWidth="138.0" text="xxxxxxxxx">
-               <font>
-                  <Font name="System Bold" size="17.0" />
-               </font>
-            </Label>
-         </children>
-      </AnchorPane>
-   </children>
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="762.0" prefWidth="1151.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="br.com.fatec.controller.visualizarFuncionarioController">
+    <children>
+        <AnchorPane layoutX="525.0" layoutY="-525.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="1150.0" prefWidth="103.0" rotate="-90.0" style="-fx-background-color: linear-gradient(to bottom, #f9d835, #d8b11c);">
+            <children>
+                <Label alignment="CENTER" layoutX="-149.0" layoutY="254.0" prefHeight="103.0" prefWidth="400.0" rotate="90.0" text="PADARIA FORNO DOURADO">
+                    <font>
+                        <Font name="System Bold" size="24.0" />
+                    </font>
+                </Label>
+                <Label fx:id="date" alignment="CENTER" layoutX="-150.0" layoutY="751.0" prefHeight="103.0" prefWidth="400.0" rotate="90.0" text="xx de xx xxxx, xx:xx">
+                    <font>
+                        <Font size="18.0" />
+                    </font>
+                </Label>
+                <ImageView id="logo" fitHeight="18.0" fitWidth="16.0" layoutX="41.0" layoutY="703.0" pickOnBounds="true" preserveRatio="true" rotate="90.0">
+                    <image>
+                        <Image url="@Imagens/icons/data.png" />
+                    </image>
+                </ImageView>
+                <AnchorPane fx:id="profileBack" layoutX="16.0" layoutY="891.0" prefHeight="215.0" prefWidth="60.0" style="-fx-background-color: #f2d335; -fx-background-radius: 15;">
+                    <children>
+                        <StackPane layoutX="5.0" layoutY="12.0" prefHeight="45.0" prefWidth="50.0" rotate="90.0" style="-fx-background-radius: 15; -fx-border-radius: 15;">
+                            <children>
+                                <ImageView id="profile" fx:id="profile" fitHeight="45.0" fitWidth="45.0" pickOnBounds="true" preserveRatio="true" styleClass="profile">
+                                    <image>
+                                        <Image url="@Imagens/icons/placeholder_user.png" />
+                                    </image>
+                                </ImageView>
+                            </children>
+                        </StackPane>
+                    </children>
+                </AnchorPane>
+                <Label fx:id="profilePaneName" layoutX="-16.0" layoutY="989.0" prefHeight="81.0" prefWidth="138.0" rotate="90.0" text="NomeDoUsuario">
+                    <font>
+                        <Font name="System Bold" size="15.0" />
+                    </font>
+                </Label>
+                <Label fx:id="profilePaneType" layoutX="-35.0" layoutY="989.0" prefHeight="81.0" prefWidth="138.0" rotate="90.0" style="-fx-font-family: powdah;" text="TipoConta">
+                    <font>
+                        <Font size="14.0" />
+                    </font>
+                </Label>
+                <AnchorPane fx:id="profilePane" layoutX="10.0" layoutY="890.0" prefHeight="215.0" prefWidth="70.0" />
+            </children>
+        </AnchorPane>
+        <AnchorPane prefHeight="762.0" prefWidth="100.0" style="-fx-background-color: linear-gradient(to bottom, #f9d835, #d8b11c);">
+            <children>
+                <ImageView id="logo" fitHeight="93.0" fitWidth="92.0" layoutX="4.0" pickOnBounds="true" preserveRatio="true">
+                    <image>
+                        <Image url="@Imagens/FornoDourado-semFundo.png" />
+                    </image>
+                </ImageView>
+                <ImageView id="logo" fx:id="btn_dashboard" fitHeight="80.0" fitWidth="80.0" layoutX="10.0" layoutY="197.0" onMouseClicked="#carregarDashboard" pickOnBounds="true" preserveRatio="true" styleClass="botoes">
+                    <image>
+                        <Image url="@Imagens/icons/dashboard.png" />
+                    </image>
+                </ImageView>
+                <ImageView id="logo" fx:id="btn_pedido" fitHeight="50.0" fitWidth="50.0" layoutX="25.0" layoutY="283.0" onMouseClicked="#carregarPedidos" pickOnBounds="true" preserveRatio="true" styleClass="botoes">
+                    <image>
+                        <Image url="@Imagens/icons/pedido.png" />
+                    </image>
+                </ImageView>
+                <ImageView id="logo" fitHeight="70.0" fitWidth="70.0" layoutX="15.0" layoutY="455.0" onMouseClicked="#carregarRelatorios" pickOnBounds="true" preserveRatio="true" styleClass="botoes">
+                    <image>
+                        <Image url="@Imagens/icons/relatorio.png" />
+                    </image>
+                </ImageView>
+                <ImageView id="logo" fx:id="btn_funcionario" fitHeight="80.0" fitWidth="80.0" layoutX="10.0" layoutY="369.0" pickOnBounds="true" preserveRatio="true" styleClass="botoes">
+                    <image>
+                        <Image url="@Imagens/icons/funcionarios/funcionarios-ativado.png" />
+                    </image>
+                </ImageView>
+                <ImageView fitHeight="70.0" fitWidth="70.0" layoutX="15.0" layoutY="541.0" onMouseClicked="#carregarProdutos" pickOnBounds="true" preserveRatio="true" styleClass="botoes">
+                    <image>
+                        <Image url="@Imagens/icons/Produto.png" />
+                    </image>
+                </ImageView>
+            </children>
+        </AnchorPane>
+        <AnchorPane layoutX="159.0" layoutY="124.0" prefHeight="615.0" prefWidth="926.0" style="-fx-border-radius: 3; -fx-border-color: gray; -fx-border-width: 0.8;">
+            <children>
+                <ImageView fx:id="employeeview" fitHeight="50.0" fitWidth="50.0" layoutX="107.0" layoutY="63.0" pickOnBounds="true" preserveRatio="true" scaleX="2.0" scaleY="2.0">
+                    <image>
+                        <Image url="@Imagens/icons/produto/produto-placeholder.png" />
+                    </image>
+                </ImageView>
+                <Label layoutX="82.0" layoutY="143.0" prefHeight="40.0" prefWidth="100.0" text="Nome" textFill="GREY">
+                    <font>
+                        <Font size="17.0" />
+                    </font>
+                </Label>
+                <Label fx:id="nameField" layoutX="82.0" layoutY="180.0" prefHeight="40.0" prefWidth="138.0" text="xxxxxxxxx">
+                    <font>
+                        <Font name="System Bold" size="17.0" />
+                    </font>
+                </Label>
+                <Label fx:id="occupationField" layoutX="82.0" layoutY="362.0" prefHeight="40.0" prefWidth="138.0" text="xxxxxxxxx">
+                    <font>
+                        <Font name="System Bold" size="17.0" />
+                    </font>
+                </Label>
+                <Label layoutX="82.0" layoutY="325.0" prefHeight="40.0" prefWidth="100.0" text="Cargo" textFill="GREY">
+                    <font>
+                        <Font size="17.0" />
+                    </font>
+                </Label>
+                <Label fx:id="cpfField" layoutX="603.0" layoutY="178.0" prefHeight="40.0" prefWidth="184.0" text="xxxxxxxxx">
+                    <font>
+                        <Font name="System Bold" size="17.0" />
+                    </font>
+                </Label>
+                <Label layoutX="603.0" layoutY="141.0" prefHeight="40.0" prefWidth="100.0" text="CPF" textFill="GREY">
+                    <font>
+                        <Font size="17.0" />
+                    </font>
+                </Label>
+                <Label fx:id="emailField" layoutX="603.0" layoutY="270.0" prefHeight="40.0" prefWidth="152.0" text="xxxxxxxxxxxxx">
+                    <font>
+                        <Font name="System Bold" size="17.0" />
+                    </font>
+                </Label>
+                <Label layoutX="603.0" layoutY="233.0" prefHeight="40.0" prefWidth="100.0" text="Email" textFill="GREY">
+                    <font>
+                        <Font size="17.0" />
+                    </font>
+                </Label>
+                <Label fx:id="statusField" layoutX="603.0" layoutY="362.0" prefHeight="40.0" prefWidth="215.0" text="xxxxxxx">
+                    <font>
+                        <Font name="System Bold" size="17.0" />
+                    </font>
+                </Label>
+                <Label fx:id="birthDate" layoutX="82.0" layoutY="271.0" prefHeight="40.0" prefWidth="184.0" text="xx de xxxx de xxxx">
+                    <font>
+                        <Font name="System Bold" size="17.0" />
+                    </font>
+                </Label>
+                <Label layoutX="82.0" layoutY="234.0" prefHeight="40.0" prefWidth="167.0" text="Data de nascimento" textFill="GREY">
+                    <font>
+                        <Font size="17.0" />
+                    </font>
+                </Label>
+                <Label layoutX="603.0" layoutY="324.0" prefHeight="40.0" prefWidth="167.0" text="Status" textFill="GREY">
+                    <font>
+                        <Font size="17.0" />
+                    </font>
+                </Label>
+                <Label layoutX="82.0" layoutY="416.0" prefHeight="40.0" prefWidth="100.0" text="Endereço" textFill="GREY">
+                    <font>
+                        <Font size="17.0" />
+                    </font>
+                </Label>
+                <Label fx:id="addressField" layoutX="82.0" layoutY="453.0" prefHeight="40.0" prefWidth="348.0" text="xxxxxxxxx">
+                    <font>
+                        <Font name="System Bold" size="17.0" />
+                    </font>
+                </Label>
+                <Label layoutX="603.0" layoutY="416.0" prefHeight="40.0" prefWidth="100.0" text="CEP" textFill="GREY">
+                    <font>
+                        <Font size="17.0" />
+                    </font>
+                </Label>
+                <Label fx:id="cepField" layoutX="603.0" layoutY="453.0" prefHeight="40.0" prefWidth="138.0" text="xxxxxxxxx">
+                    <font>
+                        <Font name="System Bold" size="17.0" />
+                    </font>
+                </Label>
+                <Label fx:id="stateField" layoutX="82.0" layoutY="544.0" prefHeight="40.0" prefWidth="138.0" text="xxxxxxxxx">
+                    <font>
+                        <Font name="System Bold" size="17.0" />
+                    </font>
+                </Label>
+                <Label layoutX="82.0" layoutY="507.0" prefHeight="40.0" prefWidth="100.0" text="Estado" textFill="GREY">
+                    <font>
+                        <Font size="17.0" />
+                    </font>
+                </Label>
+                <Label layoutX="603.0" layoutY="507.0" prefHeight="40.0" prefWidth="100.0" text="Cidade" textFill="GREY">
+                    <font>
+                        <Font size="17.0" />
+                    </font>
+                </Label>
+                <Label fx:id="cityField" layoutX="603.0" layoutY="544.0" prefHeight="40.0" prefWidth="321.0" text="xxxxxxxxx">
+                    <font>
+                        <Font name="System Bold" size="17.0" />
+                    </font>
+                </Label>
+            </children>
+        </AnchorPane>
+    </children>
 </AnchorPane>

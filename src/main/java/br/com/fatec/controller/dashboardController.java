@@ -1,9 +1,12 @@
 package br.com.fatec.controller;
 
 import br.com.fatec.App;
+import br.com.fatec.dao.FuncionarioDAO;
 import br.com.fatec.data.FuncionarioHolder;
+import br.com.fatec.data.PedidoDO;
 import java.io.IOException;
 import java.net.URL;
+import java.sql.SQLException;
 import java.time.LocalDate;
 import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
@@ -32,6 +35,14 @@ public class dashboardController implements Initializable {
     private Label profilePaneName;
     @FXML 
     private Label profilePaneType;
+    @FXML
+    private Label totFunLbl;
+    @FXML
+    private Label totVendasLbl;
+    @FXML
+    private Label valueVendasLbl;
+    @FXML
+    private Label prodLbl;
     
     // Método para carregar a tela de "Adicionar Produto"
     @FXML
@@ -74,9 +85,25 @@ public class dashboardController implements Initializable {
         date.setText(LocalDate.now(
                 ZoneId.of( "America/Sao_Paulo" )
         ).format(DateTimeFormatter.ofPattern("dd/MM/yyyy")));
+        
+        PedidoDO pdo = new PedidoDO();
+        
+         valueVendasLbl.setText("R$" + Float.toString(pdo.getAmountSold()));
+        totVendasLbl.setText(Integer.toString(pdo.getCount()));
+        
+        FuncionarioDAO fd = new FuncionarioDAO();
+        
+        try {
+            totFunLbl.setText(Integer.toString(fd.getCount()));
+        } catch (SQLException ex) {
+            Logger.getLogger(dashboardController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        //prodLbl.setText(pdo.getMostSold());
+        
         // Criar o menu
         ContextMenu contextMenu = new ContextMenu();
-
+        
         // Criar itens do menu
         MenuItem menuItem1 = new MenuItem("Meu Perfil");
         MenuItem menuItem2 = new MenuItem("Sair");

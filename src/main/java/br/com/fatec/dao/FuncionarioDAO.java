@@ -240,4 +240,22 @@ public class FuncionarioDAO implements DAO <Funcionario> {
             Database.close();
         }
     }
+    
+    public int getCount() throws SQLException{
+        Database.connect();
+        String sql = "SELECT COUNT(CPF) FROM funcionarios;";
+        ps = Database.getConnection().prepareStatement(sql);
+        int ret =0;
+        try {
+           rs = ps.executeQuery();  
+           rs.next();
+           ret =  rs.getInt(1);
+        }finally{
+            Database.close();
+        }
+        
+        
+        
+        return ret;
+    }
 }

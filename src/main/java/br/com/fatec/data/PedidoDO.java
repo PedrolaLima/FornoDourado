@@ -178,7 +178,7 @@ public class PedidoDO {
                 tmp = pdo.getValue(((Produto)y.getKey()).getCod());
             } catch (SQLException ex) {
                     problem = true;
-                    Messenger.error("Erro no banco", "Não foi possivel obter o valor dos produtos listados");                        
+                    Messenger.error("Erro no banco",ex.getMessage());                        
                     break;                         
             }
             res += tmp*(int)y.getValue();    
@@ -187,5 +187,27 @@ public class PedidoDO {
             return res;
         }
         return 0;
+    }
+    
+    public int getCount(){
+        int j =0;
+        for(Pedido i : pedidos){
+            j++;
+        }
+        return j;
+    }
+    
+    public String getMostSold(){
+        ArrayList r =new ArrayList();
+        for(Pedido p : pedidos){
+            HashMap i = p.getItems();
+            for(Object e : i.entrySet()){
+                Map.Entry y = (Map.Entry)e;
+                Produto pd =(Produto)y.getKey();
+                r.add(pd.getNome());
+            }
+            
+        }
+        return "";
     }
 }

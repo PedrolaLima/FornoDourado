@@ -178,7 +178,7 @@ public class finalizarPedidoController implements Initializable {
         
         subtotalLabel.setText("R$"+Float.toString(subTotal));     
         
-        orderNumberLabel.setText(Integer.toString(pedido.getNumPed()));
+        orderNumberLabel.setText("Pedido #" +Integer.toString(pedido.getNumPed()));
         
         totalLabel.setText("R$"+Float.toString(discount * subTotal));
         
