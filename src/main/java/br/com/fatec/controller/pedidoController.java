@@ -2,6 +2,8 @@ package br.com.fatec.controller;
 
 import br.com.fatec.App;
 import br.com.fatec.dao.ProdutoDAO;
+import br.com.fatec.data.PedidoHolder;
+import br.com.fatec.model.Pedido;
 import br.com.fatec.model.Produto;
 import javafx.fxml.FXML;
 import java.io.IOException;
@@ -90,6 +92,7 @@ public class pedidoController implements Initializable {
 
     @FXML
     private void carregarFimPedido() throws IOException {
+        PedidoHolder.setPedido(p);
         App.setRoot("finalizarPedido");
     }
 
@@ -110,6 +113,9 @@ public class pedidoController implements Initializable {
 
     @FXML
     private ImageView btn_cancelar;
+    
+    //Pedido a ser feito
+    private Pedido p=new Pedido();
 
     private void configurarTabela() {
         // Configuração das colunas
@@ -133,7 +139,7 @@ public class pedidoController implements Initializable {
         // Configurar a coluna de Ações com largura fixa e ícones
         TableColumn<Produto, Void> actionColumn = new TableColumn<>("Ações");
         actionColumn.setPrefWidth(120);
-
+        
         // A célula da coluna de ações agora terá os botões com ícones e o número entre eles
         actionColumn.setCellFactory(param -> new TableCell<>() {
             private final Button menosButton = new Button();
@@ -159,6 +165,7 @@ public class pedidoController implements Initializable {
                 menosButton.setOnAction(event -> {
                     if (quantidade > 0) {
                         quantidade--;
+                        //p.setItem(item, quantidade); <-- Pegar o produto da linha
                         quantidadeLabel.setText(String.valueOf(quantidade));
                         totalQuantidades[0]--; // Decrementa a quantidade total
                         verificarBotaoConfirmacao(totalQuantidades); // Verifica o estado do botão de confirmação
@@ -168,6 +175,7 @@ public class pedidoController implements Initializable {
                 // Ação do botão de "mais"
                 maisButton.setOnAction(event -> {
                     quantidade++;
+                    //p.setItem(item, quantidade); <-- Pegar o produto da linha
                     quantidadeLabel.setText(String.valueOf(quantidade));
                     totalQuantidades[0]++; // Incrementa a quantidade total
                     verificarBotaoConfirmacao(totalQuantidades); // Verifica o estado do botão de confirmação
@@ -221,7 +229,7 @@ public class pedidoController implements Initializable {
         ObservableList<Produto> todosProdutos = FXCollections.observableArrayList(new ProdutoDAO().getAll());
 
         if (query == null || query.isBlank()) {
-            ordersTable.setItems(todosProdutos); // Mostra todos os funcionários se não houver consulta
+            ordersTable.setItems(todosProdutos); // Mostra todos os produtos se não houver consulta
             return;
         }
 
