@@ -15,6 +15,8 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -136,7 +138,32 @@ public class ProdutoDAO implements DAO<Produto> {
         }
         return r;
     }
-
+    
+    public int getAmount() throws SQLException{
+        try {
+            Database.connect();
+            String sql = "SELECT COUNT(CODPROD) FROM produtos;";
+            ps = Database.getConnection().prepareStatement(sql);
+            rs = ps.executeQuery();
+            return rs.getInt(1);
+        } finally{
+            Database.close();
+        }
+    }
+    
+    public float getValue(int cod) throws SQLException{
+        try {
+            Database.connect();
+            String sql = "SELECT VALUNI FROM produtos WHERE CODPROD = ?;";
+            ps = Database.getConnection().prepareStatement(sql);
+            ps.setInt(1, cod);
+            rs = ps.executeQuery();
+            return rs.getFloat(1);
+        } finally{
+            Database.close();
+        }
+    }
+    
     //Arrumar função getTable
     /* public List<Produto> getTable() {
         List<Produto> produtos = new ArrayList<>();

@@ -1,9 +1,13 @@
 package br.com.fatec.controller;
 
 import br.com.fatec.App;
+import br.com.fatec.Messenger;
+import br.com.fatec.dao.ProdutoDAO;
+import br.com.fatec.data.PedidoDO;
 import javafx.fxml.FXML;
 import java.io.IOException;
 import java.net.URL;
+import java.sql.SQLException;
 import java.time.LocalDate;
 import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
@@ -29,7 +33,22 @@ import javafx.stage.Stage;
 public class relatorioController implements Initializable {
 
     @FXML
-    public Label date;
+    private Label date;
+    
+    @FXML
+    private Label lblTotLucro;
+    
+    @FXML
+    private Label lblLucro;
+    
+    @FXML
+    private Label lblTotProdutos;
+    
+    @FXML
+    private Label lblTotProdVendidos;
+    
+    @FXML
+    private Label lblProdVendidos;
     
     @FXML
     private Label profilePaneName;
@@ -91,6 +110,24 @@ public class relatorioController implements Initializable {
         date.setText(LocalDate.now(
                 ZoneId.of( "America/Sao_Paulo" )
         ).format(DateTimeFormatter.ofPattern("dd/MM/yyyy")));
+        
+        ProdutoDAO pd = new ProdutoDAO();
+        
+        try {
+            lblTotProdutos.setText(String.valueOf(pd.getAmount()));
+        } catch (SQLException ex) {
+            Messenger.error("Erro de banco", "Total de produtos pode não ser carregado");
+        }
+        
+        PedidoDO pdo = new PedidoDO();
+        
+        lblProdVendidos.setText(String.valueOf(pdo.getAmountProdToday()));
+        
+        lblTotProdVendidos.setText(String.valueOf(pdo.getAmountProd()));
+        
+        lblTotLucro.setText("R$" + Float.toString(pdo.getAmountSold()));
+        
+        lblLucro.setText("R$" + Float.toString(pdo.getAmountSoldToday()));
         
         // Criar o menu
         ContextMenu contextMenu = new ContextMenu();

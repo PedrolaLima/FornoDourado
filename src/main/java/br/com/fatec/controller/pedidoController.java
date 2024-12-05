@@ -165,7 +165,7 @@ public class pedidoController implements Initializable {
                 menosButton.setOnAction(event -> {
                     if (quantidade > 0) {
                         quantidade--;
-                        //p.setItem(item, quantidade); <-- Pegar o produto da linha
+                        p.setItem(getTableView().getItems().get(getIndex()), quantidade);
                         quantidadeLabel.setText(String.valueOf(quantidade));
                         totalQuantidades[0]--; // Decrementa a quantidade total
                         verificarBotaoConfirmacao(totalQuantidades); // Verifica o estado do botão de confirmação
@@ -175,7 +175,7 @@ public class pedidoController implements Initializable {
                 // Ação do botão de "mais"
                 maisButton.setOnAction(event -> {
                     quantidade++;
-                    //p.setItem(item, quantidade); <-- Pegar o produto da linha
+                    p.setItem(getTableView().getItems().get(getIndex()), quantidade);
                     quantidadeLabel.setText(String.valueOf(quantidade));
                     totalQuantidades[0]++; // Incrementa a quantidade total
                     verificarBotaoConfirmacao(totalQuantidades); // Verifica o estado do botão de confirmação
