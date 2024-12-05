@@ -17,15 +17,14 @@ public class Pedido {
     private int numPed;
     private String pgto;
     private Funcionario caixa;
-    private LocalDate data = LocalDate.now();
+    private LocalDate data;
     private float desconto;
     private HashMap items = new HashMap();
-    //hashmap qtd?
 
     public Pedido() {
+        this.data = LocalDate.now();
         gNumPed++;
         this.numPed=getNumPed();
-        caixa = FuncionarioHolder.getUser();
     }
 
     public HashMap getItems() {

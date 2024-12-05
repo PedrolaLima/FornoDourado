@@ -44,7 +44,7 @@ public class App extends Application {
     }
 
     public static void main(String[] args) {
-        launch();
+         launch();
     }
 
     // Método para recuperar o controlador da tela atual

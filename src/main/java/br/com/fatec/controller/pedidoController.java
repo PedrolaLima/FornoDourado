@@ -116,7 +116,7 @@ public class pedidoController implements Initializable {
     
     //Pedido a ser feito
     private Pedido p=new Pedido();
-
+    
     private void configurarTabela() {
         // Configuração das colunas
         colProduto.setCellValueFactory(new PropertyValueFactory<>("nome"));

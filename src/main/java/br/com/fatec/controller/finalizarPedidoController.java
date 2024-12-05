@@ -3,6 +3,7 @@ package br.com.fatec.controller;
 
 import br.com.fatec.App;
 import br.com.fatec.dao.ProdutoDAO;
+import br.com.fatec.data.PedidoDO;
 import br.com.fatec.data.PedidoHolder;
 import br.com.fatec.model.Pedido;
 import br.com.fatec.model.Produto;
@@ -16,6 +17,8 @@ import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javafx.beans.property.SimpleStringProperty;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.scene.control.ContextMenu;
@@ -26,11 +29,14 @@ import javafx.fxml.Initializable;
 import javafx.scene.SnapshotParameters;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
+import javafx.scene.control.RadioButton;
 import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableRow;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
+import javafx.scene.control.Toggle;
+import javafx.scene.control.ToggleGroup;
 import javafx.scene.image.ImageView;
 import javafx.scene.image.WritableImage;
 import javafx.scene.paint.Color;
@@ -122,6 +128,20 @@ public class finalizarPedidoController implements Initializable {
     @FXML
     private Label orderNumberLabel;
     
+    @FXML
+    private ToggleGroup payment;
+    
+    private Pedido pedido;
+    
+    private float discount =1;
+    
+    @FXML
+    private void finalizarPedido() throws IOException{
+        pedido.setDesconto(discount);
+        PedidoDO pdo = new PedidoDO();
+        pdo.addPedido(pedido);
+        App.setRoot("pedido");
+    }
 
     @FXML
     private void onCancelarClicked() throws IOException {
@@ -141,7 +161,7 @@ public class finalizarPedidoController implements Initializable {
     }
 
     public void initialize(URL url, ResourceBundle rb) {
-
+        
         this.profilePaneName.setText("admin");
         this.profilePaneType.setText("Administração");
         //this.profilePaneName.setText(FuncionarioHolder.getUser().getName());
@@ -150,7 +170,19 @@ public class finalizarPedidoController implements Initializable {
         date.setText(LocalDate.now(
                 ZoneId.of("America/Sao_Paulo")
         ).format(DateTimeFormatter.ofPattern("dd/MM/yyyy")));
-
+        
+        pedido = PedidoHolder.getPedido();
+        
+        PedidoDO pdo = new PedidoDO();
+        
+        float subTotal = pdo.getValue(pedido);
+        
+        subtotalLabel.setText("R$"+Float.toString(subTotal));     
+        
+        orderNumberLabel.setText(Integer.toString(pedido.getNumPed()));
+        
+        totalLabel.setText("R$"+Float.toString(discount * subTotal));
+        
         // Criar o menu
         ContextMenu contextMenu = new ContextMenu();
 
@@ -216,6 +248,26 @@ public class finalizarPedidoController implements Initializable {
 
         // Define a imagem arredondada no ImageView.
         profile.setImage(image);
-
+        
+        
+        payment.selectedToggleProperty().addListener((ov, t, t1) -> {
+            if(payment.getSelectedToggle() != null){
+                RadioButton tmp = (RadioButton)payment.getSelectedToggle();
+                String selectedPayment = tmp.getText();
+                
+                switch(selectedPayment){
+                    case "Pix" -> {
+                        discountLabel.setText("15%");
+                        discount=0.85f;
+                    }
+                    default -> {
+                        discountLabel.setText("0%");
+                        discount=1f;
+                    }
+                }
+            }
+        });
+        
+        
     }
 }
