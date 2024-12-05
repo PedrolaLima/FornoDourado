@@ -78,14 +78,17 @@ public class visualizarFuncionarioController implements Initializable {
     private ImageView employeeview;
 
     @FXML
+    private ImageView employeeviewview;
+
+    @FXML
     private Label date;
-    
+
     @FXML
     private Label profilePaneName;
-    
-    @FXML 
+
+    @FXML
     private Label profilePaneType;
-    
+
     @FXML
     private Label nameField;
 
@@ -100,29 +103,32 @@ public class visualizarFuncionarioController implements Initializable {
 
     @FXML
     private Label occupationField;
-    
+
     @FXML
     private Label statusField;
-    
+
     @FXML
     private Label addressField;
-    
+
     @FXML
     private Label cepField;
-    
+
     @FXML
     private Label cityField;
-    
+
     @FXML
     private Label stateField;
-    
+
+    // Caminhos das imagens
+    private String adminImagePath = "/br/com/fatec/Imagens/cadastros/Funcionarios/admin.jpg";
+    private String supervisorImagePath = "/br/com/fatec/Imagens/cadastros/Funcionarios/supervisor.png";
+    private String atendenteImagePath = "/br/com/fatec/Imagens/cadastros/Funcionarios/atendente.jpeg";
+
     public void initialize(URL url, ResourceBundle rb) {
 
-        this.profilePaneName.setText("admin");
-        this.profilePaneType.setText("Administração");
-        //this.profilePaneName.setText(FuncionarioHolder.getUser().getName());
-        //this.profilePaneType.setText(FuncionarioHolder.getUser().getOccupation());
-        
+        this.profilePaneName.setText(FuncionarioHolder.getUser().getName());
+        this.profilePaneType.setText(FuncionarioHolder.getUser().getOccupation());
+
         date.setText(LocalDate.now(
                 ZoneId.of("America/Sao_Paulo")
         ).format(DateTimeFormatter.ofPattern("dd/MM/yyyy")));
@@ -192,68 +198,89 @@ public class visualizarFuncionarioController implements Initializable {
         // Define a imagem arredondada no ImageView.
         profile.setImage(image);
 
-        //FOTO DO EMPREGADO
-        // Adiciona bordas arredondadas ao ImageView.
-        Rectangle clip2 = new Rectangle(
-                employeeview.getFitWidth(), employeeview.getFitHeight()
-        );
-        clip2.setArcWidth(25); // Ajuste o raio para bordas mais ou menos arredondadas.
-        clip2.setArcHeight(25);
-        employeeview.setClip(clip2);
+        Funcionario f = FuncionarioHolder.getUser();
+        nameField.setText(f.getName());
+        cpfField.setText(f.getCpf());
+        emailField.setText(f.getEmail());
+        statusField.setText(f.isStatus() ? "Ativo" : "Desativado");
+        occupationField.setText(f.getOccupation());
 
-        // Cria uma imagem arredondada.
-        SnapshotParameters parameters2 = new SnapshotParameters();
-        parameters.setFill(Color.TRANSPARENT); // Fundo transparente.
-        WritableImage image2 = employeeview.snapshot(parameters2, null);
+        // Chama a função para buscar os dados do funcionário baseado no CPF
+        String sql = "SELECT CEP, ENDERECO, CIDADE, UF, NASC "
+                + "FROM funcionarios WHERE CPF = ?";
 
-        // Remove o clipe para exibir os efeitos.
-        employeeview.setClip(null);
+        try {
+            Database.connect();
+            PreparedStatement ps = Database.getConnection().prepareStatement(sql);
+            ps.setString(1, f.getCpf());  // Preenche o CPF na consulta
+            try (ResultSet rs = ps.executeQuery()) {
+                if (rs.next()) {
+                    // Recupera os dados do banco e preenche os campos
+                    String cep = rs.getString("CEP");
+                    String endereco = rs.getString("ENDERECO");
+                    String cidade = rs.getString("CIDADE");
+                    String estado = rs.getString("UF");
+                    String nascimento = rs.getDate("NASC").toString(); // Converte para LocalDate
 
-        // Define a imagem arredondada no ImageView.
-        employeeview.setImage(image2);
+                    // Preenche os campos
+                    cepField.setText(cep);
+                    addressField.setText(endereco);
+                    cityField.setText(cidade);
+                    stateField.setText(estado);
+                    birthDate.setText(nascimento); // Preenche com a data de nascimento
 
-        if (!FuncionarioHolder.isEmpty()) {
-            Funcionario f = FuncionarioHolder.getF();
-            nameField.setText(f.getName());
-            cpfField.setText(f.getCpf());
-            emailField.setText(f.getEmail());
-            statusField.setText(f.isStatus() ? "Ativo" : "Desativado");
-            occupationField.setText(f.getOccupation());
-
-            // Chama a função para buscar os dados do funcionário baseado no CPF
-            String sql = "SELECT CEP, ENDERECO, CIDADE, UF, NASC "
-                    + "FROM funcionarios WHERE CPF = ?";
-
-            try {
-                Database.connect();
-                PreparedStatement ps = Database.getConnection().prepareStatement(sql);
-                ps.setString(1, f.getCpf());  // Preenche o CPF na consulta
-                try (ResultSet rs = ps.executeQuery()) {
-                    if (rs.next()) {
-                        // Recupera os dados do banco e preenche os campos
-                        String cep = rs.getString("CEP");
-                        String endereco = rs.getString("ENDERECO");
-                        String cidade = rs.getString("CIDADE");
-                        String estado = rs.getString("UF");
-                        String nascimento = rs.getDate("NASC").toString(); // Converte para LocalDate
-
-                        // Preenche os campos
-                        cepField.setText(cep);
-                        addressField.setText(endereco);
-                        cityField.setText(cidade);
-                        stateField.setText(estado);
-                        birthDate.setText(nascimento); // Preenche com a data de nascimento
-
-                    } else {
-                        Messenger.warn("Funcionário não encontrado no banco de dados", new String[]{f.getCpf()});
-                    }
+                } else {
+                    Messenger.warn("Funcionário não encontrado no banco de dados", new String[]{f.getCpf()});
                 }
-            } catch (SQLException e) {
-                Messenger.error("Erro ao carregar dados do funcionário", new String[]{e.getMessage()});
             }
+        } catch (SQLException e) {
+            Messenger.error("Erro ao carregar dados do funcionário", new String[]{e.getMessage()});
+        }
 
-            // Limpa o holder após a carga dos dados
-            FuncionarioHolder.clear();
+        // Limpa o holder após a carga dos dados
+        FuncionarioHolder.clear();
+        updateemployeeviewImage(occupationField.getText());
+
+    }
+
+    // Método para atualizar a imagem dependendo da ocupação selecionada
+    private void updateemployeeviewImage(String occupation) {
+        String imagePath = "";
+
+        switch (occupation) {
+            case "Administrador":
+                imagePath = adminImagePath;
+                break;
+            case "Supervisor":
+                imagePath = supervisorImagePath;
+                break;
+            case "Atendente":
+                imagePath = atendenteImagePath;
+                break;
+            default:
+                imagePath = atendenteImagePath;  // Imagem padrão se não for nenhum dos anteriores
+                break;
+        }
+        // Crie a nova imagem com o caminho determinado
+        if (!imagePath.isEmpty()) {
+            Image newImage = new Image(getClass().getResource(imagePath).toExternalForm());
+
+            // Defina a nova imagem no ImageView
+            employeeview.setImage(newImage);
+
+            // Configura bordas arredondadas para a imagem
+            SnapshotParameters parameters = new SnapshotParameters();
+            parameters.setFill(Color.TRANSPARENT);
+            WritableImage image = employeeview.snapshot(parameters, null);
+
+            // Configura o recorte arredondado da imagem
+            Rectangle clip = new Rectangle(employeeview.getFitWidth(), employeeview.getFitHeight());
+            clip.setArcWidth(25);
+            clip.setArcHeight(25);
+            employeeview.setClip(clip);
+
+            // Atualiza a imagem com o recorte
+            employeeview.setImage(image);
         }
     }
 }

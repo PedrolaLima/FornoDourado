@@ -10787,8 +10787,8 @@ CREATE TABLE `funcionarios` (
 --
 
 INSERT INTO `funcionarios` (`CPF`, `NOME`, `NASC`, `CARGO`, `EMAIL`, `CEP`, `ENDERECO`, `CIDADE`, `UF`, `STATUS`, `IMG`) VALUES
-('098.765.543-43', 'Serena Martinez', '2024-12-12', 'Cozinha', 'sema@padaria.com', '01002-902', 'Rua Direita, 191 ', 'São Paulo', 'SP', 1, NULL),
-('123.456.789-01', 'admin', '0000-00-00', 'Administração', 'admin@email.net', '00000-000', 'Alameda do codigo,1001', 'Bugopolis', 'SP', 1, NULL);
+('098.765.543-43', 'Serena Martinez', '2024-01-02', 'Supervisor', 'sema@padaria.com', '01002-902', 'Rua Direita, 191 ', 'São Paulo', 'SP', 1, NULL),
+('123.456.789-03', 'admin', '2024-01-01', 'Administrador', 'admin@email.net', '00000-000', 'Alameda do codigo,1001', 'Bugopolis', 'SP', 1, NULL);
 
 -- --------------------------------------------------------
 

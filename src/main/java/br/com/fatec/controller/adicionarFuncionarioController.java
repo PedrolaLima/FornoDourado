@@ -142,10 +142,9 @@ public class adicionarFuncionarioController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
 
-        this.profilePaneName.setText("admin");
-        this.profilePaneType.setText("Administração");
-        //this.profilePaneName.setText(FuncionarioHolder.getUser().getName());
-        //this.profilePaneType.setText(FuncionarioHolder.getUser().getOccupation());
+       
+        this.profilePaneName.setText(FuncionarioHolder.getUser().getName());
+        this.profilePaneType.setText(FuncionarioHolder.getUser().getOccupation());
 
         // Define uma imagem padrão ou inicial
         if (occupationCombo.getValue() != null) {

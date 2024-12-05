@@ -3,6 +3,7 @@ package br.com.fatec.controller;
 import br.com.fatec.App;
 import br.com.fatec.Messenger;
 import br.com.fatec.dao.ProdutoDAO;
+import br.com.fatec.data.FuncionarioHolder;
 import br.com.fatec.data.ProdutoHolder;
 import br.com.fatec.model.Produto;
 import javafx.fxml.FXML;
@@ -41,13 +42,13 @@ public class produtoController implements Initializable {
 
     @FXML
     public Label date;
-    
+
     @FXML
     private Label profilePaneName;
-    
-    @FXML 
+
+    @FXML
     private Label profilePaneType;
-    
+
     // Método para carregar a tela de "Adicionar Produto"
     @FXML
     private void carregarDashboard() throws IOException {
@@ -153,12 +154,10 @@ public class produtoController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        
-        this.profilePaneName.setText("admin");
-        this.profilePaneType.setText("Administração");
-        //this.profilePaneName.setText(FuncionarioHolder.getUser().getName());
-        //this.profilePaneType.setText(FuncionarioHolder.getUser().getOccupation());
-        
+
+        this.profilePaneName.setText(FuncionarioHolder.getUser().getName());
+        this.profilePaneType.setText(FuncionarioHolder.getUser().getOccupation());
+
         date.setText(LocalDate.now(
                 ZoneId.of("America/Sao_Paulo")
         ).format(DateTimeFormatter.ofPattern("dd/MM/yyyy")));
@@ -393,7 +392,7 @@ public class produtoController implements Initializable {
         MenuItem saltyFoodItem = new MenuItem("Salgados");
         categoriaSubMenu.getItems().addAll(breadItem, dessertItem, saltyFoodItem);
 
-        // Submenu para "Status"
+        // Submenu para "Disponibilidade"
         ContextMenu statusSubMenu = new ContextMenu();
         MenuItem ativoItem = new MenuItem("Ativo");
         MenuItem desativadoItem = new MenuItem("Desativado");
@@ -412,47 +411,49 @@ public class produtoController implements Initializable {
             statusSubMenu.show(filter, xPos, yPos);
         });
 
-        semFiltro.setOnAction(event -> {
-            carregarProdutosSemFiltro();
-        });
+        // Remover filtro
+        semFiltro.setOnAction(event -> carregarProdutosSemFiltro());
 
-        // Eventos para filtrar por Cargo
-        breadItem.setOnAction(event -> aplicarFiltroPorCargo("Pães"));
-        dessertItem.setOnAction(event -> aplicarFiltroPorCargo("Doces"));
-        saltyFoodItem.setOnAction(event -> aplicarFiltroPorCargo("Salgados"));
+        // Eventos para filtrar por Categoria
+        breadItem.setOnAction(event -> aplicarFiltroPorCategoria("Pães"));
+        dessertItem.setOnAction(event -> aplicarFiltroPorCategoria("Doces"));
+        saltyFoodItem.setOnAction(event -> aplicarFiltroPorCategoria("Salgados"));
 
-        // Eventos para filtrar por Status
-        ativoItem.setOnAction(event -> aplicarFiltroPorStatus("Ativo"));
-        desativadoItem.setOnAction(event -> aplicarFiltroPorStatus("Desativado"));
+        // Eventos para filtrar por Disponibilidade
+        ativoItem.setOnAction(event -> aplicarFiltroPorDisponibilidade("Ativo"));
+        desativadoItem.setOnAction(event -> aplicarFiltroPorDisponibilidade("Desativado"));
 
-        // Mostrar o menu principal
+        // Mostrar o menu principal ao clicar
         filter.setOnMouseClicked(event -> {
             double xPos = filter.localToScreen(filter.getLayoutX(), filter.getLayoutY()).getX() - 125;
             double yPos = filter.localToScreen(filter.getLayoutX(), filter.getLayoutY()).getY() - 86;
             filterMenu.show(filter, xPos, yPos);
-            categoriaSubMenu.hide(); // Fecha o submenu de cargo
+            categoriaSubMenu.hide(); // Fecha o submenu de categoria
             statusSubMenu.hide();
         });
+
+        // Adicionar os itens principais ao menu
+        filterMenu.getItems().addAll(categoriaMenuItem, statusMenuItem, semFiltro);
     }
 
-    // Método para aplicar o filtro por cargo
-    private void aplicarFiltroPorCargo(String cargo) {
+// Método para aplicar o filtro por Categoria
+    private void aplicarFiltroPorCategoria(String categoria) {
         ObservableList<Produto> todosProdutos = FXCollections.observableArrayList(new ProdutoDAO().getAll());
-        ObservableList<Produto> filtrados = todosProdutos.filtered(produto -> cargo.equals(produto.getCat()));
+        ObservableList<Produto> filtrados = todosProdutos.filtered(produto -> categoria.equals(produto.getCat()));
         productsTable.setItems(filtrados);
     }
 
-    // Método para aplicar o filtro por status
-    private void aplicarFiltroPorStatus(String status) {
+// Método para aplicar o filtro por Disponibilidade
+    private void aplicarFiltroPorDisponibilidade(String disponibilidade) {
         ObservableList<Produto> todosProdutos = FXCollections.observableArrayList(new ProdutoDAO().getAll());
-        ObservableList<Produto> filtrados = todosProdutos.filtered(funcionario -> {
-            String funcionarioStatus = funcionario.isDisp() ? "Ativo" : "Desativado";
-            return status.equals(funcionarioStatus);
+        ObservableList<Produto> filtrados = todosProdutos.filtered(produto -> {
+            String produtoStatus = produto.isDisp() ? "Ativo" : "Desativado";
+            return disponibilidade.equals(produtoStatus);
         });
         productsTable.setItems(filtrados);
     }
 
-    // Método para carregar todos os funcionários sem filtro
+// Método para carregar todos os produtos sem filtro
     private void carregarProdutosSemFiltro() {
         ObservableList<Produto> todosProdutos = FXCollections.observableArrayList(new ProdutoDAO().getAll());
         productsTable.setItems(todosProdutos);

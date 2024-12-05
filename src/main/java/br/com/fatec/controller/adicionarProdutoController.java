@@ -18,6 +18,7 @@ import br.com.fatec.Messenger;
 import br.com.fatec.dao.FuncionarioDAO;
 import br.com.fatec.dao.ProdutoDAO;
 import br.com.fatec.data.Database;
+import br.com.fatec.data.FuncionarioHolder;
 import br.com.fatec.data.ProdutoHolder;
 import br.com.fatec.model.Produto;
 import java.sql.PreparedStatement;
@@ -90,10 +91,8 @@ public class adicionarProdutoController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
 
-        this.profilePaneName.setText("admin");
-        this.profilePaneType.setText("Administração");
-        //this.profilePaneName.setText(FuncionarioHolder.getUser().getName());
-        //this.profilePaneType.setText(FuncionarioHolder.getUser().getOccupation());
+        this.profilePaneName.setText(FuncionarioHolder.getUser().getName());
+        this.profilePaneType.setText(FuncionarioHolder.getUser().getOccupation());
 
         // Exibe a data atual
         date.setText(LocalDate.now(ZoneId.of("America/Sao_Paulo")).format(DateTimeFormatter.ofPattern("dd/MM/yyyy")));

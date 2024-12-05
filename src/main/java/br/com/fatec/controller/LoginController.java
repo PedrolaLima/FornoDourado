@@ -2,6 +2,8 @@ package br.com.fatec.controller;
 
 import br.com.fatec.App;
 import br.com.fatec.dao.FuncionarioDAO;
+import br.com.fatec.data.FuncionarioHolder;
+import br.com.fatec.model.Funcionario;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.util.Arrays;
@@ -19,7 +21,7 @@ public class LoginController {
 
     @FXML
     private TextField userInput;
-    
+
     @FXML
     private TextField passwInput;
 
@@ -34,7 +36,7 @@ public class LoginController {
                 userInput.getStyleClass().remove("errorInput");
             }
         });
-        
+
         passwInput.textProperty().addListener(new ChangeListener<String>() {
             @Override
             public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
@@ -48,8 +50,14 @@ public class LoginController {
         FuncionarioDAO fd = new FuncionarioDAO();
         try {
             if (fd.login(userInput.getText(), passwInput.getText())) {
+
+                // Buscar o usuário logado
+                Funcionario user = fd.search("NOME", userInput.getText()).iterator().next();
+
+                // Configurar no FuncionarioHolder
+                FuncionarioHolder.setUser(user);
                 carregarDashboard();
-            } else{
+            } else {
                 // Caso ocorra erro no login, adiciona a classe 'errorInput' ao campo
                 userInput.getStyleClass().add("errorInput");
                 passwInput.getStyleClass().add("errorInput");

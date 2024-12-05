@@ -3,6 +3,7 @@ package br.com.fatec.controller;
 
 import br.com.fatec.App;
 import br.com.fatec.dao.ProdutoDAO;
+import br.com.fatec.data.FuncionarioHolder;
 import br.com.fatec.data.PedidoDO;
 import br.com.fatec.data.PedidoHolder;
 import br.com.fatec.model.Pedido;
@@ -162,10 +163,8 @@ public class finalizarPedidoController implements Initializable {
 
     public void initialize(URL url, ResourceBundle rb) {
         
-        this.profilePaneName.setText("admin");
-        this.profilePaneType.setText("Administração");
-        //this.profilePaneName.setText(FuncionarioHolder.getUser().getName());
-        //this.profilePaneType.setText(FuncionarioHolder.getUser().getOccupation());
+        this.profilePaneName.setText(FuncionarioHolder.getUser().getName());
+        this.profilePaneType.setText(FuncionarioHolder.getUser().getOccupation());
 
         date.setText(LocalDate.now(
                 ZoneId.of("America/Sao_Paulo")

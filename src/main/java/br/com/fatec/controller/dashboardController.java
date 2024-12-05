@@ -1,6 +1,7 @@
 package br.com.fatec.controller;
 
 import br.com.fatec.App;
+import br.com.fatec.data.FuncionarioHolder;
 import java.io.IOException;
 import java.net.URL;
 import java.time.LocalDate;
@@ -66,10 +67,9 @@ public class dashboardController implements Initializable {
     
     public void initialize(URL url, ResourceBundle rb) {
         
-        this.profilePaneName.setText("admin");
-        this.profilePaneType.setText("Administração");
-        //this.profilePaneName.setText(FuncionarioHolder.getUser().getName());
-        //this.profilePaneType.setText(FuncionarioHolder.getUser().getOccupation());
+        this.profilePaneName.setText(FuncionarioHolder.getUser().getName());
+        this.profilePaneType.setText(FuncionarioHolder.getUser().getOccupation());
+        
         
         date.setText(LocalDate.now(
                 ZoneId.of( "America/Sao_Paulo" )
